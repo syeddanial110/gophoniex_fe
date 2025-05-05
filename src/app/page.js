@@ -1,103 +1,87 @@
 import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import UICard from "@/components/UICard";
+import UIAccordion from "@/components/UIAccordion/UIAccordion";
+import UIButton from "@/components/UIButton/UIButton";
+import UIProductCard from "@/components/UIProductsCard";
+import UIProgramCard from "@/components/UIProgramCard";
+import UIIconCard from "@/components/UIIconCard/UIIconCard";
+import icon from "../assets/Images/icon.webp";
+import Head from "next/head";
+import UITypography from "@/components/UITypography/UITypography";
+import ImageCarousel from "@/components/UICarousel/ImageCarousel";
+import IconCardCarousel from "@/components/UICarousel/IconCardCarousel";
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
+    <div className="flex flex-col items-center h3 pt-10 gap-3">
+      <UITypography variant="h2" text="Why Phoenix Sports 😎" />
+      <UITypography
+        variant="p"
+        text="✅ Full Credits | No expiration, no fees."
+      />
+      <UITypography
+        variant="p"
+        text="✅ Flexible Credits | Any Sports or Day"
+      />
+      <UITypography variant="p" text="✅ Unlimited Make-Ups | Hassle-Free" />
+      <UITypography
+        variant="p"
+        text="✅ No Registration Fees | Full Transparency"
+      />
+      <UITypography
+        variant="p"
+        text="✅ Flexible Scheduling | To fit your needs."
+      />
+      <UITypography variant="p" text="✅ Diverse Program Offerings" />
+      <UITypography variant="h2" text="VS The Other Programs 😢" />
+      <UITypography
+        variant="p"
+        text="❌ Limited Refunds | Strict deadlines and fees."
+      />
+      <UITypography
+        variant="p"
+        text="❌ Restricted Credits | Expire or non-transferable."
+      />
+      <UITypography
+        variant="p"
+        text="❌ Few Make-Ups | Only 1–2 make-ups per season"
+      />
+      <UITypography variant="p" text="❌ Extra Fees | For just signing up! " />
+      <UITypography
+        variant="p"
+        text="❌ Inflexible Scheduling | Strict cancellation policies."
+      />
+      <UITypography
+        variant="p"
+        text="❌ Limited Programs | Specific sports, few options."
+      />
+      <div className="flex flex-col items-center gap-2">
+        <UITypography variant="h4" text="Sign In | Create an Account" />
+        <UITypography variant="h5" text="For a Lightning-Fast Experience!" />
+        <UITypography
+          variant="p"
+          text="Sign in now | Save child details | Plug it in easily next time"
         />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.js
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+        <UIButton type="contained" title="Sign-In | Create Account" />
+      </div>
+      <div className="w-[90%] mt-5">
+        <ImageCarousel />
+      </div>
+      <div className="flex flex-col items-center mt-5 gap-3">
+        <UITypography
+          variant="h3"
+          text="The Phoenix Sports Experience"
+          className="text-center"
+        />
+        <UITypography
+          text="Building Confidence, Character & Community with Child-Led Sports Programs Led by a Teacher with a Master’s in Education and 9 Years as a Classroom Teacher."
+          className="text-center"
+        />
+        <div className="w-[80%] mt-6">
+          <IconCardCarousel />
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </div>
     </div>
   );
 }
