@@ -1,48 +1,51 @@
 "use client";
-import React, { useState } from "react";
-import { Controller, useForm } from "react-hook-form";
-import { Input } from "@/components/ui/input";
 
-const UITextField = ({
-  name,
-  type,
-  label,
-  value,
-  control,
-  variant,
-  errorMessage,
-  handleChange,
-  isOtp,
-  otp,
-  onChange,
-  ...rest
-}) => {
-  const { control: fallbackControl } = useForm();
+import React, { useState } from "react";
+import { FormControl, FormLabel, FormMessage } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Eye, EyeOff } from "lucide-react";
+
+const UITextField = ({ type, formLabel, field, ...rest }) => {
   const [showPassword, setShowPassword] = useState(false);
-  const handleClickShowPassword = () => setShowPassword((prev) => !prev);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
   return (
     <>
-      <Controller
-        name={name}
-        control={control == null ? fallbackControl : control}
-        render={({ field }) => {
-          return (
-            <>
+      {type == "password" ? (
+        <>
+          {formLabel && <FormLabel>{formLabel}</FormLabel>}
+          <FormControl>
+            <div className="relative">
               <Input
-                type={
-                  type === "password"
-                    ? showPassword
-                      ? "text"
-                      : "password"
-                    : "text"
-                }
-                
+                type={showPassword ? "text" : "password"}
+                placeholder="••••••••"
+                {...rest}
                 {...field}
               />
-            </>
-          );
-        }}
-      />
+              <button
+                type="button"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none"
+                onClick={togglePasswordVisibility}
+              >
+                {showPassword ? (
+                  <EyeOff className="h-5 w-5" />
+                ) : (
+                  <Eye className="h-5 w-5" />
+                )}
+              </button>
+            </div>
+          </FormControl>
+        </>
+      ) : (
+        <>
+          {formLabel && <FormLabel>Email</FormLabel>}
+          <FormControl>
+            <Input placeholder="your@email.com" {...field} {...rest} />
+          </FormControl>
+        </>
+      )}
     </>
   );
 };

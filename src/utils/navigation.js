@@ -46,3 +46,21 @@ export const Navigation_Menu = [
     link: "/2025-summer-camps",
   },
 ];
+
+export const pathLocations = {
+  home: "/user/home",
+  about: "/user/about",
+  contact: "/user/contact",
+  cancellationRefundPolicy: "/user/cancellation-refund-policy",
+  termsAndConditions: "/user/terms-and-conditions",
+  ccpa: "/user/ccpa",
+  collection: "/user/collection",
+  contactUs: "/user/contact-us",
+  faqs: "/user/faqs",
+  locations: "/user/locations",
+  otherProgramSwitch: "/user/other-program-switch",
+  privacyPolicy: "/user/privacy-policy",
+  termsOfServices: "/user/terms-of-services",
+  wavierLiablity: "/user/wavier-liability",
+  profile: "/user/profile",
+};

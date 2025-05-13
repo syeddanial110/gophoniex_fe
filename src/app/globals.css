@@ -137,3 +137,6 @@
   }
 }
 
+.bg-main {
+  @apply bg-[#fd8b01];
+}

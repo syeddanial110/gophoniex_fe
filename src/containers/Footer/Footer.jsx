@@ -2,6 +2,7 @@ import UITypography from "@/components/UITypography/UITypography";
 import React from "react";
 import { Facebook, Instagram, Youtube } from "lucide-react";
 import Link from "next/link";
+import { pathLocations } from "@/utils/navigation";
 
 const Footer = () => {
   return (
@@ -25,25 +26,25 @@ const Footer = () => {
         <div className="w-[80%]">
           <UITypography variant="h6" text="LEGAL" className="text-white" />
           <div className="flex flex-col gap-2 mt-2">
-            <Link href="/wavier-liability">
+            <Link href={pathLocations.wavierLiablity}>
               <UITypography
                 text="Waiver of Liability"
                 className="footer-link"
               />
             </Link>
-            <Link href="/cancellation-refund-policy">
+            <Link href={pathLocations.cancellationRefundPolicy}>
               <UITypography
                 text="Cancellation and Refund Policy"
                 className="footer-link"
               />
             </Link>
-            <Link href="/terms-conditions">
+            <Link href={pathLocations.termsAndConditions}>
               <UITypography
                 text="Terms and Conditions"
                 className="footer-link"
               />
             </Link>
-            <Link href="/privacy-policy">
+            <Link href={pathLocations.privacyPolicy}>
               <UITypography text="Privacy Policy" className="footer-link" />
             </Link>
             <Link
@@ -55,16 +56,16 @@ const Footer = () => {
                 className="footer-link"
               />
             </Link>
-            <Link href="/terms-of-services">
+            <Link href={pathLocations.termsOfServices}>
               <UITypography text="Terms of Service" className="footer-link" />
             </Link>
-            <Link href="/ccpa">
+            <Link href={pathLocations.ccpa}>
               <UITypography
                 text="Do not sell my personal information"
                 className="footer-link"
               />
             </Link>
-            <Link href="/other-program-switch">
+            <Link href={pathLocations.otherProgramSwitch}>
               <UITypography
                 text="Other Program Switch"
                 className="footer-link"
@@ -75,25 +76,25 @@ const Footer = () => {
         <div className="w-[80%]">
           <UITypography variant="h6" text="COMPANY" className="text-white" />
           <div className="flex flex-col gap-2 mt-2">
-            <Link href="/about">
+            <Link href={pathLocations.about}>
               <UITypography text="About Us" className="footer-link" />
             </Link>
-            <Link href="/contact-us">
+            <Link href={pathLocations.contact}>
               <UITypography text="Contact Us" className="footer-link" />
             </Link>
-            <Link href="/locations">
+            <Link href={pathLocations.locations}>
               <UITypography text="Locations" className="footer-link" />
             </Link>
-            <Link href="/privacy-policy">
+            <Link href={pathLocations.privacyPolicy}>
               <UITypography text="Privacy Policy" className="footer-link" />
             </Link>
-            <Link href="/faqs">
+            <Link href={pathLocations.faqs}>
               <UITypography text="FAQ" className="footer-link" />
             </Link>
-            <Link href="/">
+            <Link href={pathLocations.about}>
               <UITypography text="Employment" className="footer-link" />
             </Link>
-            <Link href="/">
+            <Link href={pathLocations.contact}>
               <UITypography text="Sitemap" className="footer-link" />
             </Link>
           </div>
