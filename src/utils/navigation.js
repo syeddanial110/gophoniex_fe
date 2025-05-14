@@ -63,4 +63,5 @@ export const pathLocations = {
   termsOfServices: "/user/terms-of-services",
   wavierLiablity: "/user/wavier-liability",
   profile: "/user/profile",
+  login: "/auth/login",
 };

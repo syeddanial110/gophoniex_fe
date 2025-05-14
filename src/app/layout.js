@@ -4,6 +4,7 @@ import NavigationMenuDemo from "@/containers/Header/NavigationMenu/NavigationMen
 import { SideNavigation } from "@/containers/Header/SideNavigation/SideNavigation";
 import Header from "@/containers/Header/Header";
 import Footer from "@/containers/Footer/Footer";
+import { Toaster } from "@/components/ui/sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,7 +31,7 @@ export default function RootLayout({ children }) {
         {/* <NavigationMenuDemo></NavigationMenuDemo>
         <SideNavigation></SideNavigation> */}
         {children}
-       
+         <Toaster />
       </body>
     </html>
   );

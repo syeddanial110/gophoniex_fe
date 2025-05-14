@@ -6,8 +6,16 @@ import logo from "../../assets/Images/logo.webp";
 import { SideNavigation } from "./SideNavigation/SideNavigation";
 import Link from "next/link";
 import { pathLocations } from "@/utils/navigation";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 const Header = () => {
+  const user = {
+    isUser: false,
+  };
   return (
     <>
       <div className="sm:block hidden">
@@ -21,9 +29,13 @@ const Header = () => {
             <Image src={logo} alt="logo" height={80} width="100%" />
           </div>
           <div className="flex gap-x-3">
-            <Link href={pathLocations.profile}>
-              <User strokeWidth="1px" />
-            </Link>
+            {user.isUser ? (
+              <Link href={pathLocations.profile}>
+                <User strokeWidth="1px" />
+              </Link>
+            ) : (
+              <Link href={pathLocations.login}>Login</Link>
+            )}
             <ShoppingBag strokeWidth="1px" />
           </div>
         </div>

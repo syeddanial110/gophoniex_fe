@@ -15,8 +15,12 @@ import {
 import { Eye, EyeOff } from "lucide-react";
 import UITextField from "@/components/InputField/UITextField";
 import { loginSchema } from "@/utils/schema";
+import { pathLocations } from "@/utils/navigation";
+import { useRouter } from "next/navigation";
 
 const LoginForm = () => {
+  const router = useRouter();
+
   const [showPassword, setShowPassword] = useState(false);
   const form = useForm({
     resolver: yupResolver(loginSchema),
@@ -29,6 +33,7 @@ const LoginForm = () => {
   function onSubmit(data) {
     // Fixed typo in function name
     console.log("data", data);
+    router.push(pathLocations.home);
   }
 
   const togglePasswordVisibility = () => {

@@ -11,10 +11,12 @@ import Head from "next/head";
 import UITypography from "@/components/UITypography/UITypography";
 import ImageCarousel from "@/components/UICarousel/ImageCarousel";
 import IconCardCarousel from "@/components/UICarousel/IconCardCarousel";
+import AddChildForm from "@/components/AddChildForm/AddChildForm";
 
 export default function Home() {
   return (
     <div className="flex flex-col items-center h3 pt-10 gap-3">
+      <AddChildForm />
       <UITypography variant="h2" text="Why Phoenix Sports 😎" />
       <UITypography
         variant="p"
