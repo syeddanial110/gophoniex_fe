@@ -7,10 +7,6 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import scroll1 from "../../assets/Images/scroll1.png";
-import scroll2 from "../../assets/Images/scroll2.png";
-import scroll3 from "../../assets/Images/scroll3.png";
-import scroll4 from "../../assets/Images/scroll4.png";
 import Image from "next/image";
 import Link from "next/link";
 import UITypography from "../UITypography/UITypography";
