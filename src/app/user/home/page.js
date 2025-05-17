@@ -12,11 +12,25 @@ import UITypography from "@/components/UITypography/UITypography";
 import ImageCarousel from "@/components/UICarousel/ImageCarousel";
 import IconCardCarousel from "@/components/UICarousel/IconCardCarousel";
 import AddChildForm from "@/components/AddChildForm/AddChildForm";
+import { dummyData } from "@/utils/dummyData";
 
 export default function Home() {
   return (
     <div className="flex flex-col items-center h3 pt-10 gap-3">
       <AddChildForm />
+      <div className="grid grid-cols-3 gap-3">
+        {dummyData.map((item, index) => {
+          return (
+            <UICard
+              key={index}
+              title={item.name}
+              description={item?.description}
+              image={item.image}
+              hrefLink={`${item.link}/${item.name}`}
+            />
+          );
+        })}
+      </div>
       <UITypography variant="h2" text="Why Phoenix Sports 😎" />
       <UITypography
         variant="p"

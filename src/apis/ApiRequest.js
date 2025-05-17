@@ -16,6 +16,7 @@ export function getCommonHeaders(h) {
   if (h) headers = { ...h, ...headers };
   return headers;
 }
+
 export function getCommonHeadersFormData(h, noDefaultHeaders = false) {
   var token = getToken();
 
@@ -34,9 +35,26 @@ export function getCommonHeadersFormData(h, noDefaultHeaders = false) {
   return headers;
 }
 
+export function getCommonCustomHeaders(customHeaders = {}) {
+  const token = getToken();
+
+  const defaultHeaders = {
+    "Content-Type": "application/json", // default
+  };
+
+  if (token) {
+    defaultHeaders.Authorization = `Bearer ${token}`;
+  }
+
+  // Merge custom headers (like multipart/form-data) over default
+  return { ...defaultHeaders, ...customHeaders };
+}
+
+
+
 export function apiPost(endpoint, body, onSuccess, onFailure, headers) {
   API.post(apiBaseUrl + endpoint, body, {
-    headers: getCommonHeaders(headers),
+    headers: getCommonCustomHeaders(headers),
   })
     .then((response) => {
       onSuccess(response.data);

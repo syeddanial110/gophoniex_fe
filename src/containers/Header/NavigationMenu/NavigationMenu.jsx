@@ -1,3 +1,4 @@
+"use client";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -13,8 +14,11 @@ import {
 import { Navigation_Menu } from "../../../utils/navigation";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { usePathname } from "next/navigation";
 
 const DesktopNavigationMenu = () => {
+  const pathname = usePathname();
+  console.log("pathname", pathname);
   return (
     <div className="flex justify-center">
       {Navigation_Menu.map((item, i) => {
@@ -23,7 +27,7 @@ const DesktopNavigationMenu = () => {
             <NavigationMenu key={i}>
               <NavigationMenuList>
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger className="font-normal">
+                  <NavigationMenuTrigger className="font-normal bg-[#EBF0F4] text-black rounded-full">
                     {item.name}
                   </NavigationMenuTrigger>
                   <NavigationMenuContent className="">

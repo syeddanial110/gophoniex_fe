@@ -5,7 +5,7 @@ import { FormControl, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Eye, EyeOff } from "lucide-react";
 
-const UITextField = ({ type, formLabel, field, ...rest }) => {
+const UITextField = ({ isForm = true, type, formLabel, field, ...rest }) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
@@ -13,38 +13,44 @@ const UITextField = ({ type, formLabel, field, ...rest }) => {
   };
   return (
     <>
-      {type == "password" ? (
+      {isForm ? (
         <>
-          {formLabel && <FormLabel>{formLabel}</FormLabel>}
-          <FormControl>
-            <div className="relative">
-              <Input
-                type={showPassword ? "text" : "password"}
-                placeholder="••••••••"
-                {...rest}
-                {...field}
-              />
-              <button
-                type="button"
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none"
-                onClick={togglePasswordVisibility}
-              >
-                {showPassword ? (
-                  <EyeOff className="h-5 w-5" />
-                ) : (
-                  <Eye className="h-5 w-5" />
-                )}
-              </button>
-            </div>
-          </FormControl>
+          {type == "password" ? (
+            <>
+              {formLabel && <FormLabel>{formLabel}</FormLabel>}
+              <FormControl>
+                <div className="relative">
+                  <Input
+                    type={showPassword ? "text" : "password"}
+                    placeholder="••••••••"
+                    {...rest}
+                    {...field}
+                  />
+                  <button
+                    type="button"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none"
+                    onClick={togglePasswordVisibility}
+                  >
+                    {showPassword ? (
+                      <EyeOff className="h-5 w-5" />
+                    ) : (
+                      <Eye className="h-5 w-5" />
+                    )}
+                  </button>
+                </div>
+              </FormControl>
+            </>
+          ) : (
+            <>
+              {formLabel && <FormLabel>Email</FormLabel>}
+              <FormControl>
+                <Input placeholder="your@email.com" {...field} {...rest} />
+              </FormControl>
+            </>
+          )}
         </>
       ) : (
-        <>
-          {formLabel && <FormLabel>Email</FormLabel>}
-          <FormControl>
-            <Input placeholder="your@email.com" {...field} {...rest} />
-          </FormControl>
-        </>
+        <Input {...rest} />
       )}
     </>
   );

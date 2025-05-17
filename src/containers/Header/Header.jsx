@@ -20,14 +20,14 @@ const Header = () => {
     <>
       <div className="sm:block hidden">
         <div className="flex justify-between items-center p-container">
-          <div>
-            {" "}
-            <Search />
+          <div className="flex gap-x-4 items-center">
+            <Image src={logo} alt="logo" height={80} width="100%" />
+
+            <div>
+              <DesktopNavigationMenu />
+            </div>
           </div>
 
-          <div>
-            <Image src={logo} alt="logo" height={80} width="100%" />
-          </div>
           <div className="flex gap-x-3">
             {user.isUser ? (
               <Link href={pathLocations.profile}>
@@ -38,9 +38,6 @@ const Header = () => {
             )}
             <ShoppingBag strokeWidth="1px" />
           </div>
-        </div>
-        <div>
-          <DesktopNavigationMenu />
         </div>
       </div>
       <div className="block sm:hidden">
