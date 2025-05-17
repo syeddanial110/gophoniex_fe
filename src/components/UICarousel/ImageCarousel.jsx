@@ -13,7 +13,7 @@ import scroll4 from "../../assets/Images/scroll4.png";
 import Image from "next/image";
 import Link from "next/link";
 
-const ImageCarousel = () => {
+const ImageCarousel = ({ carouselItemPerView }) => {
   const carouselData = [
     {
       img: scroll1,
@@ -43,7 +43,7 @@ const ImageCarousel = () => {
       <CarouselContent>
         {carouselData.map((item, i) => {
           return (
-            <CarouselItem key={i} className="md:basis-1/2 lg:basis-1/3">
+            <CarouselItem key={i} className={`md:basis-1/2 lg:basis-1/3`}>
               <Link href={item.link}>
                 <Image
                   src={item.img}

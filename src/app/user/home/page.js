@@ -13,11 +13,12 @@ import ImageCarousel from "@/components/UICarousel/ImageCarousel";
 import IconCardCarousel from "@/components/UICarousel/IconCardCarousel";
 import AddChildForm from "@/components/AddChildForm/AddChildForm";
 import { dummyData } from "@/utils/dummyData";
+import BannerCarousel from "@/components/UICarousel/BannerCarousel";
 
 export default function Home() {
   return (
     <div className="flex flex-col items-center h3 pt-10 gap-3">
-      <AddChildForm />
+      <BannerCarousel />
       <div className="grid grid-cols-3 gap-3">
         {dummyData.map((item, index) => {
           return (

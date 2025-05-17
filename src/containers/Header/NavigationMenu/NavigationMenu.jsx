@@ -27,7 +27,13 @@ const DesktopNavigationMenu = () => {
             <NavigationMenu key={i}>
               <NavigationMenuList>
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger className="font-normal bg-[#EBF0F4] text-black rounded-full">
+                  <NavigationMenuTrigger
+                    className={`font-normal rounded-full ${
+                      pathname == item.link
+                        ? "bg-main text-white"
+                        : "bg-[#EBF0F4] text-black"
+                    }`}
+                  >
                     {item.name}
                   </NavigationMenuTrigger>
                   <NavigationMenuContent className="">
@@ -44,10 +50,10 @@ const DesktopNavigationMenu = () => {
               <NavigationMenuList>
                 <NavigationMenuItem>
                   <Link
-                    href="/"
+                    href={item.link}
                     className={`${cn(
                       navigationMenuTriggerStyle()
-                    )} font-normal`}
+                    )} font-normal ${pathname == item.link ? "bg-main text-white hover:bg-dark hover:text-white" : "bg-[#EBF0F4] text-black"} !rounded-full`}
                   >
                     {item.name}
                   </Link>

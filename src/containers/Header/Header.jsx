@@ -11,6 +11,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import UISearchInput from "@/components/InputField/UISearchInput";
 
 const Header = () => {
   const user = {
@@ -28,9 +29,12 @@ const Header = () => {
             </div>
           </div>
 
-          <div className="flex gap-x-3">
+          <div className="flex gap-x-3 items-center">
+            <div>
+              <UISearchInput />
+            </div>
             {user.isUser ? (
-              <Link href={pathLocations.profile}>
+              <Link href={pathLocations.profile} className="flex items-center">
                 <User strokeWidth="1px" />
               </Link>
             ) : (

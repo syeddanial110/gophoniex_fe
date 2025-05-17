@@ -11,6 +11,7 @@
   --color-main: #fd8b01;
   --padding-container: 0px 90px;
   --background-color-main: #fd8b01;
+  --background-color-dark: #fd7701;
 }
 
 @theme inline {
