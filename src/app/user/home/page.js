@@ -9,6 +9,7 @@ import { dummyData } from "@/utils/dummyData";
 import BannerCarousel from "@/components/UICarousel/BannerCarousel";
 import ClientStats from "@/containers/Home/ClientStats";
 import AboutSection from "@/containers/Home/AboutSection";
+import SectionAnimation from "@/containers/Home/SectionAnimation";
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
       <BannerCarousel />
       <ClientStats />
       <AboutSection />
+      <SectionAnimation />
       <div className="grid grid-cols-3 gap-3">
         {dummyData.map((item, index) => {
           return (
