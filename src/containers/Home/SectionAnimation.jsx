@@ -53,7 +53,7 @@ const SectionAnimation = () => {
     },
     {
       img: animImage2,
-      title: "Whole Child Experience",
+      title: "Tailored Coaching",
       description:
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,",
       bgColor: "bg-white",
@@ -61,7 +61,7 @@ const SectionAnimation = () => {
     },
     {
       img: animImage,
-      title: "Whole Child Experience",
+      title: "Neuroaffirming Friends",
       description:
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,",
       bgColor: "bg-main",
@@ -69,7 +69,7 @@ const SectionAnimation = () => {
     },
     {
       img: animImage2,
-      title: "Whole Child Experience",
+      title: "5 Star Reviews",
       description:
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,",
       bgColor: "bg-white",
