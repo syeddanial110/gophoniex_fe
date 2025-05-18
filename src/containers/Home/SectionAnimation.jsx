@@ -36,7 +36,7 @@ const SectionAnimation = () => {
           start: `top+=${i * 620} center`,
           end: `+=300`,
           scrub: true,
-          markers: true,
+          markers: false,
         },
       });
     });
