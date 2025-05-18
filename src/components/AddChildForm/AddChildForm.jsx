@@ -102,7 +102,7 @@ const AddChildForm = () => {
                       </FormItem>
                     )}
                   />
-                  <UIButton btnType="submit" type="contained" title="Submit" />
+                  <UIButton btnType="submit" type="contained" title="Submit" icon={false} />
                 </form>
               </Form>
             </DialogDescription>

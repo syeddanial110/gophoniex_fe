@@ -30,7 +30,7 @@ const UIProgramCard = ({ text }) => {
         <UITypography text={text} className="text-center" />
       </CardContent>
       <CardFooter className="flex justify-center">
-        <UIButton type="contained" title="See More" className="bg-main" />
+        <UIButton type="contained" title="See More" className="bg-main" icon={false} />
       </CardFooter>
     </Card>
   );

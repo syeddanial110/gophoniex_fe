@@ -62,7 +62,12 @@ const ChangePasswordForm = () => {
             </FormItem>
           )}
         />
-        <UIButton type="contained" title="Submit" btnType="submit" />
+        <UIButton
+          type="contained"
+          title="Submit"
+          btnType="submit"
+          icon={false}
+        />
       </form>
     </Form>
   );

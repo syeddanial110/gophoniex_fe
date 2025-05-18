@@ -97,7 +97,17 @@ const BannerCarousel = () => {
                   style={{ position: "absolute", height: "100%" }}
                 />
 
-                <div className="grid grid-cols-2 justify-between ">
+                <div
+                  className="grid grid-cols-1 justify-between"
+                  style={{
+                    backgroundImage: `url(${item.img.src})`,
+                    backgroundSize: "contain",
+                    backgroundPosition: "right",
+                    backgroundRepeat: "no-repeat",
+                    height: "100vh",
+                    width: "100%",
+                  }}
+                >
                   <div className="flex flex-col justify-center items-start">
                     <UITypography
                       variant="h4"
@@ -132,14 +142,14 @@ const BannerCarousel = () => {
                       text={item.h14}
                     />
                   </div>
-                  <div>
+                  {/* <div>
                     <Image
                       src={item.img}
                       alt={`Slide ${i + 1}`}
                       className="w-full h-[100vh] rounded-lg object-cover"
                       priority={i === 0}
                     />
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </CarouselItem>

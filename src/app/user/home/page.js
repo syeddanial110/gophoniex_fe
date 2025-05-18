@@ -7,11 +7,15 @@ import ImageCarousel from "@/components/UICarousel/ImageCarousel";
 import IconCardCarousel from "@/components/UICarousel/IconCardCarousel";
 import { dummyData } from "@/utils/dummyData";
 import BannerCarousel from "@/components/UICarousel/BannerCarousel";
+import ClientStats from "@/containers/Home/ClientStats";
+import AboutSection from "@/containers/Home/AboutSection";
 
 export default function Home() {
   return (
     <div className="flex flex-col items-center h3 pt-10 gap-3">
       <BannerCarousel />
+      <ClientStats />
+      <AboutSection />
       <div className="grid grid-cols-3 gap-3">
         {dummyData.map((item, index) => {
           return (
