@@ -11,6 +11,7 @@ import ClientStats from "@/containers/Home/ClientStats";
 import AboutSection from "@/containers/Home/AboutSection";
 import SectionAnimation from "@/containers/Home/SectionAnimation";
 import CallToAction from "@/containers/Home/CallToAction";
+import VideoSection from "@/containers/Home/VideoSection";
 
 export default function Home() {
   return (
@@ -20,6 +21,7 @@ export default function Home() {
       <AboutSection />
       <SectionAnimation />
       <CallToAction />
+      <VideoSection />
 
       <div className="grid grid-cols-3 gap-3">
         {dummyData.map((item, index) => {
