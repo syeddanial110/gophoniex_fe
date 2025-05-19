@@ -1,122 +1,157 @@
 import UITypography from "@/components/UITypography/UITypography";
 import React from "react";
-import { Facebook, Instagram, Youtube } from "lucide-react";
+import { Facebook, Instagram, Linkedin, Twitter, Youtube } from "lucide-react";
 import Link from "next/link";
-import { pathLocations } from "@/utils/navigation";
+import blackLogo from "../../assets/Images/blackLogo.png";
+import Image from "next/image";
 
 const Footer = () => {
   return (
-    <div className="bg-main py-4  w-full">
-      <div className="grid grid-cols-3 justify-items-center ">
-        <div className="w-[80%] flex flex-col gap-5">
-          <UITypography
-            variant="h6"
-            text="OUR PHILOSOPHY"
-            className="text-white"
-          />
-          <UITypography
-            text="At Phoenix Sports, we believe in building confident, well-rounded kids through sports and play!"
-            className="text-white"
-          />
-          <UITypography
-            text="Led by Coach Doug, a former CUSD PE instructor with a Master’s in Education and 9+ years of TK-3 classroom teaching experience, our program combines fun, teamwork, and life skills. Kids learn fundamentals, social skills, and confidence—all while having a blast!"
-            className="text-white"
-          />
+    <footer className="bg-[#fafbfc] border-t border-gray-200">
+      {/* Top Row: Logo and Socials */}
+      <div className="flex flex-col md:flex-row items-center justify-between px-8 py-6 border-b border-gray-200">
+        <div className="flex items-center gap-2">
+          <Image src={blackLogo} alt="Phoenix Sports" height={60} />
         </div>
-        <div className="w-[80%]">
-          <UITypography variant="h6" text="LEGAL" className="text-white" />
-          <div className="flex flex-col gap-2 mt-2">
-            <Link href={pathLocations.wavierLiablity}>
-              <UITypography
-                text="Waiver of Liability"
-                className="footer-link"
-              />
-            </Link>
-            <Link href={pathLocations.cancellationRefundPolicy}>
-              <UITypography
-                text="Cancellation and Refund Policy"
-                className="footer-link"
-              />
-            </Link>
-            <Link href={pathLocations.termsAndConditions}>
-              <UITypography
-                text="Terms and Conditions"
-                className="footer-link"
-              />
-            </Link>
-            <Link href={pathLocations.privacyPolicy}>
-              <UITypography text="Privacy Policy" className="footer-link" />
-            </Link>
-            <Link
-              target="_blank"
-              href="http://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?sectionNum=124235.&lawCode=HSC"
-            >
-              <UITypography
-                text="Safety Concussion Protocol"
-                className="footer-link"
-              />
-            </Link>
-            <Link href={pathLocations.termsOfServices}>
-              <UITypography text="Terms of Service" className="footer-link" />
-            </Link>
-            <Link href={pathLocations.ccpa}>
-              <UITypography
-                text="Do not sell my personal information"
-                className="footer-link"
-              />
-            </Link>
-            <Link href={pathLocations.otherProgramSwitch}>
-              <UITypography
-                text="Other Program Switch"
-                className="footer-link"
-              />
-            </Link>
+        <div className="flex gap-6 mt-4 md:mt-0">
+          <Link
+            href="https://facebook.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Facebook
+              className="w-6 h-6 bg-black rounded hover:text-main"
+              strokeWidth={1}
+              fill="white"
+            />
+          </Link>
+          <Link
+            href="https://linkedin.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Linkedin
+                className="w-6 h-6 bg-black rounded hover:text-main"
+              strokeWidth={1}
+              fill="white"
+            />
+          </Link>
+          <Link
+            href="https://youtube.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Youtube
+              className="w-6 h-6 text-black hover:text-main"
+              strokeWidth={1}
+            />
+          </Link>
+          <Link
+            href="https://twitter.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Twitter
+              className="w-6 h-6 text-black hover:text-main"
+              strokeWidth={1}
+            />
+          </Link>
+        </div>
+      </div>
+
+      {/* Middle Row: Info Columns */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-8 px-8 py-8 border-b border-gray-200">
+        {/* Contact */}
+        <div>
+          <div className="font-semibold mb-2">Contact Us</div>
+          <div className="text-gray-700 text-sm mb-1">(+1)-214-293-0000</div>
+          <div className="text-gray-700 text-sm mb-4">support@phoenix.com</div>
+          <div className="font-semibold mb-1">Location</div>
+          <div className="text-gray-700 text-sm">
+            Lorem Ipsum is simply dummy text
+            <br />
+            of the printing and typesetting
           </div>
         </div>
-        <div className="w-[80%]">
-          <UITypography variant="h6" text="COMPANY" className="text-white" />
-          <div className="flex flex-col gap-2 mt-2">
-            <Link href={pathLocations.about}>
-              <UITypography text="About Us" className="footer-link" />
-            </Link>
-            <Link href={pathLocations.contact}>
-              <UITypography text="Contact Us" className="footer-link" />
-            </Link>
-            <Link href={pathLocations.locations}>
-              <UITypography text="Locations" className="footer-link" />
-            </Link>
-            <Link href={pathLocations.privacyPolicy}>
-              <UITypography text="Privacy Policy" className="footer-link" />
-            </Link>
-            <Link href={pathLocations.faqs}>
-              <UITypography text="FAQ" className="footer-link" />
-            </Link>
-            <Link href={pathLocations.about}>
-              <UITypography text="Employment" className="footer-link" />
-            </Link>
-            <Link href={pathLocations.contact}>
-              <UITypography text="Sitemap" className="footer-link" />
-            </Link>
+        {/* Philosophy */}
+        <div>
+          <div className="font-semibold mb-2">Our Philosophy</div>
+          <div className="text-gray-700 text-sm mb-2">
+            At Phoenix Sports, we believe in building confident, well-rounded
+            kids through sports and play!
+          </div>
+          <div className="text-gray-700 text-sm">
+            Led by Coach Doug, a former CUSD PE instructor with a Master's in
+            Education and 9+ years of TK-3 classroom
           </div>
         </div>
-      </div>
-      <div className="flex justify-center gap-3 mt-6">
-        <Facebook fill="#ffffff" strokeWidth={0} size={25} />
-        <Instagram strokeWidth={1} color="white" size={25} />
-        <Youtube strokeWidth={1} color="white" size={30} />
-      </div>
-      <div className="w-full flex justify-center pt-10 pb-4">
-        <div className="w-[80%]">
-          <hr />
+        {/* Legal */}
+        <div>
+          <div className="font-semibold mb-2">Legal</div>
+          <ul className="text-gray-700 text-sm space-y-1">
+            <li>
+              <Link href="#">
+                <span>Waiver of Liability</span>
+              </Link>
+            </li>
+            <li>
+              <Link href="#">
+                <span>Cancellation</span>
+              </Link>
+            </li>
+            <li>
+              <Link href="#">
+                <span>Terms and Conditions</span>
+              </Link>
+            </li>
+          </ul>
+        </div>
+        {/* Company */}
+        <div>
+          <div className="font-semibold mb-2">Company</div>
+          <ul className="text-gray-700 text-sm space-y-1">
+            <li>
+              <Link href="#">
+                <span>About us</span>
+              </Link>
+            </li>
+            <li>
+              <Link href="#">
+                <span>Contact Us</span>
+              </Link>
+            </li>
+            <li>
+              <Link href="#">
+                <span>Locations</span>
+              </Link>
+            </li>
+          </ul>
         </div>
       </div>
-      <div>
-        <UITypography
-          text="© 2025, Phoenix Sports"
-          className="text-center text-white"
-        />
+
+      {/* Bottom Row: Copyright & Links */}
+      <div className="flex flex-col md:flex-row items-center justify-between px-8 py-4 text-xs text-gray-600">
+        <div>Copyright 2025 Phoenix Fit All Rights Reserved.</div>
+        <div className="flex gap-4 mt-2 md:mt-0">
+          <Link href="#">
+            <span>Terms of use</span>
+          </Link>
+          <Link href="#">
+            <span>Privacy Policy</span>
+          </Link>
+          <Link href="#">
+            <span>Sitemap</span>
+          </Link>
+        </div>
       </div>
-    </div>
+
+      {/* Slogan */}
+      <div className="w-full text-center py-8">
+        <span className="text-[64px] font-bold leading-none tracking-tight text-gray-900">
+          Unleash Kid Power
+        </span>
+      </div>
+    </footer>
   );
 };
 

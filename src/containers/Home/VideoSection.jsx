@@ -18,7 +18,7 @@ const VideoSection = () => {
   };
 
   return (
-    <div className="relative w-full max-w-5xl mx-auto rounded-2xl overflow-hidden mt-35">
+    <div className="relative w-full max-w-5xl mx-auto rounded-2xl overflow-hidden my-35">
       {!playing && (
         <div className="relative w-full h-[70vh] bg-black">
           <Image
