@@ -4,6 +4,7 @@ import { Facebook, Instagram, Linkedin, Twitter, Youtube } from "lucide-react";
 import Link from "next/link";
 import blackLogo from "../../assets/Images/blackLogo.png";
 import Image from "next/image";
+import { pathLocations } from "@/utils/navigation";
 
 const Footer = () => {
   return (
@@ -31,7 +32,7 @@ const Footer = () => {
             rel="noopener noreferrer"
           >
             <Linkedin
-                className="w-6 h-6 bg-black rounded hover:text-main"
+              className="w-6 h-6 bg-black rounded hover:text-main"
               strokeWidth={1}
               fill="white"
             />
@@ -90,17 +91,17 @@ const Footer = () => {
           <div className="font-semibold mb-2">Legal</div>
           <ul className="text-gray-700 text-sm space-y-1">
             <li>
-              <Link href="#">
+              <Link href={pathLocations.wavierLiablity}>
                 <span>Waiver of Liability</span>
               </Link>
             </li>
             <li>
-              <Link href="#">
+              <Link href={pathLocations.cancellationRefundPolicy}>
                 <span>Cancellation</span>
               </Link>
             </li>
             <li>
-              <Link href="#">
+              <Link href={pathLocations.termsAndConditions}>
                 <span>Terms and Conditions</span>
               </Link>
             </li>
@@ -111,17 +112,17 @@ const Footer = () => {
           <div className="font-semibold mb-2">Company</div>
           <ul className="text-gray-700 text-sm space-y-1">
             <li>
-              <Link href="#">
+              <Link href={pathLocations.about}>
                 <span>About us</span>
               </Link>
             </li>
             <li>
-              <Link href="#">
+              <Link href={pathLocations.contact}>
                 <span>Contact Us</span>
               </Link>
             </li>
             <li>
-              <Link href="#">
+              <Link href={pathLocations.locations}>
                 <span>Locations</span>
               </Link>
             </li>
@@ -133,10 +134,10 @@ const Footer = () => {
       <div className="flex flex-col md:flex-row items-center justify-between px-8 py-4 text-xs text-gray-600">
         <div>Copyright 2025 Phoenix Fit All Rights Reserved.</div>
         <div className="flex gap-4 mt-2 md:mt-0">
-          <Link href="#">
+          <Link href={pathLocations.termsOfServices}>
             <span>Terms of use</span>
           </Link>
-          <Link href="#">
+          <Link href={pathLocations.privacyPolicy}>
             <span>Privacy Policy</span>
           </Link>
           <Link href="#">
