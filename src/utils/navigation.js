@@ -15,6 +15,7 @@ export const pathLocations = {
   wavierLiablity: "/user/wavier-liability",
   profile: "/user/profile",
   login: "/auth/login",
+  register: "/auth/register",
 };
 
 export const Navigation_Menu = [

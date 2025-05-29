@@ -1,4 +1,7 @@
+import UITypography from "@/components/UITypography/UITypography";
 import LoginForm from "@/containers/Auth/Login/LoginForm";
+import { pathLocations } from "@/utils/navigation";
+import Link from "next/link";
 import React from "react";
 
 const Login = () => {
@@ -9,6 +12,9 @@ const Login = () => {
         Please enter your credentials to access your account.
       </p>
       <LoginForm />
+      <div className="mt-3 flex justify-center">
+        <Link href={pathLocations.register}>Register an Account</Link>
+      </div>
     </>
   );
 };

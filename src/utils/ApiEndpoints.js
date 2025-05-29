@@ -1,0 +1,48 @@
+export const ApiEndpoints = {
+  auth: {
+    base: "/auth",
+    login: "/login",
+    register: "/register",
+    update: "/update",
+  },
+  children: {
+    base: "/children",
+    getAll: "/get",
+    getById: "/getById",
+    create: "/create",
+    update: "/update",
+    delete: "/delete",
+  },
+  categories: {
+    base: "/category",
+    getAll: "/get",
+    getById: "/getById",
+    create: "/create",
+    update: "/update",
+    delete: "/delete",
+  },
+  subCategory: {
+    base: "/subCategory",
+    getAll: "/get",
+    getById: "/getById",
+    create: "/create",
+    update: "/update",
+    delete: "/delete",
+  },
+  products: {
+    base: "/product",
+    getAll: "/getAllProduct",
+    // getById: "/getById",
+    create: "/createProduct",
+    // update: "/update",
+    delete: "/deleteProduct",
+  },
+  pages: {
+    base: "/pages",
+    getAll: "/getAll",
+    getById: "/getById",
+    create: "/create",
+    update: "/update",
+    delete: "/delete",
+  },
+};

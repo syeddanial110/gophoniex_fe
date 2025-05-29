@@ -48,7 +48,7 @@ const LoginForm = () => {
           name="email" // Changed from username to email to match defaultValues
           render={({ field }) => (
             <FormItem>
-              <UITextField field={field} />
+              <UITextField field={field}  />
               <FormMessage />
             </FormItem>
           )}
@@ -58,7 +58,7 @@ const LoginForm = () => {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <UITextField type="password" field={field} />
+              <UITextField type="password" field={field}  />
               <FormMessage />
             </FormItem>
           )}
