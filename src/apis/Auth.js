@@ -1,7 +1,10 @@
 export const setToken = (token) => {
-  localStorage.setItem('userToken', token)
-}
+  localStorage.setItem("userToken", token);
+};
 
 export const getToken = () => {
-  return localStorage.getItem('userToken')
-}
+  if (typeof window !== "undefined") {
+    return localStorage.getItem("userToken");
+  }
+  return null;
+};

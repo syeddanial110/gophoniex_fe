@@ -35,6 +35,4 @@ export const addChildSchema = yup.object({
   name: yup.string().required("Name is required"),
   allergies: yup.string().required("Allergies is required"),
   age: yup.string().required("Age is required"),
-  gender: yup.string().required("Gender is required"),
-  select: yup.string().required("Gender is required"),
 });

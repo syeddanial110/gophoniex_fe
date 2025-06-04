@@ -6,6 +6,7 @@ import ProfileDetails from "@/containers/Profile/ProfileDetails";
 import ChangePasswordForm from "@/containers/Profile/ChangePasswordForm";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import UITypography from "@/components/UITypography/UITypography";
+import AddChildForm from "@/components/AddChildForm/AddChildForm";
 
 const Profile = () => {
   return (
@@ -43,6 +44,8 @@ const Profile = () => {
           </TabsContent>
         </Tabs>
       </div>
+
+      <AddChildForm />
     </div>
   );
 };

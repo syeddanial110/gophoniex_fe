@@ -19,6 +19,7 @@ import UIButton from "../UIButton/UIButton";
 import UIRadio from "../InputField/UIRadio";
 import { useRouter } from "next/navigation";
 import UISelect from "../InputField/UISelect";
+import AddChildFormContainer from "@/containers/Child/AddChildFormContainer";
 
 const AddChildForm = () => {
   const router = useRouter();
@@ -47,7 +48,7 @@ const AddChildForm = () => {
           <DialogHeader>
             <DialogTitle>Add your child details</DialogTitle>
             <DialogDescription>
-              <Form {...form}>
+              {/* <Form {...form}>
                 <form
                   onSubmit={form.handleSubmit(onSubmit)}
                   className="space-y-8"
@@ -104,7 +105,8 @@ const AddChildForm = () => {
                   />
                   <UIButton btnType="submit" type="contained" title="Submit" icon={false} />
                 </form>
-              </Form>
+              </Form> */}
+              <AddChildFormContainer />
             </DialogDescription>
           </DialogHeader>
         </DialogContent>

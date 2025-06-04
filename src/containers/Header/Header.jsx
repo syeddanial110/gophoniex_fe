@@ -12,11 +12,11 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import UISearchInput from "@/components/InputField/UISearchInput";
+import { getToken } from "@/apis/Auth";
 
 const Header = () => {
-  const user = {
-    isUser: false,
-  };
+  const token = getToken();
+
   return (
     <>
       <div className="sm:block hidden">
@@ -33,7 +33,7 @@ const Header = () => {
             <div>
               <UISearchInput />
             </div>
-            {user.isUser ? (
+            {token ? (
               <Link href={pathLocations.profile} className="flex items-center">
                 <User strokeWidth="1px" />
               </Link>

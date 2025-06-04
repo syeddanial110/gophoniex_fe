@@ -1,5 +1,4 @@
 import React from "react";
-import { FormControl, FormLabel } from "@/components/ui/form";
 import {
   Select,
   SelectContent,
@@ -7,23 +6,48 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import UITypography from "../UITypography/UITypography";
 
-const UISelect = ({ field }) => {
+const UISelect = ({
+  isLabel,
+  labelName,
+  placeholder,
+  onValueChange,
+  value,
+  children,
+}) => {
   return (
     <>
-      <FormLabel>Email</FormLabel>
-      <Select onValueChange={field.onChange} defaultValue={field.value}>
-        <FormControl>
-          <SelectTrigger>
-            <SelectValue placeholder="Select a verified email to display" />
+      {isLabel ? (
+        <>
+          <UITypography
+            variant="h6"
+            text={labelName}
+            className="!text-[14px]"
+          />
+          <Select
+            onValueChange={onValueChange}
+            value={value}
+            className="text-black"
+          >
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder={placeholder} />
+            </SelectTrigger>
+            <SelectContent>{children}</SelectContent>
+          </Select>
+        </>
+      ) : (
+        <Select
+          onValueChange={onValueChange}
+          value={value}
+          className="text-black"
+        >
+          <SelectTrigger className="w-full">
+            <SelectValue placeholder={placeholder} />
           </SelectTrigger>
-        </FormControl>
-        <SelectContent>
-          <SelectItem value="m@example.com">m@example.com</SelectItem>
-          <SelectItem value="m@google.com">m@google.com</SelectItem>
-          <SelectItem value="m@support.com">m@support.com</SelectItem>
-        </SelectContent>
-      </Select>
+          <SelectContent>{children}</SelectContent>
+        </Select>
+      )}
     </>
   );
 };

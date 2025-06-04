@@ -17,6 +17,9 @@ import UITextField from "@/components/InputField/UITextField";
 import { loginSchema } from "@/utils/schema";
 import { pathLocations } from "@/utils/navigation";
 import { useRouter } from "next/navigation";
+import { apiPost } from "@/apis/ApiRequest";
+import { ApiEndpoints } from "@/utils/ApiEndpoints";
+import { toast } from "sonner";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -26,14 +29,31 @@ const LoginForm = () => {
     resolver: yupResolver(loginSchema),
     defaultValues: {
       email: "",
-      password: "", // Add this if your schema requires it
+      password: "",
     },
   });
 
   function onSubmit(data) {
-    // Fixed typo in function name
     console.log("data", data);
-    router.push(pathLocations.home);
+    // router.push(pathLocations.home);
+    const dataObj = {
+      email: data.email,
+      password: data.password,
+    };
+    apiPost(
+      `${ApiEndpoints.auth.base}${ApiEndpoints.auth.login}`,
+      dataObj,
+      (res) => {
+        console.log("res", res);
+        if (res?.success) {
+          toast.success(res?.message);
+        }
+      },
+      (err) => {
+        toast.error(err?.message);
+        console.log("err", err);
+      }
+    );
   }
 
   const togglePasswordVisibility = () => {
@@ -48,7 +68,7 @@ const LoginForm = () => {
           name="email" // Changed from username to email to match defaultValues
           render={({ field }) => (
             <FormItem>
-              <UITextField field={field}  />
+              <UITextField field={field} />
               <FormMessage />
             </FormItem>
           )}
@@ -58,7 +78,7 @@ const LoginForm = () => {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <UITextField type="password" field={field}  />
+              <UITextField type="password" field={field} />
               <FormMessage />
             </FormItem>
           )}
