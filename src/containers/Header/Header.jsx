@@ -13,10 +13,11 @@ import {
 } from "@/components/ui/popover";
 import UISearchInput from "@/components/InputField/UISearchInput";
 import { getToken } from "@/apis/Auth";
+import UserIcon from "./UserIcon";
 
 const Header = () => {
-  const token = getToken();
-
+  const token = "";
+  // console.log('token', token)
   return (
     <>
       <div className="sm:block hidden">
@@ -33,14 +34,17 @@ const Header = () => {
             <div>
               <UISearchInput />
             </div>
-            {token ? (
+            <UserIcon />
+            {/* {token ? (
               <Link href={pathLocations.profile} className="flex items-center">
                 <User strokeWidth="1px" />
               </Link>
             ) : (
               <Link href={pathLocations.login}>Login</Link>
-            )}
-            <ShoppingBag strokeWidth="1px" />
+            )} */}
+            <Link href={pathLocations.cart}>
+              <ShoppingBag strokeWidth="1px" />
+            </Link>
           </div>
         </div>
       </div>

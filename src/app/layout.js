@@ -5,6 +5,7 @@ import { SideNavigation } from "@/containers/Header/SideNavigation/SideNavigatio
 import Header from "@/containers/Header/Header";
 import Footer from "@/containers/Footer/Footer";
 import { Toaster } from "@/components/ui/sonner";
+import ReduxProvider from "@/store/ReduxProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,11 +28,10 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-     
         {/* <NavigationMenuDemo></NavigationMenuDemo>
         <SideNavigation></SideNavigation> */}
-        {children}
-         <Toaster />
+        <ReduxProvider>{children}</ReduxProvider>
+        <Toaster />
       </body>
     </html>
   );

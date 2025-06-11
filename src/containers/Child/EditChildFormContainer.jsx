@@ -3,12 +3,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import UITextField from "@/components/InputField/UITextField";
 import { addChildSchema } from "@/utils/schema";
 
@@ -20,7 +15,7 @@ import { toast } from "sonner";
 import UISelect from "@/components/InputField/UISelect";
 import { SelectItem } from "@/components/ui/select";
 
-const AddChildFormContainer = () => {
+const EditChildFormContainer = () => {
   const router = useRouter();
 
   const genderArr = [
@@ -54,7 +49,7 @@ const AddChildFormContainer = () => {
   };
 
   function onSubmit(data) {
-    // Fixed typo in function name
+
     console.log("data", data);
     const dataObj = {
       name: data.name,
@@ -71,20 +66,20 @@ const AddChildFormContainer = () => {
     formData.append("allergies", data.allergies);
     formData.append("image", childImage);
 
-    apiPost(
-      `${ApiEndpoints.children.base}${ApiEndpoints.children.create}`,
-      formData,
-      (res) => {
-        console.log("res", res);
-        toast.success(res?.message);
-        // if (res?.success) router.push(pathLocations.login);
-      },
-      (err) => {
-        console.log("err", err);
-        toast.error(err?.message);
-      },
-      { "Content-Type": "multipart/form-data" }
-    );
+    // apiPost(
+    //   `${ApiEndpoints.auth.base}${ApiEndpoints.auth.register}`,
+    //   formData,
+    //   (res) => {
+    //     console.log("res", res);
+    //     toast.success(res?.message);
+    //     if (res?.success) router.push(pathLocations.login);
+    //   },
+    //   (err) => {
+    //     console.log("err", err);
+    //     toast.error(err?.message);
+    //   },
+    //   { "Content-Type": "multipart/form-data" }
+    // );
     // router.push(pathLocations.home);
   }
 
@@ -93,7 +88,6 @@ const AddChildFormContainer = () => {
   };
 
   console.log("gender", gender);
-
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -166,4 +160,4 @@ const AddChildFormContainer = () => {
   );
 };
 
-export default AddChildFormContainer;
+export default EditChildFormContainer;

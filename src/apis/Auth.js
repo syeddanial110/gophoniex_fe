@@ -3,7 +3,7 @@ export const setToken = (token) => {
 };
 
 export const getToken = () => {
-  if (typeof window !== "undefined") {
+  if (typeof window !== 'undefined') {
     return localStorage.getItem("userToken");
   }
   return null;

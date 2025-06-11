@@ -20,9 +20,13 @@ import { useRouter } from "next/navigation";
 import { apiPost } from "@/apis/ApiRequest";
 import { ApiEndpoints } from "@/utils/ApiEndpoints";
 import { toast } from "sonner";
+import { setToken } from "@/apis/Auth";
+import { useDispatch } from "react-redux";
+import { signin } from "@/store/actions/AUTH";
 
 const LoginForm = () => {
   const router = useRouter();
+  const disptach = useDispatch();
 
   const [showPassword, setShowPassword] = useState(false);
   const form = useForm({
@@ -33,9 +37,10 @@ const LoginForm = () => {
     },
   });
 
-  function onSubmit(data) {
+  function onSubmit(data, e) {
+    e.preventDefault();
+
     console.log("data", data);
-    // router.push(pathLocations.home);
     const dataObj = {
       email: data.email,
       password: data.password,
@@ -46,7 +51,10 @@ const LoginForm = () => {
       (res) => {
         console.log("res", res);
         if (res?.success) {
+          disptach(signin({ data: res?.data }));
+          router.push(pathLocations.home);
           toast.success(res?.message);
+          setToken(res?.data?.token);
         }
       },
       (err) => {

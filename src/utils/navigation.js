@@ -1,3 +1,5 @@
+export const WEB_URL = "http://localhost:3000"
+
 export const pathLocations = {
   home: "/user/home",
   about: "/user/about",
@@ -5,7 +7,6 @@ export const pathLocations = {
   cancellationRefundPolicy: "/user/cancellation-refund-policy",
   termsAndConditions: "/user/terms-conditions",
   ccpa: "/user/ccpa",
-  collection: "/user/collection",
   faqs: "/user/faqs",
   locations: "/user/locations",
   otherProgramSwitch: "/user/other-program-switch",
@@ -15,6 +16,9 @@ export const pathLocations = {
   profile: "/user/profile",
   login: "/auth/login",
   register: "/auth/register",
+  cart: "/user/cart",
+  categories: "/user/categories",
+  subCategories: "/user/categories/sub-categories"
 };
 
 export const Navigation_Menu = [

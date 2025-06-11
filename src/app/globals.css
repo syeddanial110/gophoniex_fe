@@ -1,8 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-
-
 @custom-variant dark (&:is(.dark *));
 
 @theme {
@@ -143,3 +141,4 @@
 .bg-main {
   @apply bg-[#fd8b01];
 }
+

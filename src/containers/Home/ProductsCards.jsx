@@ -1,17 +1,24 @@
 import React from "react";
 import Image from "next/image";
 import UIButton from "@/components/UIButton/UIButton";
+import { Plus } from "lucide-react";
 
-const AboutSectionCard = ({
+const ProductsCard = ({
   image,
   logo,
   btnText,
   title = "Lorem Ipsum",
   description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,",
+  handleAddToCart
 }) => {
   return (
-    <div className="bg-white rounded-xl drop-shadow-[0_15px_15px_rgba(0,0,0,0.15)] p-4">
+    <div className="bg-white rounded-xl drop-shadow-[0_15px_15px_rgba(0,0,0,0.15)] p-4 relative">
       {/* Top Section */}
+      <div className="absolute right-4 top-4 z-1">
+        <div className="hover:cursor-pointer" onClick={handleAddToCart}>
+          <Plus />
+        </div>
+      </div>
       <div>
         <Image
           src={image}
@@ -39,4 +46,4 @@ const AboutSectionCard = ({
   );
 };
 
-export default AboutSectionCard;
+export default ProductsCard;
