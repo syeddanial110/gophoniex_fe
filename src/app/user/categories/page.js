@@ -3,17 +3,12 @@ import React, { useEffect } from "react";
 import categoriesBanner from "../../../assets/Images/categories-banner.jpg";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
-import ProductsCard from "@/containers/Home/ProductsCards";
-import { getAllProducts } from "@/store/actions/products";
-import aboutImg from "../../../assets/Images/scroll1.png";
-import logo from "../../../assets/Images/logo.webp";
 import { getAllCategories } from "@/store/actions/category";
-import UICard from "@/components/UICard";
-import UIProductCard from "@/components/UIProductsCard";
 import UIProgramCard from "@/components/UIProgramCard";
 import { useRouter } from "next/navigation";
 import { pathLocations, WEB_URL } from "@/utils/navigation";
 import UITypography from "@/components/UITypography/UITypography";
+import { ImageBaseUrl } from "@/apis/ApiRequest";
 
 const Categories = () => {
   const categoriesReducer = useSelector(
@@ -67,7 +62,8 @@ const Categories = () => {
           categoriesReducer?.res?.data?.map((card, idx) => (
             <UIProgramCard
               text={card.name}
-              card_img={card.image}
+              // card_img={card.image}
+              card_img={`${ImageBaseUrl}${card.image}`}
               btnText="View Products"
               href={`${WEB_URL}${pathLocations.categories}/${card.slug}`}
             />

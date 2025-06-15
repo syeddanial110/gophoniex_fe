@@ -177,7 +177,12 @@ const DesktopNavigationMenu = () => {
                             {item?.subCategories?.length > 0 &&
                               item?.subCategories?.map((elm, ind) => {
                                 return (
-                                  <div key={ind}>{elm?.subCategoryName}</div>
+                                  <Link
+                                    href={`${WEB_URL}${pathLocations.subCategories}/${item.categoryUrl}`}
+                                    key={ind}
+                                  >
+                                    {elm?.subCategoryName}
+                                  </Link>
                                 );
                               })}
                           </div>

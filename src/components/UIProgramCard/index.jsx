@@ -20,8 +20,8 @@ const UIProgramCard = ({ text, card_img, btnText, href}) => {
       <CardDescription>Card Description</CardDescription> */}
         <Image
           src={card_img}
-          alt="Logo"
-          width={400}
+          alt="card image"
+          width={200}
           height={90}
           style={{
             borderRadius: "16px",

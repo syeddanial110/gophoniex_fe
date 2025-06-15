@@ -76,6 +76,7 @@ const AddChildFormContainer = () => {
       formData,
       (res) => {
         console.log("res", res);
+        // if()
         toast.success(res?.message);
         // if (res?.success) router.push(pathLocations.login);
       },
