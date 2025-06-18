@@ -3,12 +3,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import UITextField from "@/components/InputField/UITextField";
 import { addChildSchema } from "@/utils/schema";
 
@@ -19,9 +14,11 @@ import { ApiEndpoints } from "@/utils/ApiEndpoints";
 import { toast } from "sonner";
 import UISelect from "@/components/InputField/UISelect";
 import { SelectItem } from "@/components/ui/select";
+import { useDispatch } from "react-redux";
 
-const AddChildFormContainer = () => {
+const AddChildFormContainer = ({ setIsAddChild }) => {
   const router = useRouter();
+  const dispatch = useDispatch()
 
   const genderArr = [
     {
@@ -78,6 +75,10 @@ const AddChildFormContainer = () => {
         console.log("res", res);
         // if()
         toast.success(res?.message);
+        if (res?.success) {
+          setIsAddChild(false);
+          dispatch(getAllChildren());
+        }
         // if (res?.success) router.push(pathLocations.login);
       },
       (err) => {

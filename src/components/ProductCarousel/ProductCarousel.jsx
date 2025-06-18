@@ -5,7 +5,7 @@ import { Options } from "@splidejs/splide";
 import { generateSlides } from "@/utils/dummyData";
 import Image from "next/image";
 
-const ProductCarousel = () => {
+const ProductCarousel = ({ pagePerView, productGalleryImages = [] }) => {
   const mainRef = useRef(null); // Reference for the main Splide component
   const thumbsRef = useRef(null); // Reference for the thumbnail Splide component
 
@@ -18,20 +18,20 @@ const ProductCarousel = () => {
 
   // Render slides
   const renderSlides = () => {
-    return generateSlides().map((slide) => (
+    return productGalleryImages.map((slide) => (
       <SplideSlide key={slide.src}>
-        <Image src={slide.src} alt={slide.alt} width={500} height={300} />
+        <Image src={slide.path} alt={slide.path} width={500} height={400} className="m-auto" />
       </SplideSlide>
     ));
   };
 
   const mainOptions = {
     type: "loop",
-    perPage: 2,
+    perPage: pagePerView ? pagePerView : 1,
     perMove: 1,
     gap: "1rem",
     pagination: false,
-    height: "10rem",
+    height: "100%",
   };
 
   const thumbsOptions = {
@@ -48,8 +48,6 @@ const ProductCarousel = () => {
 
   return (
     <div className="wrapper">
-      <h2 id="thumbnail-slider-example">Thumbnail Slider</h2>
-
       <Splide
         options={mainOptions}
         ref={mainRef}

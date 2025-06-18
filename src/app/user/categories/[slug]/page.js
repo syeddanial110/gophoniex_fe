@@ -58,7 +58,7 @@ const CollectionById = () => {  // Removed async
               hoverImg={card.hoverImage}
               description={card.description}
               slots={card.seats}
-              href={`${WEB_URL}${pathLocations.categories}/${card.slug}`}
+              href={`${WEB_URL}${pathLocations.program}/${card.id}`}
             />
           ))
         ) : (

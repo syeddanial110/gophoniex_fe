@@ -1,4 +1,4 @@
-export const WEB_URL = "http://localhost:3000"
+export const WEB_URL = "http://localhost:3000";
 
 export const pathLocations = {
   home: "/user/home",
@@ -18,7 +18,8 @@ export const pathLocations = {
   register: "/auth/register",
   cart: "/user/cart",
   categories: "/user/categories",
-  subCategories: "/user/categories/sub-categories"
+  subCategories: "/user/categories/sub-categories",
+  program: "/user/categories/program",
 };
 
 export const Navigation_Menu = [

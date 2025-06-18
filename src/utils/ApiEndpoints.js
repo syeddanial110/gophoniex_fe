@@ -27,7 +27,7 @@ export const ApiEndpoints = {
   products: {
     base: "/product",
     getAll: "/getAllProduct",
-    // getById: "/getById",
+    getById: "/getProductById",
     getProductByQuery: "/getProductcatSubcatSlug",
   },
   pages: {

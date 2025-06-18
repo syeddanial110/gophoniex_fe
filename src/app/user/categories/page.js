@@ -8,7 +8,6 @@ import UIProgramCard from "@/components/UIProgramCard";
 import { useRouter } from "next/navigation";
 import { pathLocations, WEB_URL } from "@/utils/navigation";
 import UITypography from "@/components/UITypography/UITypography";
-import { ImageBaseUrl } from "@/apis/ApiRequest";
 
 const Categories = () => {
   const categoriesReducer = useSelector(
@@ -62,8 +61,8 @@ const Categories = () => {
           categoriesReducer?.res?.data?.map((card, idx) => (
             <UIProgramCard
               text={card.name}
-              // card_img={card.image}
-              card_img={`${ImageBaseUrl}${card.image}`}
+              card_img={card.image}
+              // card_img={`${ImageBaseUrl}${card.image}`}
               btnText="View Products"
               href={`${WEB_URL}${pathLocations.categories}/${card.slug}`}
             />

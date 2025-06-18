@@ -17,6 +17,7 @@ const UIButton = ({
         <Button
           type={btnType}
           className={`bg-main btn rounded-full py-5 px-6 ${className}`}
+          onClick={btnOnclick}
         >
           {title}
         </Button>
@@ -24,6 +25,7 @@ const UIButton = ({
         <Button
           className={`bg-transparent border-b-1 border-black text-black hover:bg-transparent ${className}`}
           type={btnType}
+          onClick={btnOnclick}
         >
           {title}
         </Button>
@@ -33,7 +35,7 @@ const UIButton = ({
           {title}
         </Button>
       ) : (
-        <Button variant="outline" size="icon">
+        <Button variant="outline" size="icon" onClick={btnOnclick}>
           <btnIcon strokeColor="black" /> {title}
         </Button>
       )}

@@ -4,6 +4,7 @@ import {
   EditProductsConstants,
   GetAllCategoriesConstants,
   GetAllProductsConstants,
+  ProductDataConstants,
 } from "@/store/constants";
 import { ApiEndpoints } from "@/utils/ApiEndpoints";
 import { toast } from "sonner";
@@ -32,4 +33,12 @@ export const getAllProducts = (data) => (dispatch) => {
       toast.error(err?.message);
     }
   );
+};
+
+export const productData = (data) => (dispatch) => {
+  dispatch({ type: ProductDataConstants.PRODUCT_DATA_LOADING });
+  dispatch({
+    type: ProductDataConstants.PRODUCT_DATA_SUCCESS,
+    payload: { data },
+  });
 };
