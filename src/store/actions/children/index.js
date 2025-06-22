@@ -1,5 +1,8 @@
 import { apiGet } from "@/apis/ApiRequest";
-import { GetAllChildrenConstants, GetAllProductsConstants } from "@/store/constants";
+import {
+  GetAllChildrenConstants,
+  GetAllProductsConstants,
+} from "@/store/constants";
 import { ApiEndpoints } from "@/utils/ApiEndpoints";
 import { toast } from "sonner";
 
@@ -10,7 +13,7 @@ export const getAllChildren = () => (dispatch) => {
     (res) => {
       dispatch({
         type: GetAllChildrenConstants.GET_ALL_CHILDREN_SUCCESS,
-        payload: { res },
+        payload: res,
       });
     },
     (err) => {

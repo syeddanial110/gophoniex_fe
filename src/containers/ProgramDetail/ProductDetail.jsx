@@ -92,10 +92,16 @@ const ProductDetail = () => {
           ))}
         </div>
       </div>
-      <div>
+      <div className='mt-4'>
         <UITypography
-          variant="p"
+          variant="h5"
           text={`${productDataReducer?.data?.locationAddress}: ${productDataReducer?.data?.startTime} - ${productDataReducer?.data?.endTime}`}
+        />
+        <div
+          className="mt-6"
+          dangerouslySetInnerHTML={{
+            __html: productDataReducer?.data?.description,
+          }}
         />
       </div>
     </>

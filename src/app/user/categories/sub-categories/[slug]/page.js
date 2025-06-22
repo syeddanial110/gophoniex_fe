@@ -44,7 +44,7 @@ const SubCategoryById = () => {
     <div>
       <UITypography
         variant="h3"
-        text={`Products in category: ${params.slug}`}
+        text={`Products in sub category: ${params.slug}`}
         className="text-center my-8"
       />
       <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8 px-20 py-14">
@@ -55,7 +55,7 @@ const SubCategoryById = () => {
               title={card.productName}
               mainImg={card.image}
               hoverImg={card.hoverImage}
-              description={card.description}
+              // description={card.description}
               slots={card.seats}
               href={`${WEB_URL}${pathLocations.program}/${card.id}`}
             />

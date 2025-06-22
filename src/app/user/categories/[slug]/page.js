@@ -56,7 +56,7 @@ const CollectionById = () => {  // Removed async
               title={card.productName}
               mainImg={card.image}
               hoverImg={card.hoverImage}
-              description={card.description}
+              // description={card.description}
               slots={card.seats}
               href={`${WEB_URL}${pathLocations.program}/${card.id}`}
             />
