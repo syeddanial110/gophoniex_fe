@@ -92,6 +92,12 @@ const ProductDetail = () => {
           ))}
         </div>
       </div>
+      <div>
+        <UITypography
+          variant="p"
+          text={`${productDataReducer?.data?.locationAddress}: ${productDataReducer?.data?.startTime} - ${productDataReducer?.data?.endTime}`}
+        />
+      </div>
     </>
   );
 };

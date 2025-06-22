@@ -10,7 +10,7 @@ const AddOrSelectChild = ({ handleModalOpen }) => {
   const dispatch = useDispatch();
 
   const allChildrenReducer = useSelector(
-    (state) => state?.GetAllChildrenReducer?.res
+    (state) => state?.GetAllChildrenReducer
   );
 
   const [isAddChild, setIsAddChild] = useState(false);
@@ -36,11 +36,13 @@ const AddOrSelectChild = ({ handleModalOpen }) => {
       ) : (
         <>
           <UISelect isLabel={true} labelName="Select Child" onValueChange={handleChangeChild}>
-            {allChildrenReducer?.res?.data?.map((child) => (
-              <SelectItem key={child.id} value={child.name}>
-                {child.name}
+            {allChildrenReducer?.res?.data?.length > 0 ? allChildrenReducer?.res?.data?.map((child) => (
+              <SelectItem key={child.id} value={child?.name}>
+                {child?.name}
               </SelectItem>
-            ))}
+            )) : (
+              <SelectItem value="No" disabled>No children available</SelectItem>
+            )}
           </UISelect>
         </>
       )}

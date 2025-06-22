@@ -15,6 +15,7 @@ import { toast } from "sonner";
 import UISelect from "@/components/InputField/UISelect";
 import { SelectItem } from "@/components/ui/select";
 import { useDispatch } from "react-redux";
+import { getAllChildren } from "@/store/actions/children";
 
 const AddChildFormContainer = ({ setIsAddChild }) => {
   const router = useRouter();
