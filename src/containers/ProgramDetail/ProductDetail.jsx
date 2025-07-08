@@ -143,7 +143,7 @@ const ProductDetail = () => {
                   <span className="font-bold text-lg ml-8">
                     One Time Purchase
                   </span>
-                  <span className="font-semibold text-lg">Rs.54,400.00</span>
+                  <span className="font-semibold text-lg">$.54,400.00</span>
                 </div>
                 <div className="ml-8 text-base text-black">
                   1 Month: Does NOT hold next month’s roster spot.
