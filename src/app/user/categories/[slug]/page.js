@@ -39,7 +39,6 @@ const CollectionById = () => {  // Removed async
     return <div>Loading...</div>;
   }
 
-  console.log('productsByCategory', productsByCategory)
 
   return (
     <div>

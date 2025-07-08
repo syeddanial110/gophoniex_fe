@@ -7,7 +7,7 @@ const GalleryImages = () => {
   const productDataReducer = useSelector((state) => state?.ProductDataReducer);
   return (
     <div>
-      <ProductCarousel productGalleryImages={productDataReducer?.res?.data?.galleryImages} />
+      <ProductCarousel productGalleryImages={productDataReducer?.res?.galleryImages} />
     </div>
   );
 };

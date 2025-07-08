@@ -54,7 +54,6 @@ const AboutSection = () => {
   const productReducer = useSelector(
     (state) => state?.GetAllProductsReducer?.res
   );
-  console.log("productReducer", productReducer);
 
   const handleAddToCart = (id, paymentType, price) => {
     const dataObj = {

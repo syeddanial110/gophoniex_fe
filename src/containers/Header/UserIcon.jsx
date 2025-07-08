@@ -8,7 +8,6 @@ import { useSelector } from "react-redux";
 
 const UserIcon = () => {
   const userData = useSelector((state) => state?.SignInReducer?.res?.data);
-  console.log("userData", userData);
   const token = getToken()
   return (
     <>

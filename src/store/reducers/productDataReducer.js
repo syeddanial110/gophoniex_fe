@@ -1,7 +1,7 @@
 import { ProductDataConstants } from "../constants";
 
 const initialState = {
-  data: [],
+  res: {}, // Use an object to store product data
 };
 
 export const ProductDataReducer = (state = initialState, { type, payload }) => {
@@ -9,7 +9,14 @@ export const ProductDataReducer = (state = initialState, { type, payload }) => {
     case ProductDataConstants.PRODUCT_DATA_LOADING:
       return { ...state, type: "loading" };
     case ProductDataConstants.PRODUCT_DATA_SUCCESS:
-      return { ...state, type: "success", res: payload };
+      return {
+        ...state,
+        type: "success",
+        res: {
+          ...state.res,      // keep previous fields
+          ...payload.data,   // add/update new fields
+        },
+      };
     case ProductDataConstants.PRODUCT_DATA_ERROR:
       return { ...state, type: "error" };
     default:

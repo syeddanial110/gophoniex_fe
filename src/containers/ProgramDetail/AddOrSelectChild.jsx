@@ -5,6 +5,7 @@ import UISelect from "@/components/InputField/UISelect";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllChildren } from "@/store/actions/children";
 import { SelectItem } from "@/components/ui/select";
+import { productData } from "@/store/actions/products";
 
 const AddOrSelectChild = ({ handleModalOpen }) => {
   const dispatch = useDispatch();
@@ -18,16 +19,15 @@ const AddOrSelectChild = ({ handleModalOpen }) => {
   const handleChangeAddChild = () => {
     setIsAddChild(!isAddChild);
   };
-  
+
   const handleChangeChild = (value) => {
-    console.log("Selected Child ID:", value);
-  }
+    dispatch(productData({ childName: value }));
+  };
 
   useEffect(() => {
     dispatch(getAllChildren());
   }, []);
 
-  console.log("allChildrenReducer", allChildrenReducer);
 
   return (
     <>
@@ -35,13 +35,21 @@ const AddOrSelectChild = ({ handleModalOpen }) => {
         <AddChildFormContainer setIsAddChild={setIsAddChild} />
       ) : (
         <>
-          <UISelect isLabel={true} labelName="Select Child" onValueChange={handleChangeChild}>
-            {allChildrenReducer?.res?.data?.length > 0 ? allChildrenReducer?.res?.data?.map((child) => (
-              <SelectItem key={child.id} value={child?.name}>
-                {child?.name}
+          <UISelect
+            isLabel={true}
+            labelName="Select Child"
+            onValueChange={handleChangeChild}
+          >
+            {allChildrenReducer?.res?.data?.length > 0 ? (
+              allChildrenReducer?.res?.data?.map((child) => (
+                <SelectItem key={child.id} value={child?.name}>
+                  {child?.name}
+                </SelectItem>
+              ))
+            ) : (
+              <SelectItem value="No" disabled>
+                No children available
               </SelectItem>
-            )) : (
-              <SelectItem value="No" disabled>No children available</SelectItem>
             )}
           </UISelect>
         </>

@@ -1,11 +1,26 @@
-"use client"
-import { apiDelete } from "@/apis/ApiRequest";
+"use client";
+import { apiDelete, apiGet } from "@/apis/ApiRequest";
 import UITypography from "@/components/UITypography/UITypography";
 import AddToCardCard from "@/containers/AddToCart/AddToCardCard";
 import { ApiEndpoints } from "@/utils/ApiEndpoints";
-import React from "react";
+import React, { useEffect } from "react";
 
 const Cart = () => {
+  const getCart = () => {
+    apiGet(
+      `${ApiEndpoints.addToCart.base}${ApiEndpoints.addToCart.get}`,
+      (res) => {
+        console.log("res", res);
+      },
+      (err) => {
+        console.log("err", err);
+      }
+    );
+  };
+  useEffect(() => {
+    getCart();
+  }, []);
+
   const handleDeleteCartItem = (id) => {
     alert("delete");
     // apiDelete(

@@ -48,7 +48,6 @@ const RegisterForm = () => {
 
   function onSubmit(data) {
     // Fixed typo in function name
-    console.log("data", data);
     const dataObj = {
       firstName: data.firstName,
       lastName: data.lastName,
@@ -57,7 +56,6 @@ const RegisterForm = () => {
       confirmPassword: data.confirmPassword,
       image: profileImage,
     };
-    console.log("dataObj", dataObj);
     const formData = new FormData();
     formData.append("firstName", data.firstName);
     formData.append("lastName", data.lastName);
@@ -70,7 +68,6 @@ const RegisterForm = () => {
       `${ApiEndpoints.auth.base}${ApiEndpoints.auth.register}`,
       formData,
       (res) => {
-        console.log("res", res);
         toast.success(res?.message);
         if (res?.success) router.push(pathLocations.login);
       },

@@ -53,7 +53,6 @@ const AddChildFormContainer = ({ setIsAddChild }) => {
 
   function onSubmit(data) {
     // Fixed typo in function name
-    console.log("data", data);
     const dataObj = {
       name: data.name,
       age: data.age,
@@ -61,7 +60,6 @@ const AddChildFormContainer = ({ setIsAddChild }) => {
       allergies: data.allergies,
       image: childImage,
     };
-    console.log("dataObj", dataObj);
     const formData = new FormData();
     formData.append("name", data.name);
     formData.append("age", data.age);
@@ -73,7 +71,6 @@ const AddChildFormContainer = ({ setIsAddChild }) => {
       `${ApiEndpoints.children.base}${ApiEndpoints.children.create}`,
       formData,
       (res) => {
-        console.log("res", res);
         // if()
         toast.success(res?.message);
         if (res?.success) {
@@ -95,7 +92,6 @@ const AddChildFormContainer = ({ setIsAddChild }) => {
     setGender(value);
   };
 
-  console.log("gender", gender);
 
   return (
     <Form {...form}>

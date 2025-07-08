@@ -40,7 +40,6 @@ const LoginForm = () => {
   function onSubmit(data, e) {
     e.preventDefault();
 
-    console.log("data", data);
     const dataObj = {
       email: data.email,
       password: data.password,
@@ -49,7 +48,6 @@ const LoginForm = () => {
       `${ApiEndpoints.auth.base}${ApiEndpoints.auth.login}`,
       dataObj,
       (res) => {
-        console.log("res", res);
         if (res?.success) {
           disptach(signin({ data: res?.data }));
           router.push(pathLocations.home);

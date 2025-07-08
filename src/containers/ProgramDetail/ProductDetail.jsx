@@ -8,9 +8,7 @@ import AddOrSelectChild from "./AddOrSelectChild";
 import AddProductQuantity from "./AddProductQuantity";
 
 const ProductDetail = () => {
-  const productDataReducer = useSelector(
-    (state) => state?.ProductDataReducer?.res
-  );
+  const productDataReducer = useSelector((state) => state?.ProductDataReducer);
 
   const [quantity, setQuantity] = useState(1);
   const [modalCountArr, setmodalCountArr] = useState([]);
@@ -34,13 +32,12 @@ const ProductDetail = () => {
     setmodalCountArr(quantity === 0 ? [1] : Array(quantity).fill(1));
   }, [quantity]);
 
-  console.log("productDataReducer", productDataReducer);
   return (
     <>
       <div className="flex flex-col gap-3">
         <UITypography
           variant="h3"
-          text={productDataReducer?.data?.productName}
+          text={productDataReducer?.res?.productName}
         />
 
         <div>
@@ -61,8 +58,8 @@ const ProductDetail = () => {
                   labelName={`Drop Menu: Choose Your Pass Child ${index + 1}`}
                   onValueChange={handleChangeProductOption}
                 >
-                  {productDataReducer?.data?.productOptions?.length > 0 ? (
-                    productDataReducer?.data?.productOptions?.map((item, i) => {
+                  {productDataReducer?.res?.productOptions?.length > 0 ? (
+                    productDataReducer?.res?.productOptions?.map((item, i) => {
                       return (
                         <SelectItem key={i} value={item?.id}>
                           {item?.title} - {item.price}
@@ -92,15 +89,74 @@ const ProductDetail = () => {
           ))}
         </div>
       </div>
-      <div className='mt-4'>
+      <div className="mt-4">
         <UITypography
           variant="h5"
-          text={`${productDataReducer?.data?.locationAddress}: ${productDataReducer?.data?.startTime} - ${productDataReducer?.data?.endTime}`}
+          text={`${productDataReducer?.res?.locationAddress}: ${productDataReducer?.res?.startTime} - ${productDataReducer?.res?.endTime}`}
         />
+
+        {productDataReducer?.res?.paymentType == "recurring" ||
+        productDataReducer?.res?.paymentType == "both" ? (
+          <div className="p-10 border border-grey-300 rounded-lg flex flex-col gap-6">
+            {/* Radio Group for Payment Options */}
+            <div className="flex flex-col gap-6">
+              {/* Monthly Recurring Option */}
+              <label className="flex flex-col gap-2 border rounded-xl p-6 cursor-pointer relative group hover:shadow-md transition-all">
+                <input
+                  type="radio"
+                  name="paymentType"
+                  value="recurring"
+                  // checked={selectedPaymentType === "recurring"}
+                  // onChange={() => setSelectedPaymentType("recurring")}
+                  className="absolute left-4 top-6 accent-black w-5 h-5"
+                />
+                <div className="flex items-center justify-between">
+                  <span className="font-bold text-lg ml-8">
+                    Monthly Recurring
+                  </span>
+                  <span>
+                    <span className="font-semibold text-lg">Rs.48,700.00</span>
+                    <span className="line-through text-gray-400 ml-2">
+                      Rs.54,400.00
+                    </span>
+                  </span>
+                </div>
+                <div className="ml-8 text-base text-black">
+                  PlayPass Lite Subscription
+                </div>
+                <div className="ml-8 text-sm text-gray-500">
+                  Auto-renews on 1st of month
+                </div>
+              </label>
+
+              {/* One Time Purchase Option */}
+              <label className="flex flex-col gap-2 border rounded-xl p-6 cursor-pointer relative group hover:shadow-md transition-all">
+                <input
+                  type="radio"
+                  name="paymentType"
+                  value="oneTime"
+                  // checked={selectedPaymentType === "oneTime"}
+                  // onChange={() => setSelectedPaymentType("oneTime")}
+                  className="absolute left-4 top-6 accent-black w-5 h-5"
+                />
+                <div className="flex items-center justify-between">
+                  <span className="font-bold text-lg ml-8">
+                    One Time Purchase
+                  </span>
+                  <span className="font-semibold text-lg">Rs.54,400.00</span>
+                </div>
+                <div className="ml-8 text-base text-black">
+                  1 Month: Does NOT hold next month’s roster spot.
+                </div>
+              </label>
+            </div>
+          </div>
+        ) : null}
+
         <div
           className="mt-6"
           dangerouslySetInnerHTML={{
-            __html: productDataReducer?.data?.description,
+            __html: productDataReducer?.res?.description,
           }}
         />
       </div>

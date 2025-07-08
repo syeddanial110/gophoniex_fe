@@ -50,7 +50,6 @@ const EditChildFormContainer = () => {
 
   function onSubmit(data) {
 
-    console.log("data", data);
     const dataObj = {
       name: data.name,
       age: data.age,
@@ -58,7 +57,6 @@ const EditChildFormContainer = () => {
       allergies: data.allergies,
       image: childImage,
     };
-    console.log("dataObj", dataObj);
     const formData = new FormData();
     formData.append("name", data.name);
     formData.append("age", data.age);
@@ -87,7 +85,6 @@ const EditChildFormContainer = () => {
     setGender(value);
   };
 
-  console.log("gender", gender);
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">

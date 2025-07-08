@@ -1,12 +1,41 @@
+"use client";
 import UITypography from "@/components/UITypography/UITypography";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Facebook, Instagram, Linkedin, Twitter, Youtube } from "lucide-react";
 import Link from "next/link";
 import blackLogo from "../../assets/Images/blackLogo.png";
 import Image from "next/image";
-import { pathLocations } from "@/utils/navigation";
+import { pathLocations, WEB_URL } from "@/utils/navigation";
+import { useDispatch } from "react-redux";
+import { apiGet } from "@/apis/ApiRequest";
+import { ApiEndpoints } from "@/utils/ApiEndpoints";
 
 const Footer = () => {
+  const [firstMenu, setFirstMenu] = useState([]);
+  const [secondMenu, setSecondMenu] = useState([]);
+  const getAllMenu = () => {
+    apiGet(
+      `${ApiEndpoints.menu.base}${ApiEndpoints.menu.getAll}`,
+      (res) => {
+        const half = Math.ceil(res.data.length / 2);
+        const legalMenu = res.data.slice(0, half);
+        const companyMenu = res.data.slice(half);
+        setFirstMenu(legalMenu);
+        setSecondMenu(companyMenu);
+      },
+      (err) => {
+        console.log("err", err);
+      }
+    );
+  };
+
+  useEffect(() => {
+    getAllMenu();
+  }, []);
+
+  console.log("firstMenu", firstMenu);
+  console.log("secondMenu", secondMenu);
+
   return (
     <footer className="bg-[#fafbfc] border-t border-gray-200">
       {/* Top Row: Logo and Socials */}
@@ -90,12 +119,18 @@ const Footer = () => {
         <div>
           <div className="font-semibold mb-2">Legal</div>
           <ul className="text-gray-700 text-sm space-y-1">
-            <li>
-              <Link href={pathLocations.wavierLiablity}>
-                <span>Waiver of Liability</span>
-              </Link>
-            </li>
-            <li>
+            {firstMenu?.map((item, i) => {
+              return (
+                <li key={i}>
+                  <Link
+                    href={`${WEB_URL}/user${pathLocations.content}/${item.slug}`}
+                  >
+                    <span>{item.name}</span>
+                  </Link>
+                </li>
+              );
+            })}
+            {/* <li>
               <Link href={pathLocations.cancellationRefundPolicy}>
                 <span>Cancellation</span>
               </Link>
@@ -104,7 +139,7 @@ const Footer = () => {
               <Link href={pathLocations.termsAndConditions}>
                 <span>Terms and Conditions</span>
               </Link>
-            </li>
+            </li> */}
           </ul>
         </div>
         {/* Company */}

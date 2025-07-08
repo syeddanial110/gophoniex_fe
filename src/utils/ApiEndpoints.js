@@ -41,4 +41,10 @@ export const ApiEndpoints = {
     create: "/create",
     delete: "/delete",
   },
+  menu: {
+    base: "/content",
+    getAll: "/get",
+    getById: "/getById",
+    getBySlug: "/getBySlug",
+  },
 };

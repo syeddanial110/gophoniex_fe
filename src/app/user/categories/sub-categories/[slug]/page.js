@@ -39,7 +39,6 @@ const SubCategoryById = () => {
     return <div>Loading...</div>;
   }
 
-  console.log("productsBySubCategory", productsBySubCategory);
   return (
     <div>
       <UITypography

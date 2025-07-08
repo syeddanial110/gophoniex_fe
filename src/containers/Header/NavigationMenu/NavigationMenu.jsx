@@ -27,7 +27,6 @@ import UIButton from "@/components/UIButton/UIButton";
 
 const DesktopNavigationMenu = () => {
   const pathname = usePathname();
-  console.log("pathname", pathname);
 
   const [navigationMenu, setNavigationMenu] = useState([]);
 
@@ -39,8 +38,6 @@ const DesktopNavigationMenu = () => {
   const subCategoriesData = useSelector(
     (state) => state?.GetAllSubCategoriesReducer?.res
   );
-  console.log("categoriesData", categoriesData);
-  console.log("subCategoriesData", subCategoriesData);
 
   useEffect(() => {
     disptach(getAllCategories());
@@ -110,7 +107,6 @@ const DesktopNavigationMenu = () => {
     }
   }, [categoriesData?.res?.data, subCategoriesData?.res?.data]);
 
-  console.log("navigationMenu", navigationMenu);
 
   return (
     <div className="flex justify-center">

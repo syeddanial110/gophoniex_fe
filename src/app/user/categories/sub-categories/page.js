@@ -17,7 +17,6 @@ const SubCategories = () => {
   );
   const router = useRouter();
   const dispatch = useDispatch();
-  console.log("subCategoriesReducer", subCategoriesReducer);
 
   const handleAddToCart = (id, paymentType, price) => {
     const dataObj = {

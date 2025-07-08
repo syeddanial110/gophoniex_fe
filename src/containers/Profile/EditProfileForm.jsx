@@ -20,7 +20,6 @@ const EditProfileForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle form submission logic, e.g., API call to update user data
-    console.log('User data submitted:', userData);
   };
 
   return (
