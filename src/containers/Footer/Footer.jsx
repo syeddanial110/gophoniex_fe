@@ -17,9 +17,10 @@ const Footer = () => {
     apiGet(
       `${ApiEndpoints.menu.base}${ApiEndpoints.menu.getAll}`,
       (res) => {
-        const half = Math.ceil(res.data.length / 2);
-        const legalMenu = res.data.slice(0, half);
-        const companyMenu = res.data.slice(half);
+        const activeItems = res.data.filter((item) => item.isActive !== 0);
+        const half = Math.ceil(activeItems.length / 2);
+        const legalMenu = activeItems.slice(0, half);
+        const companyMenu = activeItems.slice(half);
         setFirstMenu(legalMenu);
         setSecondMenu(companyMenu);
       },

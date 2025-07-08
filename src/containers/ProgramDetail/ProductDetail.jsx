@@ -115,9 +115,9 @@ const ProductDetail = () => {
                     Monthly Recurring
                   </span>
                   <span>
-                    <span className="font-semibold text-lg">Rs.48,700.00</span>
+                    <span className="font-semibold text-lg">$.48,700.00</span>
                     <span className="line-through text-gray-400 ml-2">
-                      Rs.54,400.00
+                      $54,400.00
                     </span>
                   </span>
                 </div>
