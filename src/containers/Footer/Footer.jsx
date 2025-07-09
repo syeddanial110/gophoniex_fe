@@ -147,21 +147,17 @@ const Footer = () => {
         <div>
           <div className="font-semibold mb-2">Company</div>
           <ul className="text-gray-700 text-sm space-y-1">
-            <li>
-              <Link href={pathLocations.about}>
-                <span>About us</span>
-              </Link>
-            </li>
-            <li>
-              <Link href={pathLocations.contact}>
-                <span>Contact Us</span>
-              </Link>
-            </li>
-            <li>
-              <Link href={pathLocations.locations}>
-                <span>Locations</span>
-              </Link>
-            </li>
+           {secondMenu?.map((item, i) => {
+              return (
+                <li key={i}>
+                  <Link
+                    href={`${WEB_URL}/user${pathLocations.content}/${item.slug}`}
+                  >
+                    <span>{item.name}</span>
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </div>
       </div>
