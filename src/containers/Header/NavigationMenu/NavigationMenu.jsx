@@ -24,13 +24,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllCategories } from "@/store/actions/category";
 import { getAllSubCategories } from "@/store/actions/subCategory";
 import UIButton from "@/components/UIButton/UIButton";
+import Image from "next/image";
+import placeholderImg from "../../../assets/Images/placeholderImg.webp";
 
 const DesktopNavigationMenu = () => {
   const pathname = usePathname();
 
   const [navigationMenu, setNavigationMenu] = useState([]);
 
-  const disptach = useDispatch();
+  const dispatch = useDispatch();
 
   const categoriesData = useSelector(
     (state) => state?.GetAllCategoriesReducer?.res
@@ -40,8 +42,8 @@ const DesktopNavigationMenu = () => {
   );
 
   useEffect(() => {
-    disptach(getAllCategories());
-    disptach(getAllSubCategories());
+    dispatch(getAllCategories());
+    dispatch(getAllSubCategories());
   }, []);
 
   // useEffect(() => {
@@ -95,6 +97,7 @@ const DesktopNavigationMenu = () => {
           categoryId: category.id,
           categoryName: category.name,
           categoryUrl: category.slug,
+          image: category.image,
           subCategories: categorySubcategories.map((sub) => ({
             subCategoryId: sub.id,
             subCategoryName: sub.name,
@@ -107,7 +110,7 @@ const DesktopNavigationMenu = () => {
     }
   }, [categoriesData?.res?.data, subCategoriesData?.res?.data]);
 
-
+  console.log("navigationMenu", navigationMenu);
   return (
     <div className="flex justify-center">
       <NavigationMenu className="px-1">
@@ -155,22 +158,32 @@ const DesktopNavigationMenu = () => {
               <Link href={pathLocations.categories}>Categories</Link>
             </NavigationMenuTrigger>
             <NavigationMenuContent className="">
-              <div className="w-[60vw] min-h-[30vh] max-h-[60vh] py-4">
-                <div className="grid grid-cols-6">
+              <div className="w-[60vw] min-h-[30vh] max-h-[60vh] py-4 overflow-y-scroll">
+                <div className="grid grid-cols-4 gap-4">
                   {navigationMenu.map((item, i) => {
-                    if (item?.subCategories) {
-                      return (
-                        <>
-                          <div key={i} className="flex flex-col gap-3">
-                            <div>
-                              <Link
-                                href={`${WEB_URL}${pathLocations.categories}/${item.categoryUrl}`}
-                              >
-                                {item?.categoryName}
-                              </Link>
-                            </div>
-                            <hr />
-                            {item?.subCategories?.length > 0 &&
+                    return (
+                      <>
+                        <div key={i} className="flex flex-col gap-3">
+                          <div>
+                            <Link
+                              href={`${WEB_URL}${pathLocations.categories}/${item.categoryUrl}`}
+                            >
+                              <Image
+                                src={
+                                  item?.image != null
+                                    ? item?.image
+                                    : placeholderImg
+                                }
+                                alt={item?.categoryName}
+                                width={300}
+                                height={300}
+                                style={{ height: "200px", objectFit: "cover" }}
+                              />
+                              {item?.categoryName}
+                            </Link>
+                          </div>
+                          {/* <hr /> */}
+                          {/* {item?.subCategories?.length > 0 &&
                               item?.subCategories?.map((elm, ind) => {
                                 return (
                                   <Link
@@ -180,13 +193,12 @@ const DesktopNavigationMenu = () => {
                                     {elm?.subCategoryName}
                                   </Link>
                                 );
-                              })}
-                          </div>
+                              })} */}
+                        </div>
 
-                          {/* <NavigationMenuLink>Link</NavigationMenuLink> */}
-                        </>
-                      );
-                    }
+                        {/* <NavigationMenuLink>Link</NavigationMenuLink> */}
+                      </>
+                    );
                   })}
                 </div>
                 <div className="flex justify-center mt-10 gap-4">
@@ -194,13 +206,7 @@ const DesktopNavigationMenu = () => {
                     href={pathLocations.categories}
                     className="bg-main btn rounded-full py-3 px-6 text-white"
                   >
-                    View Categories
-                  </Link>
-                  <Link
-                    href={pathLocations.subCategories}
-                    className="bg-main btn rounded-full py-3 px-6 text-white"
-                  >
-                    View Sub Categories
+                    View More
                   </Link>
                 </div>
               </div>

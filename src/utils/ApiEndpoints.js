@@ -23,6 +23,7 @@ export const ApiEndpoints = {
     base: "/subCategory",
     getAll: "/get",
     getById: "/getById",
+    getByCategorySlug: "/getByCatSlug",
   },
   products: {
     base: "/product",

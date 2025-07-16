@@ -15,8 +15,6 @@ const UIProductCard = ({
   mainImg,
   hoverImg,
   title,
-  description,
-  slots,
   href,
 }) => {
   return (
@@ -41,12 +39,13 @@ const UIProductCard = ({
           </div>
         </CardHeader>
         <CardContent>
-          <UITypography variant="h5" text={title} className="text-center" />
-          <p className="text-center">{description}</p>
+          {/* <UITypography variant="h5" text={title} className="text-center" />
+          <p className="text-center">{description}</p> */}
+          <div dangerouslySetInnerHTML={{ __html: title }} className="text-center" />
         </CardContent>
-        <CardFooter className="flex justify-center">
+        {/* <CardFooter className="flex justify-center">
           <p className="text-center">{slots}</p>
-        </CardFooter>
+        </CardFooter> */}
       </Card>
     </Link>
   );

@@ -13,16 +13,23 @@ import { ApiEndpoints } from "@/utils/ApiEndpoints";
 const Footer = () => {
   const [firstMenu, setFirstMenu] = useState([]);
   const [secondMenu, setSecondMenu] = useState([]);
+  const [extraMenu, setExtraMenu] = useState([]);
+
   const getAllMenu = () => {
     apiGet(
       `${ApiEndpoints.menu.base}${ApiEndpoints.menu.getAll}`,
       (res) => {
         const activeItems = res.data.filter((item) => item.isActive !== 0);
-        const half = Math.ceil(activeItems.length / 2);
-        const legalMenu = activeItems.slice(0, half);
-        const companyMenu = activeItems.slice(half);
-        setFirstMenu(legalMenu);
-        setSecondMenu(companyMenu);
+        if (activeItems.length < 10) {
+          const half = Math.ceil(activeItems.length / 2);
+          setFirstMenu(activeItems.slice(0, half));
+          setSecondMenu(activeItems.slice(half));
+          setExtraMenu([]);
+        } else {
+          setFirstMenu(activeItems.slice(0, 5));
+          setSecondMenu(activeItems.slice(5, 10));
+          setExtraMenu(activeItems.slice(10));
+        }
       },
       (err) => {
         console.log("err", err);
@@ -147,7 +154,7 @@ const Footer = () => {
         <div>
           <div className="font-semibold mb-2">Company</div>
           <ul className="text-gray-700 text-sm space-y-1">
-           {secondMenu?.map((item, i) => {
+            {secondMenu?.map((item, i) => {
               return (
                 <li key={i}>
                   <Link
@@ -161,6 +168,23 @@ const Footer = () => {
           </ul>
         </div>
       </div>
+
+      {extraMenu.length > 0 && (
+        <div className="px-8 py-4 border-b border-gray-200">
+          <div className="font-semibold mb-2">More Links</div>
+          <div className="grid grid-cols-5 gap-4">
+            {extraMenu.map((item, i) => (
+              <div key={i}>
+                <Link
+                  href={`${WEB_URL}/user${pathLocations.content}/${item.slug}`}
+                >
+                  <span>{item.name}</span>
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Bottom Row: Copyright & Links */}
       <div className="flex flex-col md:flex-row items-center justify-between px-8 py-4 text-xs text-gray-600">

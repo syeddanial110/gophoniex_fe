@@ -35,10 +35,11 @@ const ProductDetail = () => {
   return (
     <>
       <div className="flex flex-col gap-3">
-        <UITypography
+        {/* <UITypography
           variant="h3"
           text={productDataReducer?.res?.productName}
-        />
+        /> */}
+          <div dangerouslySetInnerHTML={{ __html: productDataReducer?.res?.productName }} className="text-[24px]" />
 
         <div>
           <UITypography variant="h6" text="Add Another Child" />

@@ -32,7 +32,8 @@ const UIProgramCard = ({ text, card_img, btnText, href}) => {
         />
       </CardHeader>
       <CardContent>
-        <UITypography text={text} className="text-center capitalize" />
+        {/* <UITypography text={text} className="text-center capitalize" /> */}
+          <div dangerouslySetInnerHTML={{ __html: text }} />
       </CardContent>
       <CardFooter className="flex justify-center">
         {/* <UIButton
