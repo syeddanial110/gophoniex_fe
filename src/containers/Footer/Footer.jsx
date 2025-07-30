@@ -41,9 +41,6 @@ const Footer = () => {
     getAllMenu();
   }, []);
 
-  console.log("firstMenu", firstMenu);
-  console.log("secondMenu", secondMenu);
-
   return (
     <footer className="bg-[#fafbfc] border-t border-gray-200">
       {/* Top Row: Logo and Socials */}

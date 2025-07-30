@@ -23,7 +23,6 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCategories } from "@/store/actions/category";
 import { getAllSubCategories } from "@/store/actions/subCategory";
-import UIButton from "@/components/UIButton/UIButton";
 import Image from "next/image";
 import placeholderImg from "../../../assets/Images/placeholderImg.webp";
 
@@ -45,40 +44,6 @@ const DesktopNavigationMenu = () => {
     dispatch(getAllCategories());
     dispatch(getAllSubCategories());
   }, []);
-
-  // useEffect(() => {
-  //   categoriesData?.res?.data?.map((item) => {
-  //     // setNavigationMenu([
-  //     //   {
-  //     //     categoryId: "",
-  //     //     categoryName: "",
-  //     //     categoryUrl: "",
-  //     //     subCategories: [
-  //     //       {
-  //     //         subCategoryId: "",
-  //     //         subCategoryName: "",
-  //     //         subCategoryUrl: "",
-  //     //       },
-  //     //     ],
-  //     //   },
-  //     // ]);
-  //   });
-
-  //   setNavigationMenu([
-  //     {
-  //       categoryId: "",
-  //       categoryName: "",
-  //       categoryUrl: "",
-  //       subCategories: [
-  //         {
-  //           subCategoryId: "",
-  //           subCategoryName: "",
-  //           subCategoryUrl: "",
-  //         },
-  //       ],
-  //     },
-  //   ]);
-  // }, [categoriesData?.res]);
 
   useEffect(() => {
     if (categoriesData?.res?.data && subCategoriesData?.res?.data) {
@@ -110,7 +75,6 @@ const DesktopNavigationMenu = () => {
     }
   }, [categoriesData?.res?.data, subCategoriesData?.res?.data]);
 
-  console.log("navigationMenu", navigationMenu);
   return (
     <div className="flex justify-center">
       <NavigationMenu className="px-1">

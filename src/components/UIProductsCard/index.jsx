@@ -27,15 +27,15 @@ const UIProductCard = ({
               src={mainImg}
               alt="Card image"
               fill
-              className="object-cover group-hover:opacity-0 transition-opacity duration-300"
+              className="object-cover transition-opacity duration-300"
             />
             {/* Hover Image */}
-            <Image
+            {/* <Image
               src={hoverImg}
               alt="Card hover image"
               fill
               className="object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-            />
+            /> */}
           </div>
         </CardHeader>
         <CardContent>

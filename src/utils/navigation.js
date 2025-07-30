@@ -1,5 +1,5 @@
-// export const WEB_URL = "http://localhost:3000";
-export const WEB_URL = "https://gophoniex-fe.vercel.app";
+export const WEB_URL = "http://localhost:3000";
+// export const WEB_URL = "https://gophoniex-fe.vercel.app";
 
 export const pathLocations = {
   home: "/user/home",
@@ -8,7 +8,7 @@ export const pathLocations = {
   cancellationRefundPolicy: "/user/cancellation-refund-policy",
   termsAndConditions: "/user/terms-conditions",
   ccpa: "/user/ccpa",
-faqs: "/user/faqs",
+  faqs: "/user/faqs",
   locations: "/user/locations",
   otherProgramSwitch: "/user/other-program-switch",
   privacyPolicy: "/user/privacy-policy",
@@ -22,6 +22,7 @@ faqs: "/user/faqs",
   subCategories: "/user/categories/sub-categories",
   program: "/user/categories/program",
   content: "/content",
+  checkout: "/user/checkout",
 };
 
 export const Navigation_Menu = [
@@ -34,7 +35,7 @@ export const Navigation_Menu = [
     link: pathLocations.about,
   },
   {
-    name: "Categories",
+    name: "Classes",
     link: "#",
     subMenu: [
       {

@@ -46,6 +46,7 @@ import UITypography from "@/components/UITypography/UITypography";
 import { ApiEndpoints } from "@/utils/ApiEndpoints";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import Head from "next/head";
 
 const Content = () => {
   const { slug } = useParams();
@@ -70,6 +71,12 @@ const Content = () => {
 
   return (
     <>
+     {pageContent && (
+        <Head>
+          <title>{pageContent.metaTitle || pageContent.name}</title>
+          <meta name="description" content={pageContent.metaDescription || ""} />
+        </Head>
+      )}
       {pageContent !== null && pageContent?.content !== null ? (
         <div className="p-20">
           <UITypography variant="h1" text={pageContent.name} className='uppercase' />

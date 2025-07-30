@@ -20,7 +20,14 @@ const ProductCarousel = ({ pagePerView, productGalleryImages = [] }) => {
   const renderSlides = () => {
     return productGalleryImages.map((slide) => (
       <SplideSlide key={slide.src}>
-        <Image src={slide.path} alt={slide.path} width={500} height={400} className="m-auto" />
+        <Image
+          src={slide.path}
+          alt={slide.path}
+          width={500}
+          height={400}
+          style={{ height: "500px", objectFit: "cover" }}
+          className="m-auto"
+        />
       </SplideSlide>
     ));
   };

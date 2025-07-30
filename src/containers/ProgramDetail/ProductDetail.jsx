@@ -1,36 +1,127 @@
 import UISelect from "@/components/InputField/UISelect";
 import UITypography from "@/components/UITypography/UITypography";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { SelectItem } from "@/components/ui/select";
 import UIModal from "@/components/UIModal/UIModal";
 import AddOrSelectChild from "./AddOrSelectChild";
 import AddProductQuantity from "./AddProductQuantity";
+import UIButton from "@/components/UIButton/UIButton";
+import { useRouter } from "next/navigation";
+import { pathLocations } from "@/utils/navigation";
+import { productData, selectProductCheckout } from "@/store/actions/products";
 
 const ProductDetail = () => {
+  const router = useRouter();
+  const dispatch = useDispatch();
+
   const productDataReducer = useSelector((state) => state?.ProductDataReducer);
 
   const [quantity, setQuantity] = useState(1);
   const [modalCountArr, setmodalCountArr] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
-  const handleModalOpen = () => {
+  const [selectedProductDetail, setSelectedProductDetail] = useState({
+    productId: "",
+    productName: "",
+  });
+  const [productOptionSelected, setProductOptionSelected] = useState([
+    {
+      productOptionName: "",
+      price: "",
+      paymentType: "",
+      intervalCount: "",
+      paymentInterval: "",
+      childId: "",
+      childName: "",
+    },
+  ]);
+  
+  const [selectedIndex, setSelectedIndex] = useState("");
+
+  const handleModalOpen = (index) => {
     setModalOpen(!modalOpen);
+    setSelectedIndex(index);
   };
 
   const handleQuantityIncrement = () => {
+    setProductOptionSelected((prev) => [
+      ...prev,
+      {
+        productOptionName: "",
+        price: "",
+        paymentType: "",
+        intervalCount: "",
+        paymentInterval: "",
+        childId: "",
+        childName: "",
+      },
+    ]);
     setQuantity(quantity + 1);
   };
   const handleQuantityDecrement = () => {
+    setProductOptionSelected((prev) => prev.slice(0, -1));
     if (quantity > 1) setQuantity(quantity - 1);
   };
 
-  const handleChangeProductOption = (value) => {
-    console.log("value", value);
+  const handleChangeProductOption = (value, childIndex) => {
+    const filteredProductOption = productDataReducer?.res?.productOptions?.find(
+      (elm) => elm.id === value
+    );
+
+    // Update the correct index in childDetail
+    setProductOptionSelected((prev) => {
+      const updated = [...prev];
+      updated[childIndex] = {
+        ...updated[childIndex],
+        productId: filteredProductOption?.id || "",
+        productOptionName: filteredProductOption?.title || "",
+        price: filteredProductOption?.price || "",
+        paymentType: filteredProductOption?.paymentType || "",
+        intervalCount: filteredProductOption?.intervalCount || "",
+        paymentInterval: filteredProductOption?.paymentInterval,
+      };
+      return updated;
+    });
   };
+
+  const handleProductAddToCart = () => {
+    const dataObj = {
+      checkoutData: {
+        productOptionSelected: productOptionSelected,
+        selectedProductDetail: selectedProductDetail,
+      },
+    };
+    dispatch(selectProductCheckout(dataObj));
+    router.push(pathLocations.checkout);
+  };
+
+  useEffect(() => {
+    setProductOptionSelected((prev) => {
+      // Update all objects in the array with new product info
+      return prev.map((item) => ({
+        ...item,
+        productOptionName: productDataReducer?.res?.productName,
+        price: productDataReducer?.res?.price,
+        paymentType: productDataReducer?.res?.paymentType || "",
+        intervalCount: productDataReducer?.res?.intervalCount || "",
+        paymentInterval: productDataReducer?.res?.paymentInterval,
+      }));
+    });
+    setSelectedProductDetail({
+      productId: productDataReducer?.res?.id || "",
+      productName: productDataReducer?.res?.productName || "",
+    });
+  }, [productDataReducer?.res]);
+
+  console.log("productDataReducer", productDataReducer);
+  console.log("productOptionSelected", productOptionSelected);
 
   useEffect(() => {
     setmodalCountArr(quantity === 0 ? [1] : Array(quantity).fill(1));
   }, [quantity]);
+
+  console.log("productDataReducer", productDataReducer);
+  console.log("modalCountArr", modalCountArr);
 
   return (
     <>
@@ -39,10 +130,75 @@ const ProductDetail = () => {
           variant="h3"
           text={productDataReducer?.res?.productName}
         /> */}
-          <div dangerouslySetInnerHTML={{ __html: productDataReducer?.res?.productName }} className="text-[24px]" />
+        <div
+          dangerouslySetInnerHTML={{
+            __html: productDataReducer?.res?.productName,
+          }}
+          className="text-[24px]"
+        />
 
         <div>
-          <UITypography variant="h6" text="Add Another Child" />
+          {modalCountArr.map((_, index) => {
+            console.log("index", index);
+            return (
+              <div className="flex flex-col gap-4 mt-4" key={index}>
+                <hr />
+                <div className="w-[60%]">
+                  <UISelect
+                    isLabel={true}
+                    labelName={`Drop Menu: Choose Your Pass Child ${index + 1}`}
+                    onValueChange={(value) =>
+                      handleChangeProductOption(value, index)
+                    }
+                  >
+                    {productDataReducer?.res?.productOptions?.length > 0 ? (
+                      productDataReducer?.res?.productOptions?.map(
+                        (item, i) => {
+                          return (
+                            <SelectItem key={i} value={item?.id}>
+                              {item?.title} - {item.price}
+                            </SelectItem>
+                          );
+                        }
+                      )
+                    ) : (
+                      <SelectItem value="default">Default Option</SelectItem>
+                    )}
+                  </UISelect>
+                </div>
+                <div className="flex flex-col gap-3 mb-4 justify-start items-start">
+                  <UIModal
+                    open={modalOpen}
+                    onOpenChange={() => handleModalOpen(index)}
+                    modalHeaderTitle={`Select Or Add Child ${index + 1}`}
+                    modalBtnText={`Select Child ${index + 1}`}
+                    btnClassName="bg-main text-white px-7 py-2 rounded-2xl hover:cursor-pointer mb-2"
+                  >
+                    <AddOrSelectChild
+                      handleModalOpen={handleModalOpen}
+                      childIndex={index}
+                      selectedIndex={selectedIndex}
+                      setProductOptionSelected={setProductOptionSelected}
+                    />
+                  </UIModal>
+                  {productOptionSelected[index]?.childName && (
+                    <UITypography
+                      variant="h6"
+                      text={`Child ${index + 1} Name: ${
+                        productOptionSelected[index].childName
+                      }`}
+                    />
+                  )}
+                </div>
+              </div>
+            );
+          })}
+          <hr />
+          <UITypography
+            variant="h6"
+            text="Add Another Child"
+            className="mt-4"
+          />
           <div className="w-[60%]">
             <AddProductQuantity
               quantity={quantity}
@@ -50,44 +206,6 @@ const ProductDetail = () => {
               handleQuantityIncrement={handleQuantityIncrement}
             />
           </div>
-          {modalCountArr.map((_, index) => (
-            <div className="flex flex-col gap-4 mt-4" key={index}>
-              <hr />
-              <div className="w-[60%]">
-                <UISelect
-                  isLabel={true}
-                  labelName={`Drop Menu: Choose Your Pass Child ${index + 1}`}
-                  onValueChange={handleChangeProductOption}
-                >
-                  {productDataReducer?.res?.productOptions?.length > 0 ? (
-                    productDataReducer?.res?.productOptions?.map((item, i) => {
-                      return (
-                        <SelectItem key={i} value={item?.id}>
-                          {item?.title} - {item.price}
-                        </SelectItem>
-                      );
-                    })
-                  ) : (
-                    <SelectItem value="default">Default Option</SelectItem>
-                  )}
-                </UISelect>
-              </div>
-              <div className="flex flex-col gap-8 justify-start items-start">
-                <UIModal
-                  open={modalOpen}
-                  onOpenChange={handleModalOpen}
-                  modalHeaderTitle={`Select Or Add Child ${index + 1}`}
-                  modalBtnText={`Select Child ${index + 1}`}
-                  btnClassName="bg-main text-white px-7 py-2 rounded-2xl hover:cursor-pointer mb-2"
-                >
-                  <AddOrSelectChild
-                    handleModalOpen={handleModalOpen}
-                    childIndex={index}
-                  />
-                </UIModal>
-              </div>
-            </div>
-          ))}
         </div>
       </div>
       <div className="mt-4">
@@ -153,6 +271,15 @@ const ProductDetail = () => {
             </div>
           </div>
         ) : null}
+
+        <div className="mt-6">
+          <UIButton
+            type="contained"
+            icon={false}
+            title="Add to Cart"
+            btnOnclick={handleProductAddToCart}
+          />
+        </div>
 
         <div
           className="mt-6"

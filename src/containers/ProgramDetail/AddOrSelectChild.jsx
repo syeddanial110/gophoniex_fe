@@ -7,7 +7,12 @@ import { getAllChildren } from "@/store/actions/children";
 import { SelectItem } from "@/components/ui/select";
 import { productData } from "@/store/actions/products";
 
-const AddOrSelectChild = ({ handleModalOpen }) => {
+const AddOrSelectChild = ({
+  handleModalOpen,
+  selectedIndex,
+  setChildDetail,
+  setProductOptionSelected,
+}) => {
   const dispatch = useDispatch();
 
   const allChildrenReducer = useSelector(
@@ -21,13 +26,30 @@ const AddOrSelectChild = ({ handleModalOpen }) => {
   };
 
   const handleChangeChild = (value) => {
-    dispatch(productData({ childName: value }));
+    const selectedChild = allChildrenReducer?.res?.data?.find(
+      (child) => child.id === value
+    );
+
+    // Update the correct index in childDetail
+    setProductOptionSelected((prev) => {
+      const updated = [...prev];
+      updated[selectedIndex] = {
+        ...updated[selectedIndex],
+        childId: selectedChild?.id || "",
+        childName: selectedChild?.name || "",
+        productOptionName: updated[selectedIndex].productOptionName,
+        price: updated[selectedIndex].price,
+        paymentType: updated[selectedIndex].paymentType,
+        intervalCount: updated[selectedIndex].intervalCount,
+        paymentInterval: updated[selectedIndex].paymentInterval,
+      };
+      return updated;
+    });
   };
 
   useEffect(() => {
     dispatch(getAllChildren());
   }, []);
-
 
   return (
     <>
@@ -39,10 +61,11 @@ const AddOrSelectChild = ({ handleModalOpen }) => {
             isLabel={true}
             labelName="Select Child"
             onValueChange={handleChangeChild}
+            // value={productDataReducer?.res?.id || ""}
           >
             {allChildrenReducer?.res?.data?.length > 0 ? (
               allChildrenReducer?.res?.data?.map((child) => (
-                <SelectItem key={child.id} value={child?.name}>
+                <SelectItem key={child.id} value={child?.id}>
                   {child?.name}
                 </SelectItem>
               ))

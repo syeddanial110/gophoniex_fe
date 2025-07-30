@@ -11,8 +11,7 @@ import { useDispatch } from "react-redux";
 const ProgramById = () => {
   const params = useParams();
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(false)
-  
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchProductById = () => {
@@ -38,11 +37,11 @@ const ProgramById = () => {
   }, [params.slug]);
 
   return (
-    <div className="grid grid-cols-2 my-20">
-      <div>
+    <div className="flex my-20 gap-5 justify-around">
+      <div className="w-[40%]">
         <GalleryImages />
       </div>
-      <div>
+      <div className="w-[50%]">
         <ProductDetail />
       </div>
     </div>

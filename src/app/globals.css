@@ -142,3 +142,7 @@
   @apply bg-[#fd8b01];
 }
 
+
+.splide__arrow > svg {
+  fill: #fd8b01 !important;
+}

@@ -8,6 +8,7 @@ import { GetAllProductsReducer } from "./getAllProductsReducer";
 import { EditProductDataReducer } from "./editProductDataReducer";
 import { ProductDataReducer } from "./productDataReducer";
 import { GetAllChildrenReducer } from "./getAllChildrenReducer";
+import { SelectProductCheckoutReducer } from "./selectProductCheckoutReducer";
 
 export default combineReducers({
   SignInReducer,
@@ -18,5 +19,6 @@ export default combineReducers({
   GetAllProductsReducer,
   EditProductDataReducer,
   ProductDataReducer,
-  GetAllChildrenReducer
+  GetAllChildrenReducer,
+  SelectProductCheckoutReducer
 });

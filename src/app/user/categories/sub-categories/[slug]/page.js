@@ -39,6 +39,9 @@ const SubCategoryById = () => {
     return <div>Loading...</div>;
   }
 
+  console.log("productsBySubCategory", productsBySubCategory);
+  console.log("slug", params.slug);
+
   return (
     <div>
       <UITypography
@@ -51,7 +54,7 @@ const SubCategoryById = () => {
           productsBySubCategory?.map((card, idx) => (
             <UIProductCard
               key={idx}
-              title={card.productName}
+              title={card.cardName}
               mainImg={card.image}
               hoverImg={card.hoverImage}
               // description={card.description}

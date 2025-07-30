@@ -5,6 +5,7 @@ import {
   GetAllCategoriesConstants,
   GetAllProductsConstants,
   ProductDataConstants,
+  SelectProductCheckoutConstants,
 } from "@/store/constants";
 import { ApiEndpoints } from "@/utils/ApiEndpoints";
 import { toast } from "sonner";
@@ -39,6 +40,13 @@ export const productData = (data) => (dispatch) => {
   dispatch({ type: ProductDataConstants.PRODUCT_DATA_LOADING });
   dispatch({
     type: ProductDataConstants.PRODUCT_DATA_SUCCESS,
+    payload: { data },
+  });
+};
+export const selectProductCheckout = (data) => (dispatch) => {
+  dispatch({ type: SelectProductCheckoutConstants.SELECT_PRODUCT_CHECKOUT_LOADING });
+  dispatch({
+    type: SelectProductCheckoutConstants.SELECT_PRODUCT_CHECKOUT_SUCCESS,
     payload: { data },
   });
 };
