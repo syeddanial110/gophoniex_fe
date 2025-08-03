@@ -119,33 +119,21 @@ const DesktopNavigationMenu = () => {
                   : "bg-[#EBF0F4] text-black"
               }`}
             >
-              <Link href={pathLocations.categories}>Categories</Link>
+              <Link href={pathLocations.categories}>Programs</Link>
             </NavigationMenuTrigger>
             <NavigationMenuContent className="">
-              <div className="w-[60vw] min-h-[30vh] max-h-[60vh] py-4 overflow-y-scroll">
-                <div className="grid grid-cols-4 gap-4">
+              <div className="min-w-[15vw] py-4 px-3">
+                <div className="">
                   {navigationMenu.map((item, i) => {
                     return (
                       <>
-                        <div key={i} className="flex flex-col gap-3">
-                          <div>
-                            <Link
-                              href={`${WEB_URL}${pathLocations.categories}/${item.categoryUrl}`}
-                            >
-                              <Image
-                                src={
-                                  item?.image != null
-                                    ? item?.image
-                                    : placeholderImg
-                                }
-                                alt={item?.categoryName}
-                                width={300}
-                                height={300}
-                                style={{ height: "200px", objectFit: "cover" }}
-                              />
-                              {item?.categoryName}
-                            </Link>
-                          </div>
+                        <div key={i} className="flex flex-col gap-5">
+                          <Link
+                            href={`${WEB_URL}${pathLocations.categories}/${item.categoryUrl}`}
+                            className="text-md"
+                          >
+                            {item?.categoryName}
+                          </Link>
                           {/* <hr /> */}
                           {/* {item?.subCategories?.length > 0 &&
                               item?.subCategories?.map((elm, ind) => {
@@ -165,10 +153,10 @@ const DesktopNavigationMenu = () => {
                     );
                   })}
                 </div>
-                <div className="flex justify-center mt-10 gap-4">
+                <div className="flex mt-10 gap-4">
                   <Link
                     href={pathLocations.categories}
-                    className="bg-main btn rounded-full py-3 px-6 text-white"
+                    className="btn py-3 px-2 underline"
                   >
                     View More
                   </Link>
