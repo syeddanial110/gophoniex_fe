@@ -78,8 +78,6 @@ const CollectionById = () => {
                 />
               ))}
             </div>
-            <UICheckbox label="Carls" />
-            <UICheckbox label="Carls" />
           </div>
         </div>
         <div className="w-[75%]">

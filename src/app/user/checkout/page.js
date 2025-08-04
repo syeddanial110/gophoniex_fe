@@ -3,8 +3,12 @@ import React from "react";
 import { Elements } from "@stripe/react-stripe-js";
 import { stripePromise } from "../../../utils/stripe";
 import CheckoutForm from "@/containers/Checkout/CheckoutForm";
+import { useSelector } from "react-redux";
 
 const Checkout = () => {
+  const productCheckout = useSelector(
+    (state) => state?.SelectProductCheckoutReducer
+  );
   return (
     <>
       <Elements stripe={stripePromise}>
