@@ -3,6 +3,8 @@
 import React, { useState } from "react";
 import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 import { cardOptions } from "./stripeStyle";
+import { BASEURL } from "@/apis/ApiRequest";
+import { ApiEndpoints } from "@/utils/ApiEndpoints";
 
 const CheckoutForm = ({ plan }) => {
   const stripe = useStripe();
@@ -28,13 +30,16 @@ const CheckoutForm = ({ plan }) => {
     }
 
     const methodId = paymentMethod.id;
-    console.log('methodId', methodId)
+    console.log("methodId", methodId);
 
-    const res = await fetch("/api/handle-payment", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ methodId, plan }),
-    });
+    const res = await fetch(
+      `${BASEURL}${ApiEndpoints.order.base}${ApiEndpoints.order.placeOrder}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ paymentMethodId: paymentMethod.id }),
+      }
+    );
 
     const data = await res.json();
     if (data.success) {
@@ -48,7 +53,10 @@ const CheckoutForm = ({ plan }) => {
 
   return (
     <form onSubmit={handleSubmit} className="mt-6">
-      <CardElement options={cardOptions} className="p-4 border rounded-md shadow-sm" />
+      <CardElement
+        options={cardOptions}
+        className="p-4 border rounded-md shadow-sm"
+      />
       <button type="submit" disabled={!stripe || loading}>
         {loading ? "Processing…" : `Pay for ${plan}`}
       </button>

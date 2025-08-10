@@ -48,4 +48,13 @@ export const ApiEndpoints = {
     getById: "/getById",
     getBySlug: "/getBySlug",
   },
+  order: {
+    base: "/order",
+    placeOrder: "/place",
+    showOrder: "/list",
+    cancelRecurringPayment: "/cancel-subscription",
+    orderDetail: "/getbyid",
+    getAllPayments: "/all/payments",
+    getOrderPayment: "/single/payment",
+  },
 };

@@ -10,6 +10,9 @@ import UIButton from "@/components/UIButton/UIButton";
 import { useRouter } from "next/navigation";
 import { pathLocations } from "@/utils/navigation";
 import { productData, selectProductCheckout } from "@/store/actions/products";
+import { apiPost } from "@/apis/ApiRequest";
+import { ApiEndpoints } from "@/utils/ApiEndpoints";
+import { toast } from "sonner";
 
 const ProductDetail = () => {
   const router = useRouter();
@@ -23,6 +26,7 @@ const ProductDetail = () => {
   const [selectedProductDetail, setSelectedProductDetail] = useState({
     productId: "",
     productName: "",
+    paymentType: "",
   });
   const [productOptionSelected, setProductOptionSelected] = useState([
     {
@@ -35,7 +39,7 @@ const ProductDetail = () => {
       childName: "",
     },
   ]);
-  
+
   const [selectedIndex, setSelectedIndex] = useState("");
 
   const handleModalOpen = (index) => {
@@ -91,6 +95,37 @@ const ProductDetail = () => {
         selectedProductDetail: selectedProductDetail,
       },
     };
+    const children = dataObj.checkoutData.productOptionSelected.map(
+      (option) => ({
+        childId: option.childId,
+        options: [
+          {
+            id: option.productId,
+            price: parseFloat(option.price),
+            // currency: "USD" // Uncomment if needed
+          },
+        ],
+      })
+    );
+
+    apiPost(
+      `${ApiEndpoints.addToCart.base}${ApiEndpoints.addToCart.create}`,
+      {
+        children: children,
+        productId: dataObj.checkoutData.selectedProductDetail.productId,
+        paymentType: dataObj.checkoutData.selectedProductDetail.paymentType,
+      },
+      (res) => {
+        console.log("res", res);
+        toast.success(res?.message);
+      },
+      (err) => {
+        console.log("err", err);
+      }
+    );
+
+    console.log("children", children);
+    console.log("dataObj", dataObj);
     dispatch(selectProductCheckout(dataObj));
     router.push(pathLocations.checkout);
   };
@@ -110,6 +145,7 @@ const ProductDetail = () => {
     setSelectedProductDetail({
       productId: productDataReducer?.res?.id || "",
       productName: productDataReducer?.res?.productName || "",
+      paymentType: productDataReducer?.res?.paymentType || "",
     });
   }, [productDataReducer?.res]);
 
