@@ -37,39 +37,41 @@ const ChangePasswordForm = () => {
   };
 
   return (
-    <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(handleChangePassword)}
-        className="space-y-8"
-      >
-        <FormField
-          control={form.control}
-          name="email" // Changed from username to email to match defaultValues
-          render={({ field }) => (
-            <FormItem>
-              <UITextField field={field} />
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormItem>
-              <UITextField type="password" field={field} />
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <UIButton
-          type="contained"
-          title="Submit"
-          btnType="submit"
-          icon={false}
-        />
-      </form>
-    </Form>
+    <div className="min-h-[80vh] p-4">
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(handleChangePassword)}
+          className="space-y-8"
+        >
+          <FormField
+            control={form.control}
+            name="email" // Changed from username to email to match defaultValues
+            render={({ field }) => (
+              <FormItem>
+                <UITextField field={field} />
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <UITextField type="password" field={field} />
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <UIButton
+            type="contained"
+            title="Submit"
+            btnType="submit"
+            icon={false}
+          />
+        </form>
+      </Form>
+    </div>
   );
 };
 

@@ -5,14 +5,13 @@ import EditProfileForm from "./EditProfileForm";
 const ProfileDetails = ({ user }) => {
   const [isEdit, setIsEdit] = useState(false);
   return (
-    <>
+    <div className="min-h-[80vh] p-4">
       {isEdit ? (
         <div className="profile-details">
           <EditProfileForm />
         </div>
       ) : (
         <div className="profile-details">
-          <h2>User Profile</h2>
           <p>
             <strong>Name:</strong> {user?.name}
           </p>
@@ -28,7 +27,7 @@ const ProfileDetails = ({ user }) => {
           {/* Add more user details as needed */}
         </div>
       )}
-    </>
+    </div>
   );
 };
 

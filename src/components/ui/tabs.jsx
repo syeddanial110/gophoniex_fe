@@ -12,7 +12,8 @@ function Tabs({
   return (
     <TabsPrimitive.Root
       data-slot="tabs"
-      className={cn("flex flex-col gap-2", className)}
+      orientation="vertical"
+      className={cn("flex flex-row gap-2", className)}
       {...props} />
   );
 }

@@ -5,8 +5,12 @@ import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 import { cardOptions } from "./stripeStyle";
 import { BASEURL } from "@/apis/ApiRequest";
 import { ApiEndpoints } from "@/utils/ApiEndpoints";
+import { getToken } from "@/apis/Auth";
 
 const CheckoutForm = ({ plan }) => {
+
+  const token = getToken()
+
   const stripe = useStripe();
   const elements = useElements();
   const [loading, setLoading] = useState(false);
@@ -36,7 +40,10 @@ const CheckoutForm = ({ plan }) => {
       `${BASEURL}${ApiEndpoints.order.base}${ApiEndpoints.order.placeOrder}`,
       {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
         body: JSON.stringify({ paymentMethodId: paymentMethod.id }),
       }
     );
