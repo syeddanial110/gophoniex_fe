@@ -15,21 +15,21 @@ const Profile = () => {
       <div className="profile-page w-[70%] p-6 rounded-lg ">
         <UITypography variant="h1" text="Profile Information" />
         <Tabs defaultValue="account" className="flex mt-5">
-          <TabsList className="flex flex-col items-start justify-start h-[100%] p-4 mr-6 gap-4 bg-[#f3f2f2]">
+          <TabsList className="flex flex-col items-start justify-start w-[35%] h-[100%] p-4 mr-6 gap-4 bg-[#f3f2f2]">
             <TabsTrigger
-              className="data-[state=active]:bg-main data-[state=active]:text-white bg-gray-300 w-[100%]"
+              className="data-[state=active]:bg-main data-[state=active]:text-white bg-gray-300 w-[100%] justify-start"
               value="account"
             >
               Profile
             </TabsTrigger>
             <TabsTrigger
-              className="data-[state=active]:bg-main data-[state=active]:text-white bg-gray-300 w-[100%]"
+              className="data-[state=active]:bg-main data-[state=active]:text-white bg-gray-300 w-[100%] justify-start"
               value="password"
             >
               Change Password
             </TabsTrigger>
             <TabsTrigger
-              className="data-[state=active]:bg-main data-[state=active]:text-white bg-gray-300 w-[100%]"
+              className="data-[state=active]:bg-main data-[state=active]:text-white bg-gray-300 w-[100%] justify-start"
               value="orders"
             >
               Orders

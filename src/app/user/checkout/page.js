@@ -32,9 +32,14 @@ const Checkout = () => {
                   productCheckout?.data?.checkoutData?.productOptionSelected
                     ?.length > 0 &&
                   productCheckout?.data?.checkoutData?.productOptionSelected?.map(
-                    (item) => {
+                    (item, i) => {
                       return (
                         <>
+                          <UITypography
+                            variant="h6"
+                            text={`Child ${i + 1}:`}
+                            className="underline"
+                          />
                           <UITypography
                             variant="p"
                             className="!text-[18px]"
@@ -59,6 +64,7 @@ const Checkout = () => {
           </div>
           <div className="w-[40%] p-8 rounded-lg">
             <h1 className="text-2xl font-bold mb-6">Checkout</h1>
+
             <CheckoutForm plan="basic-monthly" />
           </div>
         </div>

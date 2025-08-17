@@ -1,5 +1,5 @@
-// export const WEB_URL = "http://localhost:3000";
-export const WEB_URL = "https://gophoniex-fe.vercel.app";
+export const WEB_URL = "http://localhost:3000";
+// export const WEB_URL = "https://gophoniex-fe.vercel.app";
 
 export const pathLocations = {
   home: "/user/home",
@@ -23,6 +23,7 @@ export const pathLocations = {
   program: "/user/categories/program",
   content: "/content",
   checkout: "/user/checkout",
+  orders: "/user/orders"
 };
 
 export const Navigation_Menu = [

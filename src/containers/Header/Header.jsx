@@ -1,5 +1,5 @@
 import React from "react";
-import { Search, User, ShoppingBag } from "lucide-react";
+import { Search, User, ShoppingBag, History, LogOut } from "lucide-react";
 import DesktopNavigationMenu from "./NavigationMenu/NavigationMenu";
 import Image from "next/image";
 import logo from "../../assets/Images/logo.webp";
@@ -14,10 +14,11 @@ import {
 import UISearchInput from "@/components/InputField/UISearchInput";
 import { getToken } from "@/apis/Auth";
 import UserIcon from "./UserIcon";
+import UIPopover from "@/components/UIPopover/UIPopover";
+import UITypography from "@/components/UITypography/UITypography";
+import PopoverData from "./PopoverData";
 
 const Header = () => {
-  const token = "";
-  // console.log('token', token)
   return (
     <>
       <div className="sm:block hidden">
@@ -34,14 +35,11 @@ const Header = () => {
             <div>
               <UISearchInput />
             </div>
-            <UserIcon />
-            {/* {token ? (
-              <Link href={pathLocations.profile} className="flex items-center">
-                <User strokeWidth="1px" />
-              </Link>
-            ) : (
-              <Link href={pathLocations.login}>Login</Link>
-            )} */}
+            {/* <UserIcon /> */}
+            <UIPopover btnTrigger={<User />}>
+              <PopoverData />
+            </UIPopover>
+
             <Link href={pathLocations.cart}>
               <ShoppingBag strokeWidth="1px" />
             </Link>

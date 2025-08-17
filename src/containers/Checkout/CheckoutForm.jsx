@@ -6,10 +6,10 @@ import { cardOptions } from "./stripeStyle";
 import { BASEURL } from "@/apis/ApiRequest";
 import { ApiEndpoints } from "@/utils/ApiEndpoints";
 import { getToken } from "@/apis/Auth";
+import { toast } from "sonner";
 
 const CheckoutForm = ({ plan }) => {
-
-  const token = getToken()
+  const token = getToken();
 
   const stripe = useStripe();
   const elements = useElements();
@@ -50,6 +50,8 @@ const CheckoutForm = ({ plan }) => {
 
     const data = await res.json();
     if (data.success) {
+      console.log("data", data);
+      toast.success(data?.message);
       console.log("Payment successful!");
     } else {
       console.error("Payment failed:", data.error);
@@ -64,7 +66,11 @@ const CheckoutForm = ({ plan }) => {
         options={cardOptions}
         className="p-4 border rounded-md shadow-sm"
       />
-      <button type="submit" disabled={!stripe || loading}>
+      <button
+        type="submit"
+        disabled={!stripe || loading}
+        className="bg-main btn rounded-full py-3 px-6 text-white mt-4"
+      >
         {loading ? "Processing…" : `Pay for ${plan}`}
       </button>
     </form>
