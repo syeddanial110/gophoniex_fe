@@ -74,7 +74,7 @@ const Content = () => {
      {pageContent && (
         <Head>
           <title>{pageContent.metaTitle || pageContent.name}</title>
-          <meta name="description" content={pageContent.metaDescription || ""} />
+          <meta name="description" content={pageContent.metaDescription} />
         </Head>
       )}
       {pageContent !== null && pageContent?.content !== null ? (
