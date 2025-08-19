@@ -141,11 +141,12 @@ const Content = async ({ params }) => {
           />
         )}
       </header>
-
-      <div
-        className="prose prose-lg max-w-none"
-        dangerouslySetInnerHTML={{ __html: pageContent.content }}
-      />
+      {pageContent?.content !== null && (
+        <div
+          className="prose prose-lg max-w-none"
+          dangerouslySetInnerHTML={{ __html: pageContent?.content }}
+        />
+      )}
     </article>
   );
 };
