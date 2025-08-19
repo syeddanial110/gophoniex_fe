@@ -40,52 +40,113 @@
 // };
 
 // export default Content;
-"use client";
-import { apiGet } from "@/apis/ApiRequest";
-import UITypography from "@/components/UITypography/UITypography";
+// "use client"
+import { BASEURL } from "@/apis/ApiRequest";
 import { ApiEndpoints } from "@/utils/ApiEndpoints";
-import { useParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
-import Head from "next/head";
+import UITypography from "@/components/UITypography/UITypography";
+import { cookies } from "next/headers";
+import { Metadata } from "next";
+import { getToken } from "@/apis/Auth";
 
-const Content = () => {
-  const { slug } = useParams();
-  const [pageContent, setPageContent] = useState(null);
+// Metadata generation function
+export async function generateMetadata({ params: { slug } }) {
+  console.log("slug", slug);
+  const data = await getContent(slug);
+  console.log("data", data);
 
-  const getContent = () => {
-    apiGet(
-      `${ApiEndpoints.menu.base}${ApiEndpoints.menu.getBySlug}/${slug}`,
-      (res) => {
-        console.log("res///", res);
-        setPageContent(res.data);
-      },
-      (err) => {}
-    );
+  return {
+    title: data?.data?.metaTitle || data?.data?.name || "Content Page",
+    description: data?.data?.metaDescription || "",
+    openGraph: {
+      title: data?.data?.metaTitle || data?.data?.name || "Content Page",
+      description: data?.data?.metaDescription || "",
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: data?.data?.metaTitle || data?.data?.name || "Content Page",
+      description: data?.data?.metaDescription || "",
+    },
   };
+}
 
-  console.log("pageContent", pageContent);
+async function getContent(slug) {
+  const token = getToken();
 
-  useEffect(() => {
-    getContent();
-  }, []);
+  try {
+    const res = await fetch(
+      `${BASEURL}${ApiEndpoints.menu.base}${ApiEndpoints.menu.getBySlug}/${slug}`,
+      {
+        cache: "no-store",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJ0ZXN0QHRlc3QuY29tIiwiaXNBZG1pbiI6MCwiaWF0IjoxNzU1NjQwODQwLCJleHAiOjE3NTU3MjcyNDB9.nPA_IP2NeMgH8Qoq5ZKs5c8P_r_hDW7Y5hew_UXBeFI`,
+        },
+      }
+    );
+
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching content:", error);
+    return null;
+  }
+}
+
+// Loading state
+export const loading = () => {
+  return (
+    <div className="p-20">
+      <UITypography variant="p" text="Loading content..." />
+    </div>
+  );
+};
+
+// Error state
+export const error = () => {
+  return (
+    <div className="p-20">
+      <UITypography
+        variant="p"
+        text="There was an error loading the content. Please try again later."
+      />
+    </div>
+  );
+};
+
+const Content = async ({ params }) => {
+  const pageContent = await getContent(params.slug);
+
+  if (!pageContent) {
+    return (
+      <div className="p-20">
+        <UITypography variant="p" text="No Content Available Right Now" />
+      </div>
+    );
+  }
 
   return (
-    <>
-     {pageContent && (
-        <Head>
-          <title>{pageContent.metaTitle || pageContent.name}</title>
-          <meta name="description" content={pageContent.metaDescription} />
-        </Head>
-      )}
-      {pageContent !== null && pageContent?.content !== null ? (
-        <div className="p-20">
-          <UITypography variant="h1" text={pageContent.name} className='uppercase' />
-          <div dangerouslySetInnerHTML={{ __html: pageContent.content }} />
-        </div>
-      ) : (
-        <UITypography variant="p" text="No Content Available Right Now" />
-      )}
-    </>
+    <article className="p-20">
+      <header className="mb-8">
+        <UITypography
+          variant="h1"
+          text={pageContent.name}
+          className="uppercase text-3xl font-bold mb-4"
+        />
+        {pageContent.metaDescription && (
+          <UITypography
+            variant="p"
+            text={pageContent.metaDescription}
+            className="text-gray-600"
+          />
+        )}
+      </header>
+
+      <div
+        className="prose prose-lg max-w-none"
+        dangerouslySetInnerHTML={{ __html: pageContent.content }}
+      />
+    </article>
   );
 };
 
