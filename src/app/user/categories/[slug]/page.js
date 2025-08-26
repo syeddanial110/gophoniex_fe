@@ -66,7 +66,7 @@ const CollectionById = () => {
       />
       <div className="flex gap-4 px-10">
         <div className="w-[25%]">
-          <UITypography variant="h4" text={`Filter Classes`} />
+          <UITypography variant="h4" text={`Filter Collections`} />
           <div>
             <div className="flex flex-col gap-3">
               {collections?.map((item, idx) => (

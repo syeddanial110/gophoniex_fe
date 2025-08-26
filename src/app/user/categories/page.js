@@ -52,10 +52,13 @@ const Categories = () => {
 
         {/* Centered Text */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <h1 className="text-white text-6xl font-bold z-10">Categories</h1>
+          <h1 className="text-white text-6xl font-bold z-10">Programs</h1>
         </div>
       </div>
 
+      <h2 className="text-black text-4xl text-center font-[500] mt-10">
+        Explore Our Collections
+      </h2>
       <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8 px-20 py-14">
         {categoriesReducer?.res?.data.length > 0 ? (
           categoriesReducer?.res?.data?.map((card, idx) => (
@@ -63,7 +66,7 @@ const Categories = () => {
               text={card.name}
               card_img={card.image}
               // card_img={`${ImageBaseUrl}${card.image}`}
-              btnText="View Products"
+              btnText="View Classes"
               href={`${WEB_URL}${pathLocations.categories}/${card.slug}`}
             />
           ))

@@ -24,7 +24,9 @@ const Header = () => {
       <div className="sm:block hidden">
         <div className="flex justify-between items-center p-container">
           <div className="flex gap-x-4 items-center">
-            <Image src={logo} alt="logo" height={80} width="100%" />
+            <Link href={pathLocations.home}>
+              <Image src={logo} alt="logo" height={80} width="100%" />
+            </Link>
 
             <div>
               <DesktopNavigationMenu />

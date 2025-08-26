@@ -156,7 +156,7 @@ const DesktopNavigationMenu = () => {
                 <div className="flex mt-10 gap-4">
                   <Link
                     href={pathLocations.categories}
-                    className="btn py-3 px-2 underline"
+                    className="py-3 px-2 underline"
                   >
                     View More
                   </Link>
