@@ -1,5 +1,6 @@
 import { apiGet } from "@/apis/ApiRequest";
 import {
+  EditChildrenDataConstants,
   GetAllChildrenConstants,
   GetAllProductsConstants,
 } from "@/store/constants";
@@ -23,4 +24,12 @@ export const getAllChildren = () => (dispatch) => {
       toast.error(err?.message);
     }
   );
+};
+
+export const editChildrenData = (data) => (dispatch) => {
+  dispatch({ type: EditChildrenDataConstants.EDIT_CHILDREN_DATA_LOADING });
+  dispatch({
+    type: EditChildrenDataConstants.EDIT_CHILDREN_DATA_SUCCESS,
+    payload: { data },
+  });
 };

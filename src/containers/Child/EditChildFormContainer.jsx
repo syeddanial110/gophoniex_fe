@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button } from "@/components/ui/button";
@@ -9,14 +9,25 @@ import { addChildSchema } from "@/utils/schema";
 
 import { useRouter } from "next/navigation";
 import UIFileInput from "@/components/InputField/UIFileInput";
-import { apiPost } from "@/apis/ApiRequest";
+import { apiDelete, apiPost, apiPut } from "@/apis/ApiRequest";
 import { ApiEndpoints } from "@/utils/ApiEndpoints";
 import { toast } from "sonner";
 import UISelect from "@/components/InputField/UISelect";
 import { SelectItem } from "@/components/ui/select";
+import { useSelector } from "react-redux";
+import UITooltip from "@/components/UITooltip/UITooltip";
+import { TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import Image from "next/image";
+import { pathLocations } from "@/utils/navigation";
 
-const EditChildFormContainer = () => {
+const EditChildFormContainer = ({ setIsEditChild }) => {
   const router = useRouter();
+
+  const selectedChild = useSelector(
+    (state) => state?.EditChildrenDataReducer?.data
+  );
+
+  console.log("selectedChild", selectedChild);
 
   const genderArr = [
     {
@@ -34,7 +45,7 @@ const EditChildFormContainer = () => {
   ];
 
   const [childImage, setChildImage] = useState("");
-  const [gender, setGender] = useState("");
+  const [gender, setGender] = useState(selectedChild?.data.gender || "");
   const form = useForm({
     resolver: yupResolver(addChildSchema),
     defaultValues: {
@@ -49,7 +60,6 @@ const EditChildFormContainer = () => {
   };
 
   function onSubmit(data) {
-
     const dataObj = {
       name: data.name,
       age: data.age,
@@ -64,26 +74,41 @@ const EditChildFormContainer = () => {
     formData.append("allergies", data.allergies);
     formData.append("image", childImage);
 
-    // apiPost(
-    //   `${ApiEndpoints.auth.base}${ApiEndpoints.auth.register}`,
-    //   formData,
-    //   (res) => {
-    //     console.log("res", res);
-    //     toast.success(res?.message);
-    //     if (res?.success) router.push(pathLocations.login);
-    //   },
-    //   (err) => {
-    //     console.log("err", err);
-    //     toast.error(err?.message);
-    //   },
-    //   { "Content-Type": "multipart/form-data" }
-    // );
-    // router.push(pathLocations.home);
+    apiPut(
+      `${ApiEndpoints.children.base}${ApiEndpoints.children.update}/${selectedChild?.data?.id}`,
+      formData,
+      (res) => {
+        console.log("res", res);
+        toast.success(res?.message);
+        setIsEditChild(false);
+      },
+      (err) => {
+        console.log("err", err);
+        toast.error(err?.message);
+      },
+      { "Content-Type": "multipart/form-data" }
+    );
   }
+
+  
 
   const handleGenderChange = (value) => {
     setGender(value);
   };
+
+  useEffect(() => {
+    if (selectedChild?.data) {
+      form.reset({
+        name: selectedChild?.data.name || "",
+        age: selectedChild?.data.age || "",
+        allergies: selectedChild?.data.allergies || "",
+      });
+      setGender(selectedChild?.data.gender);
+      setChildImage(selectedChild?.data.image);
+    }
+  }, [selectedChild?.data]);
+
+  console.log("gender", gender);
 
   return (
     <Form {...form}>
@@ -121,6 +146,28 @@ const EditChildFormContainer = () => {
           name="childImage"
           onChange={handleFileInput}
         />
+        {childImage !== "" && childImage !== null && (
+          <UITooltip>
+            <TooltipTrigger>
+              <Image
+                src={`${childImage != null ? childImage : ""}`}
+                alt={childImage}
+                width={40}
+                height={40}
+              />
+            </TooltipTrigger>
+            <TooltipContent>
+              <div className="">
+                <Image
+                  src={`${childImage}`}
+                  alt={childImage}
+                  width={100}
+                  height={100}
+                />
+              </div>
+            </TooltipContent>
+          </UITooltip>
+        )}
         <FormField
           control={form.control}
           name="allergies"
@@ -140,6 +187,8 @@ const EditChildFormContainer = () => {
           labelName="Select Gender"
           name="gender"
           placeholder={"Male, Female, non-specific"}
+          value={gender}
+          // defaultValue={gender}
           onValueChange={handleGenderChange}
         >
           {genderArr.map((item, ind) => {

@@ -18,7 +18,7 @@ const AddChildForm = () => {
         onOpenChange={handleModalOpen}
         btnClassName="bg-main text-white px-7 py-2 rounded-2xl hover:cursor-pointer"
       >
-        <AddChildFormContainer />
+        <AddChildFormContainer setIsAddChild={setModalOpen} />
       </UIModal>
     </>
   );

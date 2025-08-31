@@ -14,6 +14,7 @@ const UISelect = ({
   placeholder,
   onValueChange,
   value,
+  defaultValue,
   children,
 }) => {
   return (
@@ -29,6 +30,7 @@ const UISelect = ({
             onValueChange={onValueChange}
             value={value}
             className="text-black"
+            defaultValue={defaultValue}
           >
             <SelectTrigger className="w-full">
               <SelectValue placeholder={placeholder} />

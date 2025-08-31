@@ -6,8 +6,8 @@ import ProfileDetails from "@/containers/Profile/ProfileDetails";
 import ChangePasswordForm from "@/containers/Profile/ChangePasswordForm";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import UITypography from "@/components/UITypography/UITypography";
-import AddChildForm from "@/components/AddChildForm/AddChildForm";
 import OrderHistory from "@/containers/Profile/OrderHistory";
+import ChildrenData from "@/containers/Child/ChildrenData";
 
 const Profile = () => {
   return (
@@ -34,6 +34,12 @@ const Profile = () => {
             >
               Orders
             </TabsTrigger>
+            <TabsTrigger
+              className="data-[state=active]:bg-main data-[state=active]:text-white bg-gray-300 w-[100%] justify-start"
+              value="children"
+            >
+              Children
+            </TabsTrigger>
           </TabsList>
           <TabsContent value="account">
             <ProfileDetails
@@ -52,6 +58,10 @@ const Profile = () => {
           <TabsContent value="orders">
             {" "}
             <OrderHistory />
+          </TabsContent>
+          <TabsContent value="children">
+            {" "}
+            <ChildrenData />
           </TabsContent>
         </Tabs>
       </div>

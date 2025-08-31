@@ -1,6 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import EditProfileForm from "./EditProfileForm";
+import UITypography from "@/components/UITypography/UITypography";
+import UIButton from "@/components/UIButton/UIButton";
 
 const ProfileDetails = ({ user }) => {
   const [isEdit, setIsEdit] = useState(false);
@@ -11,7 +13,8 @@ const ProfileDetails = ({ user }) => {
           <EditProfileForm />
         </div>
       ) : (
-        <div className="profile-details">
+        <div className="flex flex-col gap-2 profile-details">
+          <UITypography variant="h3" text="Personal Information" />
           <p>
             <strong>Name:</strong> {user?.name}
           </p>
@@ -24,6 +27,14 @@ const ProfileDetails = ({ user }) => {
           <p>
             <strong>Address:</strong> {user?.address}
           </p>
+          <div>
+            <UIButton
+              type="contained"
+              icon={false}
+              title="Edit Profile"
+              btnOnclick={() => setIsEdit(true)}
+            />
+          </div>
           {/* Add more user details as needed */}
         </div>
       )}

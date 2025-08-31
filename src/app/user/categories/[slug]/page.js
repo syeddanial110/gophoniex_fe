@@ -15,31 +15,66 @@ const CollectionById = () => {
   const [productByCategory, setProductByCategory] = useState([]);
   const [loading, setLoading] = useState(true);
   const [collections, setCollections] = useState([]);
+  const [selectedCategories, setSelectedCategories] = useState([]);
 
   const categoriesData = useSelector(
     (state) => state?.GetAllCategoriesReducer?.res
   );
 
-  useEffect(() => {
-    const fetchProducts = () => {
-      setLoading(true);
-      apiGet(
-        `${ApiEndpoints.products.base}${ApiEndpoints.products.getProductByQuery}?categorySlug=${slug}&page=1`,
-        (res) => {
-          if (res?.success) {
-            console.log("res----------", res);
-            setProductByCategory(res?.data?.data);
-          }
-          setLoading(false);
-        },
-        (err) => {
-          console.error("Error fetching products:", err);
-          setLoading(false);
-        }
-      );
-    };
+  const handleFilterClasses = (item) => {
+    setSelectedCategories((prev) => {
+      const newSelected = prev.includes(item.id)
+        ? prev.filter((id) => id !== item.id) // Remove if already selected
+        : [...prev, item.id]; // Add if not selected
 
+      // Make API call with updated selections
+      fetchFilteredProducts(newSelected);
+      return newSelected;
+    });
+  };
+
+  const fetchFilteredProducts = (selectedIds) => {
+    setLoading(true);
+    const ids = selectedIds.length > 0 ? selectedIds.join(",") : "";
+
+    console.log("ids", ids);
+
+    apiGet(
+      `${ApiEndpoints.products.base}${ApiEndpoints.products.getProductByCategory}?ids=${ids}`,
+      (res) => {
+        if (res?.success) {
+          console.log('res', res)
+          setProductByCategory(res?.products);
+        }
+        setLoading(false);
+      },
+      (err) => {
+        console.error("Error fetching filtered products:", err);
+        setLoading(false);
+      }
+    );
+  };
+
+  const fetchProducts = () => {
+    setLoading(true);
+    apiGet(
+      `${ApiEndpoints.products.base}${ApiEndpoints.products.getProductByQuery}?categorySlug=${slug}&page=1`,
+      (res) => {
+        if (res?.success) {
+          setProductByCategory(res?.data?.data);
+        }
+        setLoading(false);
+      },
+      (err) => {
+        console.error("Error fetching products:", err);
+        setLoading(false);
+      }
+    );
+  };
+
+  useEffect(() => {
     if (slug) {
+      console.log('runnnnnn--')
       fetchProducts();
     }
   }, [slug]);
@@ -50,11 +85,11 @@ const CollectionById = () => {
     }
   }, [categoriesData]);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  // if (loading) {
+  //   return <div>Loading...</div>;
+  // }
 
-  console.log("categoriesData", categoriesData);
+  console.log("productByCategory", productByCategory);
   console.log("collections", collections);
 
   return (
@@ -73,8 +108,10 @@ const CollectionById = () => {
                 <UICheckbox
                   key={idx}
                   label={item.name}
+                  onChange={() => handleFilterClasses(item)}
                   checkboxId={`${item.id}`}
                   labelId={`${item.id}`}
+                  checked={selectedCategories.includes(item.id)}
                 />
               ))}
             </div>

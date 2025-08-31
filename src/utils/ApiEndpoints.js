@@ -30,6 +30,7 @@ export const ApiEndpoints = {
     getAll: "/getAllProduct",
     getById: "/getProductById",
     getProductByQuery: "/getProductcatSubcatSlug",
+    getProductByCategory: "/getProductByCategory"
   },
   pages: {
     base: "/pages",

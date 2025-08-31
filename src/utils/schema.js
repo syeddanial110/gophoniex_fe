@@ -36,3 +36,10 @@ export const addChildSchema = yup.object({
   allergies: yup.string().required("Allergies is required"),
   age: yup.string().required("Age is required"),
 });
+export const changePasswordSchema = yup.object({
+  password: yup.string().required("Password is required"),
+  confirmPassword: yup
+    .string()
+    .oneOf([yup.ref('password'), null], 'Passwords must match')
+    .required("Confirm Password is required"),
+});

@@ -13,31 +13,34 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { loginSchema } from "@/utils/schema";
+import { changePasswordSchema, loginSchema } from "@/utils/schema";
 import UIButton from "@/components/UIButton/UIButton";
+import UITypography from "@/components/UITypography/UITypography";
 
 const ChangePasswordForm = () => {
   const form = useForm({
-    resolver: yupResolver(loginSchema),
+    resolver: yupResolver(changePasswordSchema),
     defaultValues: {
-      email: "",
-      password: "", // Add this if your schema requires it
+      password: "",
+      confirmPassword: "",
     },
   });
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
 
   const handleChangePassword = (e) => {
     e.preventDefault();
-    if (newPassword !== confirmPassword) {
-      setError("New password and confirm password do not match.");
-      return;
-    }
+    // if (form.getValues("password") !== form.getValues("confirmPassword")) {
+    //   form.setError("confirmPassword", {
+    //     type: "manual",
+    //     message: "New password and confirm password do not match.",
+    //   });
+    //   return;
+    // }
     // Add logic to handle password change
   };
 
   return (
     <div className="min-h-[80vh] p-4">
+      <UITypography variant="h5" text="Change Password" className="mb-4" />
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(handleChangePassword)}
@@ -45,20 +48,30 @@ const ChangePasswordForm = () => {
         >
           <FormField
             control={form.control}
-            name="email" // Changed from username to email to match defaultValues
+            name="password" // Changed from username to email to match defaultValues
             render={({ field }) => (
               <FormItem>
-                <UITextField field={field} />
+                <UITextField
+                  field={field}
+                  formLabel="New Password"
+                  type='password'
+                  isForm={true}
+                />
                 <FormMessage />
               </FormItem>
             )}
           />
           <FormField
             control={form.control}
-            name="password"
+            name="confirmPassword"
             render={({ field }) => (
               <FormItem>
-                <UITextField type="password" field={field} />
+                <UITextField
+                  type="password"
+                  field={field}
+                  isForm={true}
+                  formLabel="Confirm Password"
+                />
                 <FormMessage />
               </FormItem>
             )}
