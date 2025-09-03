@@ -7,9 +7,12 @@ import { BASEURL } from "@/apis/ApiRequest";
 import { ApiEndpoints } from "@/utils/ApiEndpoints";
 import { getToken } from "@/apis/Auth";
 import { toast } from "sonner";
+import { pathLocations } from "@/utils/navigation";
+import { useRouter } from "next/navigation";
 
 const CheckoutForm = ({ plan }) => {
   const token = getToken();
+  const router = useRouter();
 
   const stripe = useStripe();
   const elements = useElements();
@@ -52,6 +55,7 @@ const CheckoutForm = ({ plan }) => {
     toast.success(data?.message);
     if (data.success) {
       console.log("data", data);
+      router.push(pathLocations.orders);
       console.log("Payment successful!");
     } else {
       console.error("Payment failed:", data.error);
