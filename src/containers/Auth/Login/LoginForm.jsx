@@ -48,10 +48,10 @@ const LoginForm = () => {
       `${ApiEndpoints.auth.base}${ApiEndpoints.auth.login}`,
       dataObj,
       (res) => {
+        toast.success(res?.message);
         if (res?.success) {
           disptach(signin({ data: res?.data }));
           router.push(pathLocations.home);
-          toast.success(res?.message);
           setToken(res?.data?.token);
         }
       },
