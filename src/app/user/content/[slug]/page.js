@@ -80,7 +80,6 @@ async function getContent(slug) {
         cache: "no-store",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJ0ZXN0QHRlc3QuY29tIiwiaXNBZG1pbiI6MCwiaWF0IjoxNzU1NjQwODQwLCJleHAiOjE3NTU3MjcyNDB9.nPA_IP2NeMgH8Qoq5ZKs5c8P_r_hDW7Y5hew_UXBeFI`,
         },
       }
     );
@@ -115,7 +114,7 @@ export const error = () => {
 };
 
 const Content = async ({ params }) => {
-  const pageContent = await getContent(params.slug);
+  const pageContent = await getContent(params?.slug);
 
   if (!pageContent) {
     return (
@@ -125,26 +124,28 @@ const Content = async ({ params }) => {
     );
   }
 
+  console.log("pageContent", pageContent);
+
   return (
     <article className="p-20">
       <header className="mb-8">
         <UITypography
           variant="h1"
-          text={pageContent.name}
+          text={pageContent?.name}
           className="uppercase text-3xl font-bold mb-4"
         />
         {pageContent.metaDescription && (
           <UITypography
             variant="p"
-            text={pageContent.metaDescription}
+            text={pageContent?.metaDescription}
             className="text-gray-600"
           />
         )}
       </header>
-      {pageContent?.content !== null && (
+      {pageContent?.data?.content && (
         <div
           className="prose prose-lg max-w-none"
-          dangerouslySetInnerHTML={{ __html: pageContent?.content }}
+          dangerouslySetInnerHTML={{ __html: pageContent.data.content }}
         />
       )}
     </article>
