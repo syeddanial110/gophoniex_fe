@@ -49,9 +49,9 @@ const CheckoutForm = ({ plan }) => {
     );
 
     const data = await res.json();
+    toast.success(data?.message);
     if (data.success) {
       console.log("data", data);
-      toast.success(data?.message);
       console.log("Payment successful!");
     } else {
       console.error("Payment failed:", data.error);
