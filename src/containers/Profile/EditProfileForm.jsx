@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button } from "@/components/ui/button";
@@ -11,43 +11,56 @@ import { apiPut } from "@/apis/ApiRequest";
 import { ApiEndpoints } from "@/utils/ApiEndpoints";
 import * as yup from "yup";
 import { useSelector } from "react-redux";
+import UIFileInput from "@/components/InputField/UIFileInput";
 
 // Create validation schema for profile editing
 const editProfileSchema = yup.object({
-  name: yup.string().required("Name is required"),
-  email: yup.string().email("Invalid email").required("Email is required"),
-  phone: yup.string().nullable(),
-  address: yup.string().nullable(),
+  firstName: yup.string().required("First Name is required"),
+  lastName: yup.string().required("Last Name is required"),
+  email: yup.string().email("Invalid email"),
 });
 
-const EditProfileForm = ({ initialData }) => {
-  const userData = useSelector((state) => state?.SignInReducer);
+const EditProfileForm = ({ userData, setIsEdit, fetchUserProfile }) => {
   console.log("userData", userData);
+
+  const [profileImage, setProfileImage] = useState("");
+
   const form = useForm({
     resolver: yupResolver(editProfileSchema),
     defaultValues: {
-      name: initialData?.name || "",
-      email: initialData?.email || "",
-      phone: initialData?.phone || "",
-      address: initialData?.address || "",
+      firstName: userData?.firstName || "",
+      lastName: userData?.lastName || "",
+      email: userData?.email || "",
     },
   });
 
+  const handleFileInput = (e) => {
+    setProfileImage(e.target.files[0]);
+  };
+
   const onSubmit = async (data, e) => {
     e.preventDefault();
+    const formData = new FormData();
+
+    formData.append("firstName", data.firstName);
+    formData.append("lastName", data.lastName);
+    formData.append("image", profileImage);
 
     apiPut(
-      `${ApiEndpoints.user.base}${ApiEndpoints.user.update}`,
-      data,
+      `${ApiEndpoints.auth.base}${ApiEndpoints.auth.update}`,
+      formData,
       (res) => {
         if (res?.success) {
           toast.success("Profile updated successfully");
+          fetchUserProfile();
+          setIsEdit(false);
         }
       },
       (err) => {
         toast.error(err?.message || "Failed to update profile");
         console.error("Error updating profile:", err);
-      }
+      },
+      { "Content-Type": "multipart/form-data" }
     );
   };
 
@@ -56,13 +69,28 @@ const EditProfileForm = ({ initialData }) => {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <FormField
           control={form.control}
-          name="name"
+          name="firstName"
           render={({ field }) => (
             <FormItem>
               <UITextField
-                label="Full Name"
-                formLabel="Enter Your Full Name"
-                placeholder="Enter your full name"
+                label="First Name"
+                formLabel="Enter Your First Name"
+                placeholder="Enter your first name"
+                field={field}
+              />
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="lastName"
+          render={({ field }) => (
+            <FormItem>
+              <UITextField
+                label="Last Name"
+                formLabel="Enter Your Last Name"
+                placeholder="Enter your last name"
                 field={field}
               />
               <FormMessage />
@@ -87,36 +115,10 @@ const EditProfileForm = ({ initialData }) => {
           )}
         />
 
-        <FormField
-          control={form.control}
-          name="phone"
-          render={({ field }) => (
-            <FormItem>
-              <UITextField
-                formLabel={"Phone Number"}
-                label="Phone Number"
-                placeholder="Enter your phone number"
-                field={field}
-              />
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="address"
-          render={({ field }) => (
-            <FormItem>
-              <UITextField
-                label="Address"
-                formLabel={"Enter Your Address"}
-                placeholder="Enter your address"
-                field={field}
-              />
-              <FormMessage />
-            </FormItem>
-          )}
+        <UIFileInput
+          labelName="Profile Picture"
+          name="profileImage"
+          onChange={handleFileInput}
         />
 
         <Button type="submit" className="w-full bg-main hover:bg-main/90">
