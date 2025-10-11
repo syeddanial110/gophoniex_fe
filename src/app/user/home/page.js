@@ -20,7 +20,7 @@ export default function Home() {
       <BannerCarousel />
       <ClientStats />
       <AboutSection />
-      <SectionAnimation />
+      {/* <SectionAnimation /> */}
       <CallToAction />
       <VideoSection />
     </div>

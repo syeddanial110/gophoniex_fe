@@ -130,23 +130,23 @@ const ProductDetail = () => {
     );
 
 
-    // apiPost(
-    //   `${ApiEndpoints.addToCart.base}${ApiEndpoints.addToCart.create}`,
-    //   {
-    //     children: children,
-    //     productId: dataObj.checkoutData.selectedProductDetail.productId,
-    //     paymentType: dataObj.checkoutData.selectedProductDetail.paymentType,
-    //   },
-    //   (res) => {
-    //     console.log("res", res);
-    //     toast.success(res?.message);
-    //     router.push(pathLocations.checkout);
-    //     dispatch(selectProductCheckout(dataObj));
-    //   },
-    //   (err) => {
-    //     console.log("err", err);
-    //   }
-    // );
+    apiPost(
+      `${ApiEndpoints.addToCart.base}${ApiEndpoints.addToCart.create}`,
+      {
+        children: children,
+        productId: dataObj.checkoutData.selectedProductDetail.productId,
+        paymentType: dataObj.checkoutData.selectedProductDetail.paymentType,
+      },
+      (res) => {
+        console.log("res", res);
+        toast.success(res?.message);
+        router.push(pathLocations.checkout);
+        dispatch(selectProductCheckout(dataObj));
+      },
+      (err) => {
+        console.log("err", err);
+      }
+    );
 
     console.log("children", children);
     console.log("dataObj", dataObj);

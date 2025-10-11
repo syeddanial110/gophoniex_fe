@@ -9,7 +9,8 @@ const ProductsCard = ({
   btnText,
   title = "Lorem Ipsum",
   description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,",
-  handleAddToCart
+  handleAddToCart,
+  btnOnclick,
 }) => {
   return (
     <div className="bg-white rounded-xl drop-shadow-[0_15px_15px_rgba(0,0,0,0.15)] p-4 relative">
@@ -24,7 +25,9 @@ const ProductsCard = ({
           src={image}
           alt="Play Pass"
           //   className="object-cover"
-          style={{ height: "auto", width: "100%" }}
+          style={{ height: "400px", width: "100%", objectFit: "cover" }}
+          width={300}
+          height={500}
           sizes="(max-width: 768px) 100vw, 600px"
         />
       </div>
@@ -36,10 +39,15 @@ const ProductsCard = ({
             Phoenix Sports
           </span>
         </div>
-        <UIButton type="contained" title={btnText} icon={false} />
+        <UIButton
+          type="contained"
+          title={btnText}
+          icon={false}
+          btnOnclick={btnOnclick}
+        />
       </div>
       <div className="mt-4">
-        <div className="font-bold text-xl mb-1">{title}</div>
+        <div dangerouslySetInnerHTML={{ __html: title }} />
         <div className="text-gray-500 text-sm">{description}</div>
       </div>
     </div>

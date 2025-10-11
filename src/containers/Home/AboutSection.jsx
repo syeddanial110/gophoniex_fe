@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import aboutImg from "../../assets/Images/scroll1.png";
 import AboutSectionCard from "./ProductsCards";
@@ -9,6 +9,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "@/store/actions/products";
 import { apiGet, apiPost } from "@/apis/ApiRequest";
 import { ApiEndpoints } from "@/utils/ApiEndpoints";
+import { useRouter } from "next/navigation";
+import { pathLocations } from "@/utils/navigation";
 
 const aboutCards = [
   {
@@ -51,9 +53,12 @@ const aboutCards = [
 
 const AboutSection = () => {
   const dispatch = useDispatch();
+  const router = useRouter();
   const productReducer = useSelector(
     (state) => state?.GetAllProductsReducer?.res
   );
+
+  const [latestClasses, setLatestClasses] = useState([]);
 
   const handleAddToCart = (id, paymentType, price) => {
     const dataObj = {
@@ -78,39 +83,40 @@ const AboutSection = () => {
       `${ApiEndpoints.homePageContent.get}`,
       (res) => {
         console.log("res", res);
+        setLatestClasses(res?.data?.latestProducts);
       },
       (err) => {
-        console.log('err', err)
+        console.log("err", err);
       }
     );
   }, []);
 
+  console.log("latestClasses", latestClasses);
+
   return (
     <section className="w-[70%] mx-auto py-8">
       <div className="flex flex-col items-center">
-        <UITypography variant="h2" text="About Phoenix Sports" />
-        <UITypography
-          text={`Lorem Ipsum is simply dummy text of the printing and typesetting
-        industry. Lorem Ipsum has been the industry's standard dummy text ever
-        since the 1500s.`}
-          className="text-center text-gray-500 mb-8 w-[60%]"
-        />
+        <UITypography variant="h2" text={"Latest Classes"} />
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-8">
-        {productReducer?.res?.data?.data.map((card, idx) => (
-          <AboutSectionCard
-            key={idx}
-            image={aboutImg}
-            logo={logo}
-            description={card.desc}
-            btnText={"Get it now"}
-            title={card.title}
-            handleAddToCart={() =>
-              handleAddToCart(card.id, card.paymentType, card.price)
-            }
-          />
-        ))}
+        {latestClasses?.length > 0 &&
+          latestClasses?.map((card, idx) => (
+            <AboutSectionCard
+              key={idx}
+              image={card.image}
+              logo={logo}
+              description={card.shortDesc}
+              btnText={"View More"}
+              title={card.cardName}
+              btnOnclick={() => {
+                router.push(`${pathLocations.program}/${card.id}`);
+              }}
+              handleAddToCart={() =>
+                handleAddToCart(card.id, card.paymentType, card.price)
+              }
+            />
+          ))}
         {/* <div className="flex flex-col gap-8">
         </div>
         <div className="flex flex-col gap-8 mt-24">

@@ -19,7 +19,7 @@ import { getAllChildren } from "@/store/actions/children";
 
 const AddChildFormContainer = ({ setIsAddChild }) => {
   const router = useRouter();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const genderArr = [
     {
@@ -52,6 +52,9 @@ const AddChildFormContainer = ({ setIsAddChild }) => {
   };
 
   function onSubmit(data) {
+    if (!childImage) {
+      toast.error("Image is required");
+    }
     // Fixed typo in function name
     const dataObj = {
       name: data.name,
@@ -91,7 +94,6 @@ const AddChildFormContainer = ({ setIsAddChild }) => {
   const handleGenderChange = (value) => {
     setGender(value);
   };
-
 
   return (
     <Form {...form}>
