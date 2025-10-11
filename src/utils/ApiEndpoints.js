@@ -4,7 +4,8 @@ export const ApiEndpoints = {
     login: "/login",
     register: "/register",
     update: "/update",
-    getUserByToken: "/getAuthenticatedUser"
+    getUserByToken: "/getAuthenticatedUser",
+    hearUs: "/hearUs/get",
   },
   children: {
     base: "/children",
@@ -31,7 +32,7 @@ export const ApiEndpoints = {
     getAll: "/getAllProduct",
     getById: "/getProductById",
     getProductByQuery: "/getProductcatSubcatSlug",
-    getProductByCategory: "/getProductByCategory"
+    getProductByCategory: "/getProductByCategory",
   },
   pages: {
     base: "/pages",
@@ -53,10 +54,17 @@ export const ApiEndpoints = {
   order: {
     base: "/order",
     placeOrder: "/place",
-    showOrder: "/list",
+    getAllOrders: "/list",
     cancelRecurringPayment: "/cancel-subscription",
     orderDetail: "/getbyid",
     getAllPayments: "/all/payments",
     getOrderPayment: "/single/payment",
+  },
+  blogs: {
+    base: "/blogs",
+    get: "/get",
+  },
+  homePageContent: {
+    get: "/homePage/get",
   },
 };

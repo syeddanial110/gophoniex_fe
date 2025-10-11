@@ -36,26 +36,19 @@ const DesktopNavigationMenu = () => {
   const categoriesData = useSelector(
     (state) => state?.GetAllCategoriesReducer?.res
   );
-  const subCategoriesData = useSelector(
-    (state) => state?.GetAllSubCategoriesReducer?.res
-  );
 
   useEffect(() => {
     dispatch(getAllCategories());
-    dispatch(getAllSubCategories());
+    // dispatch(getAllSubCategories());
   }, []);
 
   useEffect(() => {
-    if (categoriesData?.res?.data && subCategoriesData?.res?.data) {
+    if (categoriesData?.res?.data) {
       // Take only first 6 categories
       const limitedCategories = categoriesData.res.data.slice(0, 6);
 
       const organizedData = limitedCategories.map((category) => {
         // Find all subcategories for this category
-        const categorySubcategories = subCategoriesData.res.data
-          .filter((subCategory) => subCategory.categoryId === category.id)
-          // Limit to 10 subcategories per category
-          .slice(0, 10);
 
         // Transform to required format
         return {
@@ -63,17 +56,13 @@ const DesktopNavigationMenu = () => {
           categoryName: category.name,
           categoryUrl: category.slug,
           image: category.image,
-          subCategories: categorySubcategories.map((sub) => ({
-            subCategoryId: sub.id,
-            subCategoryName: sub.name,
-            subCategoryUrl: sub.slug,
-          })),
         };
       });
 
       setNavigationMenu(organizedData);
     }
-  }, [categoriesData?.res?.data, subCategoriesData?.res?.data]);
+  }, [categoriesData?.res?.data]);
+
 
   return (
     <div className="flex justify-center">
@@ -170,7 +159,7 @@ const DesktopNavigationMenu = () => {
         <NavigationMenuList>
           <NavigationMenuItem>
             <Link
-              href={pathLocations.about}
+              href={pathLocations.blogs}
               className={`${cn(navigationMenuTriggerStyle())} font-normal ${
                 pathname == "/"
                   ? "bg-main text-white hover:bg-dark hover:text-white"

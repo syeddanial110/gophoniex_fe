@@ -12,6 +12,7 @@ const AddOrSelectChild = ({
   selectedIndex,
   setChildDetail,
   setProductOptionSelected,
+  value,
 }) => {
   const dispatch = useDispatch();
 
@@ -37,7 +38,7 @@ const AddOrSelectChild = ({
         ...updated[selectedIndex],
         childId: selectedChild?.id || "",
         childName: selectedChild?.name || "",
-        productOptionName: updated[selectedIndex].productOptionName,
+        // productOptionName: updated[selectedIndex].productOptionName,
         price: updated[selectedIndex].price,
         paymentType: updated[selectedIndex].paymentType,
         intervalCount: updated[selectedIndex].intervalCount,
@@ -61,6 +62,7 @@ const AddOrSelectChild = ({
             isLabel={true}
             labelName="Select Child"
             onValueChange={handleChangeChild}
+            value={value}
             // value={productDataReducer?.res?.id || ""}
           >
             {allChildrenReducer?.res?.data?.length > 0 ? (

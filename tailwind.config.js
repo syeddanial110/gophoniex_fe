@@ -14,5 +14,5 @@ module.exports = {
   safelist: [
     'bg-main', // Add this to ensure the class is not purged
   ],
-  plugins: [],
+  plugins: [require('@tailwindcss/typography')],
 };

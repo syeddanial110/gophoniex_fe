@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { Calendar, Clock, AlertCircle } from 'lucide-react';
 import UIButton from '@/components/UIButton/UIButton';
 import UITypography from '@/components/UITypography/UITypography';
+import { apiGet } from '@/apis/ApiRequest';
+import { ApiEndpoints } from '@/utils/ApiEndpoints';
 
 const Orders = () => {
   const [orders, setOrders] = useState([
@@ -26,6 +28,22 @@ const Orders = () => {
     // Implement your cancellation logic here
     console.log("Cancelling order:", orderId);
   };
+
+   const getAllOrders = () => {
+      apiGet(
+        `${ApiEndpoints.order.base}${ApiEndpoints.order.getAllOrders}`,
+        (res) => {
+          console.log("res", res);
+        },
+        (err) => {
+          console.log("err", err);
+        }
+      );
+    };
+  
+    useEffect(() => {
+      getAllOrders();
+    }, []);
 
   return (
     <div className="min-h-screen bg-gray-50 p-8">

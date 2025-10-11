@@ -13,6 +13,10 @@ import { productData, selectProductCheckout } from "@/store/actions/products";
 import { apiPost } from "@/apis/ApiRequest";
 import { ApiEndpoints } from "@/utils/ApiEndpoints";
 import { toast } from "sonner";
+import Link from "next/link";
+import { formatDate, formatTime } from "@/utils/utils";
+import { MultiSelect } from "@/components/InputField/UIMultipleSelect";
+import { X } from "lucide-react";
 
 const ProductDetail = () => {
   const router = useRouter();
@@ -30,13 +34,13 @@ const ProductDetail = () => {
   });
   const [productOptionSelected, setProductOptionSelected] = useState([
     {
-      productOptionName: "",
       price: "",
       paymentType: "",
       intervalCount: "",
       paymentInterval: "",
       childId: "",
       childName: "",
+      selectedOptions: [], // Initialize selectedOptions as an empty array
     },
   ]);
 
@@ -51,13 +55,13 @@ const ProductDetail = () => {
     setProductOptionSelected((prev) => [
       ...prev,
       {
-        productOptionName: "",
         price: "",
         paymentType: "",
         intervalCount: "",
         paymentInterval: "",
         childId: "",
         childName: "",
+        selectedOptions: [], // Initialize selectedOptions for new items
       },
     ]);
     setQuantity(quantity + 1);
@@ -67,22 +71,41 @@ const ProductDetail = () => {
     if (quantity > 1) setQuantity(quantity - 1);
   };
 
-  const handleChangeProductOption = (value, childIndex) => {
-    const filteredProductOption = productDataReducer?.res?.productOptions?.find(
-      (elm) => elm.id === value
+  const handleChangeProductOption = (values, childIndex) => {
+    // 'values' is now an array of selected product option IDs
+    const selectedOptions = productDataReducer?.res?.productOptions?.filter(
+      (option) => values.includes(option.id)
     );
 
-    // Update the correct index in childDetail
     setProductOptionSelected((prev) => {
       const updated = [...prev];
       updated[childIndex] = {
         ...updated[childIndex],
-        productId: filteredProductOption?.id || "",
-        productOptionName: filteredProductOption?.title || "",
-        price: filteredProductOption?.price || "",
-        paymentType: filteredProductOption?.paymentType || "",
-        intervalCount: filteredProductOption?.intervalCount || "",
-        paymentInterval: filteredProductOption?.paymentInterval,
+        price: selectedOptions.reduce(
+          (sum, option) => sum + parseFloat(option.price || 0),
+          0
+        ), // Sum
+        selectedOptions: selectedOptions.map((option) => ({
+          id: option?.id || "", // product option id
+          productId: option?.productId || "",
+          productOptionName: option?.title || "",
+          price: option?.price || "",
+          paymentType: option?.paymentType || "",
+          intervalCount: option?.intervalCount || "",
+          paymentInterval: option?.paymentInterval,
+        })),
+      };
+      return updated;
+    });
+  };
+
+  const handleRemoveChild = (index) => {
+     setProductOptionSelected((prev) => {
+      const updated = [...prev];
+      updated[index] = {
+        ...updated[index],
+        childId: "",
+        childName: "",
       };
       return updated;
     });
@@ -98,44 +121,41 @@ const ProductDetail = () => {
     const children = dataObj.checkoutData.productOptionSelected.map(
       (option) => ({
         childId: option.childId,
-        options: [
-          {
-            id: option.productId,
-            price: parseFloat(option.price),
-            // currency: "USD" // Uncomment if needed
-          },
-        ],
+        options: option.selectedOptions.map((selectedOption) => ({
+          id: selectedOption.id,
+          price: parseFloat(selectedOption.price),
+          // currency: "USD" // Uncomment if needed
+        })),
       })
     );
 
-    apiPost(
-      `${ApiEndpoints.addToCart.base}${ApiEndpoints.addToCart.create}`,
-      {
-        children: children,
-        productId: dataObj.checkoutData.selectedProductDetail.productId,
-        paymentType: dataObj.checkoutData.selectedProductDetail.paymentType,
-      },
-      (res) => {
-        console.log("res", res);
-        toast.success(res?.message);
-      },
-      (err) => {
-        console.log("err", err);
-      }
-    );
+
+    // apiPost(
+    //   `${ApiEndpoints.addToCart.base}${ApiEndpoints.addToCart.create}`,
+    //   {
+    //     children: children,
+    //     productId: dataObj.checkoutData.selectedProductDetail.productId,
+    //     paymentType: dataObj.checkoutData.selectedProductDetail.paymentType,
+    //   },
+    //   (res) => {
+    //     console.log("res", res);
+    //     toast.success(res?.message);
+    //     router.push(pathLocations.checkout);
+    //     dispatch(selectProductCheckout(dataObj));
+    //   },
+    //   (err) => {
+    //     console.log("err", err);
+    //   }
+    // );
 
     console.log("children", children);
     console.log("dataObj", dataObj);
-    dispatch(selectProductCheckout(dataObj));
-    router.push(pathLocations.checkout);
   };
 
   useEffect(() => {
     setProductOptionSelected((prev) => {
-      // Update all objects in the array with new product info
       return prev.map((item) => ({
         ...item,
-        productOptionName: productDataReducer?.res?.productName,
         price: productDataReducer?.res?.price,
         paymentType: productDataReducer?.res?.paymentType || "",
         intervalCount: productDataReducer?.res?.intervalCount || "",
@@ -158,14 +178,11 @@ const ProductDetail = () => {
 
   console.log("productDataReducer", productDataReducer);
   console.log("modalCountArr", modalCountArr);
+  console.log("selectedProductDetail", selectedProductDetail);
 
   return (
     <>
       <div className="flex flex-col gap-3">
-        {/* <UITypography
-          variant="h3"
-          text={productDataReducer?.res?.productName}
-        /> */}
         <div
           dangerouslySetInnerHTML={{
             __html: productDataReducer?.res?.productName,
@@ -180,27 +197,26 @@ const ProductDetail = () => {
               <div className="flex flex-col gap-4 mt-4" key={index}>
                 <hr />
                 <div className="w-[60%]">
-                  <UISelect
-                    isLabel={true}
-                    labelName={`Drop Menu: Choose Your Pass Child ${index + 1}`}
-                    onValueChange={(value) =>
-                      handleChangeProductOption(value, index)
+                  <MultiSelect
+                    options={
+                      productDataReducer?.res?.productOptions?.length > 0
+                        ? productDataReducer?.res?.productOptions.map(
+                            (option) => ({
+                              value: option.id,
+                              label: `${option.title} - ${option.price}`,
+                            })
+                          )
+                        : []
                     }
-                  >
-                    {productDataReducer?.res?.productOptions?.length > 0 ? (
-                      productDataReducer?.res?.productOptions?.map(
-                        (item, i) => {
-                          return (
-                            <SelectItem key={i} value={item?.id}>
-                              {item?.title} - {item.price}
-                            </SelectItem>
-                          );
-                        }
-                      )
-                    ) : (
-                      <SelectItem value="default">Default Option</SelectItem>
-                    )}
-                  </UISelect>
+                    selected={
+                      productOptionSelected[index]?.selectedOptions?.map(
+                        (option) => option.id
+                      ) || []
+                    }
+                    onChange={(values) =>
+                      handleChangeProductOption(values, index)
+                    }
+                  />
                 </div>
                 <div className="flex flex-col gap-3 mb-4 justify-start items-start">
                   <UIModal
@@ -215,15 +231,20 @@ const ProductDetail = () => {
                       childIndex={index}
                       selectedIndex={selectedIndex}
                       setProductOptionSelected={setProductOptionSelected}
+                      value={productOptionSelected[index]?.childId || ""}
+                      // defaultValue={productOptionSelected[index]?.childName || ""}
                     />
                   </UIModal>
                   {productOptionSelected[index]?.childName && (
-                    <UITypography
-                      variant="h6"
-                      text={`Child ${index + 1} Name: ${
-                        productOptionSelected[index].childName
-                      }`}
-                    />
+                    <div className="flex gap-3 ">
+                      <UITypography
+                        variant="h6"
+                        text={`Child ${index + 1} Name: ${
+                          productOptionSelected[index].childName
+                        }`}
+                      />
+                      <X className="cursor-pointer" onClick={() => handleRemoveChild(index)} />
+                    </div>
                   )}
                 </div>
               </div>
@@ -244,10 +265,44 @@ const ProductDetail = () => {
           </div>
         </div>
       </div>
+      <div className="mt-6">
+        <UIButton
+          type="contained"
+          icon={false}
+          title="Add to Cart"
+          btnOnclick={handleProductAddToCart}
+        />
+      </div>
+
       <div className="mt-4">
+        <Link
+          href={
+            productDataReducer?.res?.locationMapLink
+              ? productDataReducer?.res?.locationMapLink
+              : "#"
+          }
+        >
+          {productDataReducer?.res?.locationAddress}
+        </Link>
         <UITypography
-          variant="h5"
-          text={`${productDataReducer?.res?.locationAddress}: ${productDataReducer?.res?.startTime} - ${productDataReducer?.res?.endTime}`}
+          variant="h6"
+          text={`${formatDate(
+            productDataReducer?.res?.startDate
+          )} - ${formatDate(productDataReducer?.res?.endDate)}`}
+        />
+        <UITypography
+          variant="h6"
+          text={`${formatTime(
+            productDataReducer?.res?.startTime
+          )} - ${formatTime(productDataReducer?.res?.endTime)}`}
+        />
+        <UITypography
+          variant="h6"
+          text={`Age Group: ${productDataReducer?.res?.minAge} - ${productDataReducer?.res?.maxAge}`}
+        />
+        <UITypography
+          variant="h6"
+          text={`Slots Available: ${productDataReducer?.res?.seats}`}
         />
 
         {productDataReducer?.res?.paymentType == "recurring" ||
@@ -308,17 +363,8 @@ const ProductDetail = () => {
           </div>
         ) : null}
 
-        <div className="mt-6">
-          <UIButton
-            type="contained"
-            icon={false}
-            title="Add to Cart"
-            btnOnclick={handleProductAddToCart}
-          />
-        </div>
-
         <div
-          className="mt-6"
+          className="mt-6 prose max-w-none [&>h1]:text-[46px] [&>h1]:font-bold [&>h2]:text-[38px] [&>h2]:font-semibold [&>h3]:text-[32px] [&>h3]:font-semibold [&>h4]:text-[28px] [&>h4]:font-semibold [&>h5]:text-[24px] [&>h5]:font-semibold [&>h6]:text-[22px] [&>h6]:font-semibold [&>p]:text-base"
           dangerouslySetInnerHTML={{
             __html: productDataReducer?.res?.description,
           }}

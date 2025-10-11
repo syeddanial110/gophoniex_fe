@@ -7,7 +7,7 @@ import logo from "../../assets/Images/logo.webp";
 import UITypography from "@/components/UITypography/UITypography";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "@/store/actions/products";
-import { apiPost } from "@/apis/ApiRequest";
+import { apiGet, apiPost } from "@/apis/ApiRequest";
 import { ApiEndpoints } from "@/utils/ApiEndpoints";
 
 const aboutCards = [
@@ -74,7 +74,15 @@ const AboutSection = () => {
   };
 
   useEffect(() => {
-    dispatch(getAllProducts({ page: 1 }));
+    apiGet(
+      `${ApiEndpoints.homePageContent.get}`,
+      (res) => {
+        console.log("res", res);
+      },
+      (err) => {
+        console.log('err', err)
+      }
+    );
   }, []);
 
   return (

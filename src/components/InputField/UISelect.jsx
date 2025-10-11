@@ -31,6 +31,7 @@ const UISelect = ({
             value={value}
             className="text-black"
             defaultValue={defaultValue}
+          
           >
             <SelectTrigger className="w-full">
               <SelectValue placeholder={placeholder} />
@@ -43,6 +44,7 @@ const UISelect = ({
           onValueChange={onValueChange}
           value={value}
           className="text-black"
+          multiple={multiple}
         >
           <SelectTrigger className="w-full">
             <SelectValue placeholder={placeholder} />
