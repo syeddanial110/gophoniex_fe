@@ -54,7 +54,7 @@ export const ApiEndpoints = {
   order: {
     base: "/order",
     placeOrder: "/place",
-    getAllOrders: "/list",
+    getAllOrders: "/user/orders",
     cancelRecurringPayment: "/cancel-subscription",
     orderDetail: "/getbyid",
     getAllPayments: "/all/payments",

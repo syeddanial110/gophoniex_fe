@@ -95,7 +95,7 @@ const AboutSection = () => {
 
   return (
     <section className="w-[70%] mx-auto py-8">
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center mb-4">
         <UITypography variant="h2" text={"Latest Classes"} />
       </div>
 

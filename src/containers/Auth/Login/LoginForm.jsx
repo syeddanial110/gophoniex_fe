@@ -20,9 +20,10 @@ import { useRouter } from "next/navigation";
 import { apiPost } from "@/apis/ApiRequest";
 import { ApiEndpoints } from "@/utils/ApiEndpoints";
 import { toast } from "sonner";
-import { setToken } from "@/apis/Auth";
+import { setToken, setUserId } from "@/apis/Auth";
 import { useDispatch } from "react-redux";
 import { signin } from "@/store/actions/AUTH";
+import UILoader from "@/components/UILoader/UILoader";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -37,7 +38,10 @@ const LoginForm = () => {
     },
   });
 
+  const [isLoading, setIsLoading] = useState(false);
+
   function onSubmit(data, e) {
+    setIsLoading(true);
     e.preventDefault();
 
     const dataObj = {
@@ -50,13 +54,16 @@ const LoginForm = () => {
       (res) => {
         toast.success(res?.message);
         if (res?.success) {
+          setIsLoading(false);
           disptach(signin({ data: res?.data }));
           router.push(pathLocations.home);
           setToken(res?.data?.token);
+          setUserId(res?.data?.user?.id);
         }
       },
       (err) => {
         toast.error(err?.message);
+        setIsLoading(false);
         console.log("err", err);
       }
     );
@@ -89,7 +96,13 @@ const LoginForm = () => {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        {isLoading ? (
+          <UILoader />
+        ) : (
+          <Button type="submit" loading>
+            Submit
+          </Button>
+        )}
       </form>
     </Form>
   );

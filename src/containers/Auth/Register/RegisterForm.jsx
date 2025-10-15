@@ -25,7 +25,7 @@ import UIModal from "@/components/UIModal/UIModal";
 import UICheckbox from "@/components/UICheckbox/UICheckbox";
 import UISelect from "@/components/InputField/UISelect";
 import { SelectItem } from "@/components/ui/select";
-import { setToken } from "@/apis/Auth";
+import { setToken, setUserId } from "@/apis/Auth";
 
 const RegisterForm = () => {
   const router = useRouter();
@@ -97,6 +97,7 @@ const RegisterForm = () => {
         toast.success(res?.message);
         if (res?.success) {
           setToken(res?.data?.token);
+          setUserId(res?.data?.user?.id)
           router.push(pathLocations.profile);
         }
       },

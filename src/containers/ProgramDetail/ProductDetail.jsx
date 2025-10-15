@@ -1,3 +1,4 @@
+"use client"
 import UISelect from "@/components/InputField/UISelect";
 import UITypography from "@/components/UITypography/UITypography";
 import React, { useEffect, useState } from "react";
