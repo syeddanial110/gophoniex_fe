@@ -1,6 +1,9 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import UITypography from "@/components/UITypography/UITypography";
+import { ApiEndpoints } from "@/utils/ApiEndpoints";
+import { apiGet } from "@/apis/ApiRequest";
+import { useParams } from "next/navigation";
 
 const formatDate = (iso) => {
   if (!iso) return "";
@@ -12,9 +15,10 @@ const formatDate = (iso) => {
   });
 };
 
-export default function BlogContainer({}) {
+export default function BlogContainer() {
   const [blogData, setBlogData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const params = useParams();
 
   useEffect(() => {
     if (!params?.slug) return;
@@ -60,13 +64,13 @@ export default function BlogContainer({}) {
   return (
     <>
       <div
-        className="w-full h-[320px] md:h-[420px] bg-center bg-cover flex items-center justify-center"
+        className="w-full h-[70vh] md:h-[100vh] bg-center bg-cover flex items-center justify-center relative"
         style={{
           backgroundImage: image ? `url('${image}')` : undefined,
-          backgroundColor: image ? undefined : "#f3f4f6",
+          // backgroundColor: image ? undefined : "#f3f4f6",
         }}
       >
-        <div className="bg-black/40 w-full h-full absolute inset-0" />
+        <div className="h-[70vh] md:h-[100vh] bg-black/40 w-full absolute inset-0" />
         <div className="relative z-10 text-center px-6">
           <UITypography
             variant="h1"

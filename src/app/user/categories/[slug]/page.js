@@ -43,7 +43,7 @@ const CollectionById = () => {
       `${ApiEndpoints.products.base}${ApiEndpoints.products.getProductByCategory}?ids=${ids}`,
       (res) => {
         if (res?.success) {
-          console.log('res', res)
+          console.log("res", res);
           setProductByCategory(res?.products);
         }
         setLoading(false);
@@ -74,22 +74,31 @@ const CollectionById = () => {
 
   useEffect(() => {
     if (slug) {
-      console.log('runnnnnn--')
+      console.log("runnnnnn--");
       fetchProducts();
     }
   }, [slug]);
 
   useEffect(() => {
     if (categoriesData && categoriesData?.res?.data.length > 0) {
-      setCollections(categoriesData?.res?.data);
+      const allCategories = categoriesData.res.data;
+      setCollections(allCategories);
+
+      // Match slug to category
+      const matched = allCategories.find((cat) => cat.slug === slug);
+      if (matched) {
+        setSelectedCategories([matched.id]);
+        fetchFilteredProducts([matched.id]);
+      }
     }
-  }, [categoriesData]);
+  }, [categoriesData, slug]);
 
   // if (loading) {
   //   return <div>Loading...</div>;
   // }
 
   console.log("productByCategory", productByCategory);
+  console.log("categoriesData", categoriesData);
   console.log("collections", collections);
 
   return (
