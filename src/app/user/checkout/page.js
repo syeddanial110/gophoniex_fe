@@ -121,7 +121,7 @@ const Checkout = () => {
               </div>
               <div className="flex justify-between py-2 border-b">
                 <UITypography variant="p" text={"Subtotal:"} />
-                <UITypography variant="p" text={`${totalPrice.toFixed(2)}`} />
+                <UITypography variant="p" text={`${totalPrice?.toFixed(2)}`} />
               </div>
 
               <div className="flex justify-between py-2">

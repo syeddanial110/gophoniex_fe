@@ -55,7 +55,7 @@ const OrderHistory = () => {
         />
 
         <div className="grid grid-cols-1 gap-6">
-          {orders.map((order) => (
+          {orders?.map((order) => (
             <div
               key={order.id}
               className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 transition-all hover:shadow-md"
@@ -79,16 +79,16 @@ const OrderHistory = () => {
                 </div>
                 <div className="flex flex-col items-end">
                   <span className="text-2xl font-bold text-gray-900">
-                    ${order.price.toLocaleString()}
+                    ${order?.price?.toLocaleString()}
                   </span>
                   <span
                     className={`mt-2 px-3 py-1 rounded-full text-sm ${
-                      order.status === "active"
+                      order?.status === "active"
                         ? "bg-green-100 text-green-800"
                         : "bg-gray-100 text-gray-800"
                     }`}
                   >
-                    {order.status.charAt(0).toUpperCase() +
+                    {order?.status.charAt(0).toUpperCase() +
                       order.status.slice(1)}
                   </span>
                 </div>
@@ -99,18 +99,18 @@ const OrderHistory = () => {
                   Enrolled Children:
                 </h4>
                 <div className="flex gap-4">
-                  {order.children.map((child, idx) => (
+                  {order?.children?.map((child, idx) => (
                     <div key={idx} className="bg-gray-50 px-4 py-2 rounded-lg">
-                      <div className="font-medium">{child.name}</div>
+                      <div className="font-medium">{child?.name}</div>
                       <div className="text-sm text-gray-500">
-                        Age: {child.age}
+                        Age: {child?.age}
                       </div>
                     </div>
                   ))}
                 </div>
               </div>
 
-              {order.status === "active" && (
+              {order?.status === "active" && (
                 <div className="mt-6 flex items-center justify-between">
                   <div className="flex items-center text-amber-600">
                     <AlertCircle className="w-5 h-5 mr-2" />
@@ -124,7 +124,7 @@ const OrderHistory = () => {
                     icon={false}
                     title="Cancel Order"
                     className="text-red-600 border-red-600 hover:bg-red-50"
-                    btnOnclick={() => handleCancelOrder(order.id)}
+                    btnOnclick={() => handleCancelOrder(order?.id)}
                   />
                 </div>
               )}
@@ -132,7 +132,7 @@ const OrderHistory = () => {
           ))}
         </div>
 
-        {orders.length === 0 && (
+        {orders?.length === 0 && (
           <div className="text-center py-12">
             <div className="text-gray-400 text-lg">No orders found</div>
           </div>

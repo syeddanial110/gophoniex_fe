@@ -31,7 +31,7 @@ const Orders = () => {
   };
 
   useEffect(() => {
-    getAllOrders();
+    // getAllOrders();
   }, []);
 
   return (
@@ -44,7 +44,7 @@ const Orders = () => {
         />
 
         <div className="grid grid-cols-1 gap-6">
-          {userOrders.map((order, ind) => (
+          {userOrders?.map((order, ind) => (
             <div
               key={ind}
               className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 transition-all hover:shadow-md"
@@ -71,7 +71,7 @@ const Orders = () => {
                 </div>
                 <div className="flex flex-col items-end">
                   <span className="text-2xl font-bold text-gray-900">
-                    ${order?.price.toLocaleString()}
+                    ${order?.price?.toLocaleString()}
                   </span>
                   <span
                     className={`mt-2 px-3 py-1 rounded-full text-sm ${
@@ -116,7 +116,7 @@ const Orders = () => {
                     icon={false}
                     title="Cancel Order"
                     className="text-red-600 border-red-600 hover:bg-red-50"
-                    btnOnclick={() => handleCancelOrder(order.id)}
+                    btnOnclick={() => handleCancelOrder(order?.id)}
                   />
                 </div>
               )}
@@ -124,7 +124,7 @@ const Orders = () => {
           ))}
         </div>
 
-        {userOrders.length === 0 && (
+        {userOrders?.length === 0 && (
           <div className="text-center py-12">
             <div className="text-gray-400 text-lg">No orders found</div>
           </div>
