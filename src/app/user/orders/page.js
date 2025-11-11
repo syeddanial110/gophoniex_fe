@@ -179,10 +179,11 @@ const Orders = () => {
                     <div className="flex items-center text-amber-600">
                       <AlertCircle className="w-5 h-5 mr-2" />
                       <span className="text-sm">
-                        You can cancel recurring payments at any time.
+                        To cancel recurring payments, please contact our support
+                        team.
                       </span>
                     </div>
-                    <UIModal
+                    {/* <UIModal
                       open={modalOrderId === order?.orderId}
                       onOpenChange={(open) =>
                         handleModal(open ? order?.orderId : null)
@@ -215,7 +216,7 @@ const Orders = () => {
                           </button>
                         </div>
                       </div>
-                    </UIModal>
+                    </UIModal> */}
                   </div>
                 )}
               </div>
