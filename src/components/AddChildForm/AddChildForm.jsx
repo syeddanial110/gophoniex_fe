@@ -12,10 +12,10 @@ const AddChildForm = () => {
   return (
     <>
       <UIModal
-        modalHeaderTitle="Add Child"
         open={modalOpen}
-        modalBtnText="Add Child"
         onOpenChange={handleModalOpen}
+        modalHeaderTitle="Add Child"
+        modalBtnText="Add Child"
         btnClassName="bg-main text-white px-7 py-2 rounded-2xl hover:cursor-pointer"
       >
         <AddChildFormContainer setIsAddChild={setModalOpen} />

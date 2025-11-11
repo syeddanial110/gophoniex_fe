@@ -15,6 +15,7 @@ const UISelect = ({
   onValueChange,
   value,
   defaultValue,
+  multiple = false,
   children,
 }) => {
   return (

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import UISelect from "@/components/InputField/UISelect";
 import UITypography from "@/components/UITypography/UITypography";
 import React, { useEffect, useState } from "react";
@@ -18,6 +18,7 @@ import Link from "next/link";
 import { formatDate, formatTime } from "@/utils/utils";
 import { MultiSelect } from "@/components/InputField/UIMultipleSelect";
 import { X } from "lucide-react";
+import UITextField from "@/components/InputField/UITextField";
 
 const ProductDetail = () => {
   const router = useRouter();
@@ -91,6 +92,7 @@ const ProductDetail = () => {
           productId: option?.productId || "",
           productOptionName: option?.title || "",
           price: option?.price || "",
+          isJersey: option?.isJersey || false,
           paymentType: option?.paymentType || "",
           intervalCount: option?.intervalCount || "",
           paymentInterval: option?.paymentInterval,
@@ -101,7 +103,7 @@ const ProductDetail = () => {
   };
 
   const handleRemoveChild = (index) => {
-     setProductOptionSelected((prev) => {
+    setProductOptionSelected((prev) => {
       const updated = [...prev];
       updated[index] = {
         ...updated[index],
@@ -109,6 +111,34 @@ const ProductDetail = () => {
         childName: "",
       };
       return updated;
+    });
+  };
+
+  const handleOnChangeJersey = (e, childIndex, optionIndex) => {
+    const jerseyName = e?.target?.value || "";
+    setProductOptionSelected((prev) => {
+      return prev.map((item, idx) => {
+        if (idx !== childIndex) return item;
+        const updatedOptions = (item.selectedOptions || []).map((opt, j) => {
+          if (j !== optionIndex) return opt;
+          return { ...opt, jerseyName };
+        });
+        return { ...item, selectedOptions: updatedOptions };
+      });
+    });
+  };
+
+  const handleSelectJerseySize = (value, childIndex, optionIndex) => {
+    const jerseySize = value || "";
+    setProductOptionSelected((prev) => {
+      return prev.map((item, idx) => {
+        if (idx !== childIndex) return item;
+        const updatedOptions = (item.selectedOptions || []).map((opt, j) => {
+          if (j !== optionIndex) return opt;
+          return { ...opt, jerseySize };
+        });
+        return { ...item, selectedOptions: updatedOptions };
+      });
     });
   };
 
@@ -125,18 +155,19 @@ const ProductDetail = () => {
         options: option.selectedOptions.map((selectedOption) => ({
           id: selectedOption.id,
           price: parseFloat(selectedOption.price),
+          jerseyName: selectedOption.jerseyName || "",
+          jerseySize: selectedOption.jerseySize || "",
           // currency: "USD" // Uncomment if needed
         })),
       })
     );
-
 
     apiPost(
       `${ApiEndpoints.addToCart.base}${ApiEndpoints.addToCart.create}`,
       {
         children: children,
         productId: dataObj.checkoutData.selectedProductDetail.productId,
-        paymentType: dataObj.checkoutData.selectedProductDetail.paymentType,
+        // paymentType: dataObj.checkoutData.selectedProductDetail.paymentType,
       },
       (res) => {
         console.log("res", res);
@@ -170,7 +201,6 @@ const ProductDetail = () => {
     });
   }, [productDataReducer?.res]);
 
-  console.log("productDataReducer", productDataReducer);
   console.log("productOptionSelected", productOptionSelected);
 
   useEffect(() => {
@@ -219,6 +249,34 @@ const ProductDetail = () => {
                     }
                   />
                 </div>
+                {productOptionSelected[index].selectedOptions?.map(
+                  (val, ind) =>
+                    val?.isJersey && (
+                      <div
+                        key={`jersey-${index}-${ind}`}
+                        className="flex flex-col gap-2 w-[60%]"
+                      >
+                        <UITypography variant="p" text="Jersey Name:" />
+                        <UITextField
+                          isForm={false}
+                          placeholder="Enter the name on Jersey"
+                          value={val?.jerseyName || ""}
+                          onChange={(e) => handleOnChangeJersey(e, index, ind)}
+                        />
+                        <UITypography variant="p" text="Sizes:" />
+                        <UISelect
+                          onValueChange={(val) =>
+                            handleSelectJerseySize(val, index, ind)
+                          }
+                        >
+                          <SelectItem value="S">Small</SelectItem>
+                          <SelectItem value="M">Medium</SelectItem>
+                          <SelectItem value="L">Large</SelectItem>
+                          <SelectItem value="XL">Extra Large</SelectItem>
+                        </UISelect>
+                      </div>
+                    )
+                )}
                 <div className="flex flex-col gap-3 mb-4 justify-start items-start">
                   <UIModal
                     open={modalOpen}
@@ -244,7 +302,10 @@ const ProductDetail = () => {
                           productOptionSelected[index].childName
                         }`}
                       />
-                      <X className="cursor-pointer" onClick={() => handleRemoveChild(index)} />
+                      <X
+                        className="cursor-pointer"
+                        onClick={() => handleRemoveChild(index)}
+                      />
                     </div>
                   )}
                 </div>
@@ -306,62 +367,34 @@ const ProductDetail = () => {
           text={`Slots Available: ${productDataReducer?.res?.seats}`}
         />
 
-        {productDataReducer?.res?.paymentType == "recurring" ||
-        productDataReducer?.res?.paymentType == "both" ? (
-          <div className="p-10 border border-grey-300 rounded-lg flex flex-col gap-6">
+        {productDataReducer?.res?.paymentType == "recurring" ? (
+          <>
             {/* Radio Group for Payment Options */}
-            <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-6 mt-3">
               {/* Monthly Recurring Option */}
               <label className="flex flex-col gap-2 border rounded-xl p-6 cursor-pointer relative group hover:shadow-md transition-all">
-                <input
-                  type="radio"
-                  name="paymentType"
-                  value="recurring"
-                  // checked={selectedPaymentType === "recurring"}
-                  // onChange={() => setSelectedPaymentType("recurring")}
-                  className="absolute left-4 top-6 accent-black w-5 h-5"
-                />
                 <div className="flex items-center justify-between">
                   <span className="font-bold text-lg ml-8">
                     Monthly Recurring
                   </span>
-                  <span>
+                  {/* <span>
                     <span className="font-semibold text-lg">$.48,700.00</span>
                     <span className="line-through text-gray-400 ml-2">
                       $54,400.00
                     </span>
-                  </span>
+                  </span> */}
                 </div>
                 <div className="ml-8 text-base text-black">
-                  PlayPass Lite Subscription
+                  Subscription Module
                 </div>
                 <div className="ml-8 text-sm text-gray-500">
-                  Auto-renews on 1st of month
-                </div>
-              </label>
-
-              {/* One Time Purchase Option */}
-              <label className="flex flex-col gap-2 border rounded-xl p-6 cursor-pointer relative group hover:shadow-md transition-all">
-                <input
-                  type="radio"
-                  name="paymentType"
-                  value="oneTime"
-                  // checked={selectedPaymentType === "oneTime"}
-                  // onChange={() => setSelectedPaymentType("oneTime")}
-                  className="absolute left-4 top-6 accent-black w-5 h-5"
-                />
-                <div className="flex items-center justify-between">
-                  <span className="font-bold text-lg ml-8">
-                    One Time Purchase
-                  </span>
-                  <span className="font-semibold text-lg">$.54,400.00</span>
-                </div>
-                <div className="ml-8 text-base text-black">
-                  1 Month: Does NOT hold next month’s roster spot.
+                  Auto-renewal every {productDataReducer?.res?.paymentInterval}{" "}
+                  for a total of {productDataReducer?.res?.intervalCount}{" "}
+                  payments
                 </div>
               </label>
             </div>
-          </div>
+          </>
         ) : null}
 
         <div
