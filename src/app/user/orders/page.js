@@ -9,14 +9,11 @@ import { getUserId } from "@/apis/Auth";
 import { formatDate } from "@/utils/utils";
 import UIModal from "@/components/UIModal/UIModal";
 import { toast } from "sonner";
+import UISkeleton from "@/components/UISkeleton/UISkeleton";
 
 const Orders = () => {
   const [userOrders, setUserOrders] = useState([]);
-  const [modalOrderId, setModalOrderId] = useState(null);
-
-  const handleModal = (orderId = null) => {
-    setModalOrderId(orderId);
-  };
+  const [isLoading, setIsLoading] = useState(true);
 
   const userId = getUserId();
 
@@ -39,13 +36,16 @@ const Orders = () => {
   };
 
   const getAllOrders = () => {
+    setIsLoading(true);
     apiGet(
       `${ApiEndpoints.order.base}${ApiEndpoints.order.getAllOrders}/${userId}`,
       (res) => {
         console.log("res user order", res);
+        setIsLoading(false);
         setUserOrders(res?.data);
       },
       (err) => {
+        setIsLoading(false)
         console.log("err", err);
       }
     );
@@ -65,125 +65,135 @@ const Orders = () => {
           text="My Orders"
           className="text-3xl font-bold mb-8"
         />
+        {isLoading ? (
+          <UISkeleton />
+        ) : (
+          <div className="grid grid-cols-1 gap-6">
+            {userOrders?.length > 0 &&
+              userOrders?.map((order, ind) => (
+                <div
+                  key={ind}
+                  className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 transition-all hover:shadow-md"
+                >
+                  <div className="flex justify-between items-start mb-4">
+                    <div>
+                      <div
+                        dangerouslySetInnerHTML={{
+                          __html:
+                            order?.items?.length > 0 &&
+                            order?.items[0]?.productName,
+                        }}
+                        className="mt-6 prose max-w-none [&>h1]:text-[46px] [&>h1]:font-bold [&>h2]:text-[38px] [&>h2]:font-semibold [&>h3]:text-[32px] [&>h3]:font-semibold [&>h4]:text-[28px] [&>h4]:font-semibold [&>h5]:text-[24px] [&>h5]:font-semibold [&>h6]:text-[22px] [&>h6]:font-semibold [&>p]-[20px] [&>p]:font-bold"
+                      />
 
-        <div className="grid grid-cols-1 gap-6">
-          {userOrders?.length > 0 &&
-            userOrders?.map((order, ind) => (
-              <div
-                key={ind}
-                className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 transition-all hover:shadow-md"
-              >
-                <div className="flex justify-between items-start mb-4">
-                  <div>
-                    <div
-                      dangerouslySetInnerHTML={{
-                        __html:
-                          order?.items?.length > 0 &&
-                          order?.items[0]?.productName,
-                      }}
-                      className="mt-6 prose max-w-none [&>h1]:text-[46px] [&>h1]:font-bold [&>h2]:text-[38px] [&>h2]:font-semibold [&>h3]:text-[32px] [&>h3]:font-semibold [&>h4]:text-[28px] [&>h4]:font-semibold [&>h5]:text-[24px] [&>h5]:font-semibold [&>h6]:text-[22px] [&>h6]:font-semibold [&>p]-[20px] [&>p]:font-bold"
-                    />
-
-                    <div className="flex items-center gap-2 text-gray-500 mt-2">
-                      <Baby className="w-4 h-4" />
-                      <span>
-                        <UITypography variant="p" text={order?.childName} />
-                      </span>
-                    </div>
-                    {order?.items?.length > 0 &&
-                      order?.items[0]?.children?.length > 0 &&
-                      order?.items[0]?.children[0]?.options?.map((opt, idx) => {
-                        return (
-                          <div key={idx}>
-                            <UITypography variant="p" text={opt?.optionTitle} />
-                            <UITypography variant="p" text={`$${opt?.price}`} />
-                            {opt?.jerseyName != null && (
-                              <>
+                      <div className="flex items-center gap-2 text-gray-500 mt-2">
+                        <Baby className="w-4 h-4" />
+                        <span>
+                          <UITypography variant="p" text={order?.childName} />
+                        </span>
+                      </div>
+                      {order?.items?.length > 0 &&
+                        order?.items[0]?.children?.length > 0 &&
+                        order?.items[0]?.children[0]?.options?.map(
+                          (opt, idx) => {
+                            return (
+                              <div key={idx}>
                                 <UITypography
                                   variant="p"
-                                  text={`Jersey Name: ${opt?.jerseyName}`}
+                                  text={opt?.optionTitle}
                                 />
                                 <UITypography
                                   variant="p"
-                                  text={`Jersey Number: ${opt?.jerseySize}`}
+                                  text={`$${opt?.price}`}
                                 />
-                              </>
-                            )}
-                          </div>
-                        );
-                      })}
-                    {order?.items?.length > 0 &&
-                      order?.items[0]?.payment != null &&
-                      typeof order?.items[0]?.payment == "object" && (
-                        <>
-                          <UITypography variant="h5" text="Payment Details" />
-                          <UITypography
-                            variant="p"
-                            text={`The Payment will be charged every ${
-                              order?.items?.length > 0 &&
-                              order?.items[0]?.payment?.intervalGap
-                            }`}
-                            className="!text-[18px]"
-                          />
-                          <UITypography
-                            variant="p"
-                            text={`The Payment will be charged ${
-                              order?.items?.length > 0 &&
-                              order?.items[0]?.payment?.intervalCount
-                            } times`}
-                            className="!text-[18px]"
-                          />
-                          <UITypography
-                            variant="p"
-                            text={`Last Payment Charged ${
-                              order?.items?.length > 0 &&
-                              formatDate(
-                                order?.items[0]?.payment?.lastPaymentDate
-                              )
-                            }`}
-                            className="!text-[18px]"
-                          />
-                          <UITypography
-                            variant="p"
-                            text={`Next Payment will be Charged ${
-                              order?.items?.length > 0 &&
-                              formatDate(
-                                order?.items[0]?.payment?.nextPaymentDate
-                              )
-                            }`}
-                            className="!text-[18px]"
-                          />
-                        </>
-                      )}
-                    <div className="flex items-center gap-2 text-gray-500 mt-1"></div>
-                  </div>
-                  <div className="flex flex-col items-end">
-                    <span className="text-2xl font-bold text-gray-900">
-                      ${order?.totalAmount?.toLocaleString()}
-                    </span>
-                    <span
-                      className={`mt-2 px-3 py-1 rounded-full text-sm ${
-                        order?.status === "paid"
-                          ? "bg-green-100 text-green-800"
-                          : "bg-gray-100 text-gray-800"
-                      }`}
-                    >
-                      {order?.status.charAt(0).toUpperCase() +
-                        order?.status.slice(1)}
-                    </span>
-                  </div>
-                </div>
-
-                {order?.status === "paid" && (
-                  <div className="mt-6 flex items-center justify-between">
-                    <div className="flex items-center text-amber-600">
-                      <AlertCircle className="w-5 h-5 mr-2" />
-                      <span className="text-sm">
-                        To cancel recurring payments, please contact our support
-                        team.
+                                {opt?.jerseyName != null && (
+                                  <>
+                                    <UITypography
+                                      variant="p"
+                                      text={`Jersey Name: ${opt?.jerseyName}`}
+                                    />
+                                    <UITypography
+                                      variant="p"
+                                      text={`Jersey Number: ${opt?.jerseySize}`}
+                                    />
+                                  </>
+                                )}
+                              </div>
+                            );
+                          }
+                        )}
+                      {order?.items?.length > 0 &&
+                        order?.items[0]?.payment != null &&
+                        typeof order?.items[0]?.payment == "object" && (
+                          <>
+                            <UITypography variant="h5" text="Payment Details" />
+                            <UITypography
+                              variant="p"
+                              text={`The Payment will be charged every ${
+                                order?.items?.length > 0 &&
+                                order?.items[0]?.payment?.intervalGap
+                              }`}
+                              className="!text-[18px]"
+                            />
+                            <UITypography
+                              variant="p"
+                              text={`The Payment will be charged ${
+                                order?.items?.length > 0 &&
+                                order?.items[0]?.payment?.intervalCount
+                              } times`}
+                              className="!text-[18px]"
+                            />
+                            <UITypography
+                              variant="p"
+                              text={`Last Payment Charged ${
+                                order?.items?.length > 0 &&
+                                formatDate(
+                                  order?.items[0]?.payment?.lastPaymentDate
+                                )
+                              }`}
+                              className="!text-[18px]"
+                            />
+                            <UITypography
+                              variant="p"
+                              text={`Next Payment will be Charged ${
+                                order?.items?.length > 0 &&
+                                formatDate(
+                                  order?.items[0]?.payment?.nextPaymentDate
+                                )
+                              }`}
+                              className="!text-[18px]"
+                            />
+                          </>
+                        )}
+                      <div className="flex items-center gap-2 text-gray-500 mt-1"></div>
+                    </div>
+                    <div className="flex flex-col items-end">
+                      <span className="text-2xl font-bold text-gray-900">
+                        ${order?.totalAmount?.toLocaleString()}
+                      </span>
+                      <span
+                        className={`mt-2 px-3 py-1 rounded-full text-sm ${
+                          order?.status === "paid"
+                            ? "bg-green-100 text-green-800"
+                            : "bg-gray-100 text-gray-800"
+                        }`}
+                      >
+                        {order?.status.charAt(0).toUpperCase() +
+                          order?.status.slice(1)}
                       </span>
                     </div>
-                    {/* <UIModal
+                  </div>
+
+                  {order?.status === "paid" && (
+                    <div className="mt-6 flex items-center justify-between">
+                      <div className="flex items-center text-amber-600">
+                        <AlertCircle className="w-5 h-5 mr-2" />
+                        <span className="text-sm">
+                          To cancel recurring payments, please contact our
+                          support team.
+                        </span>
+                      </div>
+                      {/* <UIModal
                       open={modalOrderId === order?.orderId}
                       onOpenChange={(open) =>
                         handleModal(open ? order?.orderId : null)
@@ -217,13 +227,14 @@ const Orders = () => {
                         </div>
                       </div>
                     </UIModal> */}
-                  </div>
-                )}
-              </div>
-            ))}
-        </div>
+                    </div>
+                  )}
+                </div>
+              ))}
+          </div>
+        )}
 
-        {userOrders?.length === 0 && (
+        {isLoading == false && userOrders?.length === 0 && (
           <div className="text-center py-12">
             <div className="text-gray-400 text-lg">No orders found</div>
           </div>
