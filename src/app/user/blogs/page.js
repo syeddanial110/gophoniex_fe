@@ -7,6 +7,7 @@ import UITypography from "@/components/UITypography/UITypography";
 import { Button } from "@/components/ui/button";
 import { Pagination } from "@/components/ui/pagination"; // shadcn pagination component
 import Image from "next/image";
+import UISkeleton from "@/components/UISkeleton/UISkeleton";
 
 const BlogsPage = () => {
   const [blogs, setBlogs] = useState([]);
@@ -45,7 +46,7 @@ const BlogsPage = () => {
       </div>
 
       {loading ? (
-        <div className="text-center">Loading...</div>
+        <UISkeleton />
       ) : (
         <>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">

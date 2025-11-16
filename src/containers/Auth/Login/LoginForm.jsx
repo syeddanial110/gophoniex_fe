@@ -53,8 +53,8 @@ const LoginForm = () => {
       dataObj,
       (res) => {
         toast.success(res?.message);
+        setIsLoading(false);
         if (res?.success) {
-          setIsLoading(false);
           disptach(signin({ data: res?.data }));
           router.push(pathLocations.home);
           setToken(res?.data?.token);
@@ -100,7 +100,7 @@ const LoginForm = () => {
           <UILoader />
         ) : (
           <Button type="submit" loading>
-            Submit
+            Login
           </Button>
         )}
       </form>

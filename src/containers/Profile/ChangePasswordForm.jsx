@@ -16,6 +16,10 @@ import {
 import { changePasswordSchema, loginSchema } from "@/utils/schema";
 import UIButton from "@/components/UIButton/UIButton";
 import UITypography from "@/components/UITypography/UITypography";
+import { apiPut } from "@/apis/ApiRequest";
+import { ApiEndpoints } from "@/utils/ApiEndpoints";
+import { getUserId } from "@/apis/Auth";
+import { toast } from "sonner";
 
 const ChangePasswordForm = () => {
   const form = useForm({
@@ -26,16 +30,24 @@ const ChangePasswordForm = () => {
     },
   });
 
-  const handleChangePassword = (e) => {
-    e.preventDefault();
-    // if (form.getValues("password") !== form.getValues("confirmPassword")) {
-    //   form.setError("confirmPassword", {
-    //     type: "manual",
-    //     message: "New password and confirm password do not match.",
-    //   });
-    //   return;
-    // }
-    // Add logic to handle password change
+  const handleChangePassword = (data) => {
+    const userId  = getUserId()
+    const dataObj = {
+      userId: userId,
+      pass: data.confirmPassword,
+    }
+    apiPut(
+      `${ApiEndpoints.auth.base}${ApiEndpoints.auth.updatePassword}`,
+      dataObj,
+      (res) => {
+        console.log("res", res);
+        toast.success(res?.message);
+        form.reset();
+      },
+      (err) => {
+        console.log("err", err);
+      }
+    );
   };
 
   return (
@@ -54,7 +66,7 @@ const ChangePasswordForm = () => {
                 <UITextField
                   field={field}
                   formLabel="New Password"
-                  type='password'
+                  type="password"
                   isForm={true}
                 />
                 <FormMessage />

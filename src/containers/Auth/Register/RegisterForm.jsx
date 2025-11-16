@@ -68,12 +68,20 @@ const RegisterForm = () => {
   function onSubmit(data) {
     console.log("data", data);
     // require liability checkbox
-    if (!data.liability) {
+    if (!data.liability == "false") {
       toast.error("You must agree to the Release of Liability.");
       return;
     }
-    if (!data.terms) {
+    if (data.terms == "false") {
       toast.error("You must agree to the Terms & Conditions.");
+      return;
+    }
+    if (!data.photoRelease =="false") {
+      toast.error("You must agree to the Photo Release.");
+      return;
+    }
+    if(!hearUsId){
+      toast.error("Please select how did you hear about us.");
       return;
     }
 
@@ -99,6 +107,7 @@ const RegisterForm = () => {
           setToken(res?.data?.token);
           setUserId(res?.data?.user?.id)
           router.push(pathLocations.profile);
+          setUserId(res?.data?.userId?.id);
         }
       },
       (err) => {

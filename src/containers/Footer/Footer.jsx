@@ -186,7 +186,7 @@ const Footer = () => {
       {/* Bottom Row: Copyright & Links */}
       <div className="flex flex-col md:flex-row items-center justify-between px-8 py-4 text-xs text-gray-600">
         <div>Copyright 2025 Phoenix Fit All Rights Reserved.</div>
-        <div className="flex gap-4 mt-2 md:mt-0">
+        {/* <div className="flex gap-4 mt-2 md:mt-0">
           <Link href={pathLocations.termsOfServices}>
             <span>Terms of use</span>
           </Link>
@@ -196,7 +196,7 @@ const Footer = () => {
           <Link href="#">
             <span>Sitemap</span>
           </Link>
-        </div>
+        </div> */}
       </div>
 
       {/* Slogan */}

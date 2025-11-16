@@ -42,9 +42,9 @@ const Header = () => {
               <PopoverData />
             </UIPopover>
 
-            <Link href={pathLocations.cart}>
+            {/* <Link href={pathLocations.cart}>
               <ShoppingBag strokeWidth="1px" />
-            </Link>
+            </Link> */}
           </div>
         </div>
       </div>

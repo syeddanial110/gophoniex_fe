@@ -52,17 +52,15 @@ const AddChildFormContainer = ({ setIsAddChild }) => {
   };
 
   function onSubmit(data) {
-    if (!childImage) {
+    if (childImage == "") {
       toast.error("Image is required");
+      return;
+    }
+    if(gender == ""){
+      toast.error("Gender is required");
+      return; 
     }
     // Fixed typo in function name
-    const dataObj = {
-      name: data.name,
-      age: data.age,
-      gender: gender,
-      allergies: data.allergies,
-      image: childImage,
-    };
     const formData = new FormData();
     formData.append("name", data.name);
     formData.append("age", data.age);
@@ -121,6 +119,7 @@ const AddChildFormContainer = ({ setIsAddChild }) => {
                 field={field}
                 formLabel="Enter Your Child's age"
                 placeholder="Child Age"
+                type='number'
               />
               <FormMessage />
             </FormItem>

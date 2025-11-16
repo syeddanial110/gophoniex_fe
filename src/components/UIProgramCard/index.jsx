@@ -25,7 +25,7 @@ const UIProgramCard = ({ text, card_img, btnText, href}) => {
           height={90}
           style={{
             borderRadius: "16px",
-            height: "250px",
+            height: "450px",
             width: "100%",
             objectFit: "cover",
           }}

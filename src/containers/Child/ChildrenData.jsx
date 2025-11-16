@@ -63,7 +63,7 @@ const ChildrenData = () => {
             <div className="flex flex-col gap-3">
               {getAllChildrenData?.data?.map((item, i) => {
                 return (
-                  <div className="flex justify-between border-1 border-#acacac p-3 rounded-2xl">
+                  <div className="flex justify-between items-center border-1 border-#acacac px-3 py-4 rounded-2xl">
                     <div>
                       <UITypography variant="h6" text={item.name} />
                     </div>
@@ -72,11 +72,11 @@ const ChildrenData = () => {
                         onClick={() => {
                           handleEditChild(item);
                         }}
-                        className="cursor-pointer"
+                        className="cursor-pointer size-4"
                       />
                       <X
                         onClick={() => handleDeleteChild(item.id)}
-                        className="cursor-pointer"
+                        className="cursor-pointer size-4"
                       />
                     </div>
                   </div>

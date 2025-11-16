@@ -21,12 +21,15 @@ const UIProductCard = ({
     <Link href={href}>
       <Card className="group hover:cursor-pointer">
         <CardHeader>
-          <div className="h-[250px] w-full relative">
+          <div className="h-[280px] w-full relative">
             {/* Main Image */}
             <Image
               src={mainImg}
               alt="Card image"
               fill
+              style={{
+                objectFit:"contain"
+              }}
               className="object-cover transition-opacity duration-300"
             />
             {/* Hover Image */}

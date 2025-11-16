@@ -59,14 +59,15 @@ const EditChildFormContainer = ({ setIsEditChild }) => {
     setChildImage(e.target.files[0]);
   };
 
-  function onSubmit(data) {
-    const dataObj = {
-      name: data.name,
-      age: data.age,
-      gender: gender,
-      allergies: data.allergies,
-      image: childImage,
-    };
+  function onChildSubmit(data) {
+    if(gender == ""){
+      toast.error("Please select gender");
+      return;
+    }
+    if(childImage == ""){
+      toast.error("Please upload child image");
+      return;
+    }
     const formData = new FormData();
     formData.append("name", data.name);
     formData.append("age", data.age);
@@ -84,13 +85,10 @@ const EditChildFormContainer = ({ setIsEditChild }) => {
       },
       (err) => {
         console.log("err", err);
-        toast.error(err?.message);
       },
       { "Content-Type": "multipart/form-data" }
     );
   }
-
-  
 
   const handleGenderChange = (value) => {
     setGender(value);
@@ -112,7 +110,7 @@ const EditChildFormContainer = ({ setIsEditChild }) => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={form.handleSubmit(onChildSubmit)} className="space-y-8">
         <FormField
           control={form.control}
           name="name"

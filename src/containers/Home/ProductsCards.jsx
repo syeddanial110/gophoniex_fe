@@ -15,17 +15,12 @@ const ProductsCard = ({
   return (
     <div className="bg-white rounded-xl drop-shadow-[0_15px_15px_rgba(0,0,0,0.15)] p-4 relative">
       {/* Top Section */}
-      <div className="absolute right-4 top-4 z-1">
-        <div className="hover:cursor-pointer" onClick={handleAddToCart}>
-          <Plus />
-        </div>
-      </div>
       <div>
         <Image
           src={image}
           alt="Play Pass"
           //   className="object-cover"
-          style={{ height: "400px", width: "100%", objectFit: "cover" }}
+          style={{ height: "550px", width: "100%", objectFit: "contain" }}
           width={300}
           height={500}
           sizes="(max-width: 768px) 100vw, 600px"

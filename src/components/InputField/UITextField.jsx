@@ -51,7 +51,7 @@ const UITextField = ({
             <>
               {formLabel && <FormLabel>{formLabel}</FormLabel>}
               <FormControl>
-                <Input placeholder={placeholder} {...field} {...rest} />
+                <Input placeholder={placeholder} type={type} {...field} {...rest} />
               </FormControl>
             </>
           )}

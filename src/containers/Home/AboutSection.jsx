@@ -11,6 +11,7 @@ import { apiGet, apiPost } from "@/apis/ApiRequest";
 import { ApiEndpoints } from "@/utils/ApiEndpoints";
 import { useRouter } from "next/navigation";
 import { pathLocations } from "@/utils/navigation";
+import UISkeleton from "@/components/UISkeleton/UISkeleton";
 
 const aboutCards = [
   {
@@ -57,36 +58,23 @@ const AboutSection = () => {
   const productReducer = useSelector(
     (state) => state?.GetAllProductsReducer?.res
   );
+  const [isLoading, setIsLoading] = useState(true);
 
   const [latestClasses, setLatestClasses] = useState([]);
 
-  const handleAddToCart = (id, paymentType, price) => {
-    const dataObj = {
-      productId: id,
-      paymentType: paymentType,
-      price: price,
-    };
-    // apiPost(
-    //   `${ApiEndpoints.addToCart.base}${ApiEndpoints.addToCart.create}`,
-    //   dataObj,
-    //   (res) => {
-    //     console.log("res", res);
-    //   },
-    //   (err) => {
-    //     console.log("err", err);
-    //   }
-    // );
-  };
+ 
 
   useEffect(() => {
     apiGet(
       `${ApiEndpoints.homePageContent.get}`,
       (res) => {
         console.log("res", res);
+        setIsLoading(false);
         setLatestClasses(res?.data?.latestProducts);
       },
       (err) => {
         console.log("err", err);
+        setIsLoading(false);
       }
     );
   }, []);
@@ -98,26 +86,26 @@ const AboutSection = () => {
       <div className="flex flex-col items-center mb-4">
         <UITypography variant="h2" text={"Latest Classes"} />
       </div>
-
-      <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-8">
-        {latestClasses?.length > 0 &&
-          latestClasses?.map((card, idx) => (
-            <AboutSectionCard
-              key={idx}
-              image={card.image}
-              logo={logo}
-              description={card.shortDesc}
-              btnText={"View More"}
-              title={card.cardName}
-              btnOnclick={() => {
-                router.push(`${pathLocations.program}/${card.id}`);
-              }}
-              handleAddToCart={() =>
-                handleAddToCart(card.id, card.paymentType, card.price)
-              }
-            />
-          ))}
-        {/* <div className="flex flex-col gap-8">
+      {isLoading ? (
+        <UISkeleton />
+      ) : (
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-8">
+          {latestClasses?.length > 0 &&
+            latestClasses?.map((card, idx) => (
+              <AboutSectionCard
+                key={idx}
+                image={card.image}
+                logo={logo}
+                description={card.shortDesc}
+                btnText={"View More"}
+                title={card.cardName}
+                btnOnclick={() => {
+                  router.push(`${pathLocations.program}/${card.id}`);
+                }}
+              
+              />
+            ))}
+          {/* <div className="flex flex-col gap-8">
         </div>
         <div className="flex flex-col gap-8 mt-24">
           {aboutCards.map((card, idx) => (
@@ -131,7 +119,8 @@ const AboutSection = () => {
             />
           ))}
         </div> */}
-      </div>
+        </div>
+      )}
     </section>
   );
 };

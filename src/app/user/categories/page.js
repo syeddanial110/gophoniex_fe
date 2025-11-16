@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import categoriesBanner from "../../../assets/Images/categories-banner.jpg";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,6 +8,8 @@ import UIProgramCard from "@/components/UIProgramCard";
 import { useRouter } from "next/navigation";
 import { pathLocations, WEB_URL } from "@/utils/navigation";
 import UITypography from "@/components/UITypography/UITypography";
+import UISkeleton from "@/components/UISkeleton/UISkeleton";
+import UISpinner from "@/components/UISpinner/UISpinner";
 
 const Categories = () => {
   const categoriesReducer = useSelector(
@@ -59,6 +61,7 @@ const Categories = () => {
       <h2 className="text-black text-4xl text-center font-[500] mt-10">
         Explore Our Collections
       </h2>
+
       <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8 px-20 py-14">
         {categoriesReducer?.res?.data.length > 0 ? (
           categoriesReducer?.res?.data?.map((card, idx) => (
