@@ -25,7 +25,7 @@ API.interceptors.response.use(
   },
   async (error) => {
     if (error.response?.status === 401) {
-      window.location.href = pathLocations.login;
+      // window.location.href = pathLocations.login;
     }
     return Promise.reject(error);
   }

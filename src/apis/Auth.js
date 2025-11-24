@@ -24,3 +24,9 @@ export const removeToken = () => {
   }
   return null;
 };
+export const removeUserId = () => {
+  if (typeof window !== "undefined") {
+    return localStorage.removeItem("userId");
+  }
+  return null;
+};

@@ -24,8 +24,8 @@ const ProductCarousel = ({ pagePerView, productGalleryImages = [] }) => {
           src={slide.path}
           alt={slide.path}
           width={500}
-          height={400}
-          style={{ height: "500px", objectFit: "cover" }}
+          height={1080}
+          style={{ height: "100%", objectFit: "contain" }}
           className="m-auto"
         />
       </SplideSlide>
@@ -47,7 +47,7 @@ const ProductCarousel = ({ pagePerView, productGalleryImages = [] }) => {
     gap: "1rem",
     pagination: false,
     fixedWidth: 110,
-    fixedHeight: 70,
+    fixedHeight: 110,
     cover: true,
     focus: "center",
     isNavigation: true,

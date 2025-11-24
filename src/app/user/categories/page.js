@@ -62,7 +62,7 @@ const Categories = () => {
         Explore Our Collections
       </h2>
 
-      <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8 px-20 py-14">
+      <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 px-20 py-14">
         {categoriesReducer?.res?.data.length > 0 ? (
           categoriesReducer?.res?.data?.map((card, idx) => (
             <UIProgramCard

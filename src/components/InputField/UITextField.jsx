@@ -57,7 +57,7 @@ const UITextField = ({
           )}
         </>
       ) : (
-        <Input {...rest} />
+        <Input placeholder={placeholder} {...rest} />
       )}
     </>
   );

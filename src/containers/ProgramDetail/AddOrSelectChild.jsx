@@ -6,6 +6,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllChildren } from "@/store/actions/children";
 import { SelectItem } from "@/components/ui/select";
 import { productData } from "@/store/actions/products";
+import { get } from "react-hook-form";
+import { getToken } from "@/apis/Auth";
+import UITypography from "@/components/UITypography/UITypography";
+import Link from "next/link";
+import { pathLocations } from "@/utils/navigation";
 
 const AddOrSelectChild = ({
   handleModalOpen,
@@ -48,53 +53,75 @@ const AddOrSelectChild = ({
     });
   };
 
+  const token = getToken();
   useEffect(() => {
-    dispatch(getAllChildren());
+    if (token) {
+      dispatch(getAllChildren());
+    }
   }, []);
 
   return (
     <>
-      {isAddChild ? (
-        <AddChildFormContainer setIsAddChild={setIsAddChild} />
-      ) : (
+      {token ? (
         <>
-          <UISelect
-            isLabel={true}
-            labelName="Select Child"
-            onValueChange={handleChangeChild}
-            value={value}
-            // value={productDataReducer?.res?.id || ""}
-          >
-            {allChildrenReducer?.res?.data?.length > 0 ? (
-              allChildrenReducer?.res?.data?.map((child) => (
-                <SelectItem key={child.id} value={child?.id}>
-                  {child?.name}
-                </SelectItem>
-              ))
-            ) : (
-              <SelectItem value="No" disabled>
-                No children available
-              </SelectItem>
+          {isAddChild ? (
+            <AddChildFormContainer setIsAddChild={setIsAddChild} />
+          ) : (
+            <>
+              <UISelect
+                isLabel={true}
+                labelName="Select Child"
+                onValueChange={handleChangeChild}
+                value={value}
+                // value={productDataReducer?.res?.id || ""}
+              >
+                {allChildrenReducer?.res?.data?.length > 0 ? (
+                  allChildrenReducer?.res?.data?.map((child) => (
+                    <SelectItem key={child.id} value={child?.id}>
+                      {child?.name}
+                    </SelectItem>
+                  ))
+                ) : (
+                  <SelectItem value="No" disabled>
+                    No children available
+                  </SelectItem>
+                )}
+              </UISelect>
+            </>
+          )}
+          <div className="flex justify-center mt-4 gap-4">
+            {!isAddChild && (
+              <UIButton
+                type="contained"
+                icon={false}
+                title={"Save"}
+                btnOnclick={() => handleModalOpen()}
+              />
             )}
-          </UISelect>
+            <UIButton
+              type="contained"
+              icon={false}
+              title={isAddChild ? "Cancel" : "Add Child"}
+              btnOnclick={handleChangeAddChild}
+            />
+          </div>
         </>
-      )}
-      <div className="flex justify-center mt-4 gap-4">
-        {!isAddChild && (
-          <UIButton
-            type="contained"
-            icon={false}
-            title={"Save"}
-            btnOnclick={() => handleModalOpen()}
+      ) : (
+        <div className="flex flex-col  gap-4">
+          <UITypography
+            variant={"h6"}
+            text={"Please log in to add or select a child"}
           />
-        )}
-        <UIButton
-          type="contained"
-          icon={false}
-          title={isAddChild ? "Cancel" : "Add Child"}
-          btnOnclick={handleChangeAddChild}
-        />
-      </div>
+          <div>
+            <Link
+              href={pathLocations.login}
+              className="bg-main px-4 py-3 text-white rounded"
+            >
+              Login/Register
+            </Link>
+          </div>
+        </div>
+      )}
     </>
   );
 };

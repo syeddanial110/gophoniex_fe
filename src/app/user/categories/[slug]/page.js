@@ -1,5 +1,6 @@
 "use client";
 import { apiGet } from "@/apis/ApiRequest";
+import { getToken } from "@/apis/Auth";
 import UICheckbox from "@/components/UICheckbox/UICheckbox";
 import UIProductCard from "@/components/UIProductsCard";
 import UISpinner from "@/components/UISpinner/UISpinner";
@@ -75,7 +76,6 @@ const CollectionById = () => {
 
   useEffect(() => {
     if (slug) {
-      console.log("runnnnnn--");
       fetchProducts();
     }
   }, [slug]);

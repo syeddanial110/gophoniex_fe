@@ -1,5 +1,5 @@
 "use client";
-import { getToken, removeToken } from "@/apis/Auth";
+import { getToken, removeToken, removeUserId } from "@/apis/Auth";
 import UITypography from "@/components/UITypography/UITypography";
 import { pathLocations } from "@/utils/navigation";
 import { History, LogOut, User } from "lucide-react";
@@ -38,6 +38,7 @@ const PopoverData = () => {
                 onClick={() => {
                   if (item.text == "Logout") {
                     removeToken();
+                    removeUserId();
                   }
                 }}
               >
@@ -53,7 +54,7 @@ const PopoverData = () => {
         <Link href={pathLocations.login}>
           <div className="flex gap-4 mt-2">
             <LogOut />
-            <UITypography variant="p" text={"Login"} />
+            <UITypography variant="p" text={"Login/Register"} />
           </div>
         </Link>
       )}

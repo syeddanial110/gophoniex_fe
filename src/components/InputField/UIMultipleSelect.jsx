@@ -1,13 +1,25 @@
 import * as React from "react";
-import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
-import { Command, CommandInput, CommandList, CommandItem } from "@/components/ui/command";
+import {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+} from "@/components/ui/popover";
+import {
+  Command,
+  CommandInput,
+  CommandList,
+  CommandItem,
+} from "@/components/ui/command";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { X, ChevronDown } from "lucide-react";
 
-
-
-export function MultiSelect({ options = [], selected = [], onChange, placeholder }) {
+export function MultiSelect({
+  options = [],
+  selected = [],
+  onChange,
+  placeholder,
+}) {
   const [open, setOpen] = React.useState(false);
 
   const handleSelect = (value) => {
@@ -19,26 +31,46 @@ export function MultiSelect({ options = [], selected = [], onChange, placeholder
   };
 
   const handleRemove = (value) => {
+    console.log("value", value);
     onChange(selected.filter((item) => item !== value));
   };
 
+  console.log("options", options);
+  console.log("selected", selected);
+
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
+      <PopoverTrigger asChild className='flex items-center'>
         <Button
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[100%]  justify-between"
+          className="w-[100%]  justify-between overflow-y-scroll py-5"
         >
           {selected.length > 0 ? (
             <div className="flex flex-wrap gap-1">
               {selected.map((item) => {
                 const option = options.find((opt) => opt.value === item);
                 return (
-                  <Badge key={item} variant="secondary">
+                  <Badge
+                    key={item}
+                    variant="secondary"
+                    className="!z-9"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                    }}
+                  >
                     {option?.label}
-                    <X className="ml-1 h-3 w-3 cursor-pointer" onClick={() => handleRemove(item)} />
+                    <span
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        e.preventDefault();
+                        handleRemove(item);
+                      }}
+                      className="inline-flex items-center ml-1"
+                    >
+                      <X className="ml-0 h-3 w-3 cursor-pointer pointer-events-auto" />
+                    </span>
                   </Badge>
                 );
               })}
@@ -59,7 +91,8 @@ export function MultiSelect({ options = [], selected = [], onChange, placeholder
                 onSelect={() => handleSelect(option.value)}
                 className={selected.includes(option.value) ? "bg-accent" : ""}
               >
-                {option.label}
+                {option.label} <br />
+                {option.price}
               </CommandItem>
             ))}
           </CommandList>

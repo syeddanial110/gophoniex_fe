@@ -10,6 +10,7 @@ const UIButton = ({
   icon,
   btnIcon,
   btnOnclick,
+  ...props
 }) => {
   return (
     <>
@@ -18,6 +19,7 @@ const UIButton = ({
           type={btnType}
           className={`bg-main btn rounded-full py-5 px-6 ${className}`}
           onClick={btnOnclick}
+          {...props}
         >
           {title}
         </Button>
@@ -26,16 +28,17 @@ const UIButton = ({
           className={`bg-transparent border-b-1 border-black text-black hover:bg-transparent ${className}`}
           type={btnType}
           onClick={btnOnclick}
+          {...props}
         >
           {title}
         </Button>
       ) : type == "contained" && icon == true ? (
-        <Button variant="contained" size="icon" onClick={btnOnclick}>
+        <Button variant="contained" size="icon" onClick={btnOnclick} {...props}>
           {btnIcon}
           {title}
         </Button>
       ) : (
-        <Button variant="outline" size="icon" onClick={btnOnclick}>
+        <Button variant="outline" size="icon" onClick={btnOnclick} {...props}>
           <btnIcon strokeColor="black" /> {title}
         </Button>
       )}

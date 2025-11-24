@@ -19,10 +19,12 @@ import { formatDate, formatTime } from "@/utils/utils";
 import { MultiSelect } from "@/components/InputField/UIMultipleSelect";
 import { X } from "lucide-react";
 import UITextField from "@/components/InputField/UITextField";
+import { getToken } from "@/apis/Auth";
 
 const ProductDetail = () => {
   const router = useRouter();
   const dispatch = useDispatch();
+  const token = getToken();
 
   const productDataReducer = useSelector((state) => state?.ProductDataReducer);
 
@@ -69,8 +71,10 @@ const ProductDetail = () => {
     setQuantity(quantity + 1);
   };
   const handleQuantityDecrement = () => {
-    setProductOptionSelected((prev) => prev.slice(0, -1));
-    if (quantity > 1) setQuantity(quantity - 1);
+    if (quantity > 1) {
+      setProductOptionSelected((prev) => prev.slice(0, -1));
+      setQuantity(quantity - 1);
+    }
   };
 
   const handleChangeProductOption = (values, childIndex) => {
@@ -143,6 +147,18 @@ const ProductDetail = () => {
   };
 
   const handleProductAddToCart = () => {
+    if (productOptionSelected.some((option) => !option.childId)) {
+      toast.error("Please select a child for each option.");
+      return;
+    }
+    if (
+      productOptionSelected.some(
+        (option) => option.selectedOptions.length === 0
+      )
+    ) {
+      toast.error("Please select product options for each child.");
+      return;
+    }
     const dataObj = {
       checkoutData: {
         productOptionSelected: productOptionSelected,
@@ -201,13 +217,11 @@ const ProductDetail = () => {
     });
   }, [productDataReducer?.res]);
 
-  console.log("productOptionSelected", productOptionSelected);
-
   useEffect(() => {
     setmodalCountArr(quantity === 0 ? [1] : Array(quantity).fill(1));
   }, [quantity]);
 
-  console.log("productDataReducer", productDataReducer);
+  console.log("productOptionSelected", productOptionSelected);
   console.log("modalCountArr", modalCountArr);
   console.log("selectedProductDetail", selectedProductDetail);
 
@@ -228,13 +242,15 @@ const ProductDetail = () => {
               <div className="flex flex-col gap-4 mt-4" key={index}>
                 <hr />
                 <div className="w-[60%]">
+                  <UITypography variant="h6" text="Select All That Apply*" />
                   <MultiSelect
                     options={
                       productDataReducer?.res?.productOptions?.length > 0
                         ? productDataReducer?.res?.productOptions.map(
                             (option) => ({
                               value: option.id,
-                              label: `${option.title} - ${option.price}`,
+                              label: `${option.title}`,
+                              price: `$${option.price}`,
                             })
                           )
                         : []
@@ -249,35 +265,46 @@ const ProductDetail = () => {
                     }
                   />
                 </div>
-                {productOptionSelected[index].selectedOptions?.map(
-                  (val, ind) =>
-                    val?.isJersey && (
-                      <div
-                        key={`jersey-${index}-${ind}`}
-                        className="flex flex-col gap-2 w-[60%]"
-                      >
-                        <UITypography variant="p" text="Jersey Name:" />
-                        <UITextField
-                          isForm={false}
-                          placeholder="Enter the name on Jersey"
-                          value={val?.jerseyName || ""}
-                          onChange={(e) => handleOnChangeJersey(e, index, ind)}
-                        />
-                        <UITypography variant="p" text="Sizes:" />
-                        <UISelect
-                          onValueChange={(val) =>
-                            handleSelectJerseySize(val, index, ind)
-                          }
+                {productOptionSelected[index]?.selectedOptions?.length > 0 &&
+                  productOptionSelected[index]?.selectedOptions?.map(
+                    (val, ind) =>
+                      val?.isJersey && (
+                        <div
+                          key={`jersey-${index}-${ind}`}
+                          className="flex flex-col gap-2 w-[60%]"
                         >
-                          <SelectItem value="S">Small</SelectItem>
-                          <SelectItem value="M">Medium</SelectItem>
-                          <SelectItem value="L">Large</SelectItem>
-                          <SelectItem value="XL">Extra Large</SelectItem>
-                        </UISelect>
-                      </div>
-                    )
-                )}
+                          <UITypography
+                            variant="h6"
+                            text="Jersey Name Submission:"
+                          />
+                          <UITextField
+                            isForm={false}
+                            placeholder="First/Last/Full or Nickname"
+                            value={val?.jerseyName || ""}
+                            onChange={(e) =>
+                              handleOnChangeJersey(e, index, ind)
+                            }
+                          />
+                          <UITypography variant="p" text="Select your size:" />
+                          <UISelect
+                            onValueChange={(val) =>
+                              handleSelectJerseySize(val, index, ind)
+                            }
+                          >
+                            <SelectItem value="S">{`Extra Small (3T)`}</SelectItem>
+                            <SelectItem value="M">Youth Small</SelectItem>
+                            <SelectItem value="L">Youth Medium</SelectItem>
+                            <SelectItem value="XL">{`Large (adult s)`}</SelectItem>
+                          </UISelect>
+                        </div>
+                      )
+                  )}
                 <div className="flex flex-col gap-3 mb-4 justify-start items-start">
+                  <UITypography
+                    variant="h6"
+                    text="Please Select Attending Child*"
+                  />
+
                   <UIModal
                     open={modalOpen}
                     onOpenChange={() => handleModalOpen(index)}
@@ -332,6 +359,7 @@ const ProductDetail = () => {
           type="contained"
           icon={false}
           title="Add to Cart"
+          disabled={token ? false : true}
           btnOnclick={handleProductAddToCart}
         />
       </div>
@@ -343,6 +371,8 @@ const ProductDetail = () => {
               ? productDataReducer?.res?.locationMapLink
               : "#"
           }
+          className="text-blue-800 underline text-[18px]"
+          target="_blank"
         >
           {productDataReducer?.res?.locationAddress}
         </Link>
@@ -351,6 +381,7 @@ const ProductDetail = () => {
           text={`${formatDate(
             productDataReducer?.res?.startDate
           )} - ${formatDate(productDataReducer?.res?.endDate)}`}
+          className="mt-2"
         />
         <UITypography
           variant="h6"

@@ -16,6 +16,7 @@ import UISelect from "@/components/InputField/UISelect";
 import { SelectItem } from "@/components/ui/select";
 import { useDispatch } from "react-redux";
 import { getAllChildren } from "@/store/actions/children";
+import UITypography from "@/components/UITypography/UITypography";
 
 const AddChildFormContainer = ({ setIsAddChild }) => {
   const router = useRouter();
@@ -31,12 +32,11 @@ const AddChildFormContainer = ({ setIsAddChild }) => {
       value: "female",
     },
     {
-      title: "Non Specific",
-      value: "non-specific",
+      title: "Prefer not to say",
+      value: "prefer-not-to-say",
     },
   ];
 
-  const [childImage, setChildImage] = useState("");
   const [gender, setGender] = useState("");
   const form = useForm({
     resolver: yupResolver(addChildSchema),
@@ -47,15 +47,10 @@ const AddChildFormContainer = ({ setIsAddChild }) => {
     },
   });
 
-  const handleFileInput = (e) => {
-    setChildImage(e.target.files[0]);
-  };
+  
 
   function onSubmit(data) {
-    if (childImage == "") {
-      toast.error("Image is required");
-      return;
-    }
+  
     if(gender == ""){
       toast.error("Gender is required");
       return; 
@@ -66,7 +61,6 @@ const AddChildFormContainer = ({ setIsAddChild }) => {
     formData.append("age", data.age);
     formData.append("gender", gender);
     formData.append("allergies", data.allergies);
-    formData.append("image", childImage);
 
     apiPost(
       `${ApiEndpoints.children.base}${ApiEndpoints.children.create}`,
@@ -125,11 +119,6 @@ const AddChildFormContainer = ({ setIsAddChild }) => {
             </FormItem>
           )}
         />
-        <UIFileInput
-          labelName="Child Picture"
-          name="childImage"
-          onChange={handleFileInput}
-        />
         <FormField
           control={form.control}
           name="allergies"
@@ -148,7 +137,7 @@ const AddChildFormContainer = ({ setIsAddChild }) => {
           isLabel={true}
           labelName="Select Gender"
           name="gender"
-          placeholder={"Male, Female, non-specific"}
+          placeholder={"Male, Female, Prefer not to say"}
           onValueChange={handleGenderChange}
         >
           {genderArr.map((item, ind) => {
@@ -159,7 +148,7 @@ const AddChildFormContainer = ({ setIsAddChild }) => {
             );
           })}
         </UISelect>
-
+          <UITypography variant='p' text='This will be saved to your account so you can register faster next time. You can update it anytime in your profile.' />
         <Button type="submit">Submit</Button>
       </form>
     </Form>

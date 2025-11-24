@@ -72,7 +72,7 @@ const DesktopNavigationMenu = () => {
             <Link
               href={pathLocations.home}
               className={`${cn(navigationMenuTriggerStyle())} font-normal ${
-                pathname == "/"
+                pathname == pathLocations.home
                   ? "bg-main text-white hover:bg-dark hover:text-white"
                   : "bg-[#EBF0F4] text-black"
               } !rounded-full`}
@@ -88,7 +88,7 @@ const DesktopNavigationMenu = () => {
             <Link
               href={pathLocations.about}
               className={`${cn(navigationMenuTriggerStyle())} font-normal ${
-                pathname == "/"
+                pathname == pathLocations.about
                   ? "bg-main text-white hover:bg-dark hover:text-white"
                   : "bg-[#EBF0F4] text-black"
               } !rounded-full`}
@@ -103,7 +103,7 @@ const DesktopNavigationMenu = () => {
           <NavigationMenuItem>
             <NavigationMenuTrigger
               className={`font-normal rounded-full ${
-                pathname == "/"
+                pathname == pathLocations.categories
                   ? "bg-main text-white"
                   : "bg-[#EBF0F4] text-black"
               }`}
@@ -161,7 +161,7 @@ const DesktopNavigationMenu = () => {
             <Link
               href={pathLocations.blogs}
               className={`${cn(navigationMenuTriggerStyle())} font-normal ${
-                pathname == "/"
+                pathname == pathLocations.blogs
                   ? "bg-main text-white hover:bg-dark hover:text-white"
                   : "bg-[#EBF0F4] text-black"
               } !rounded-full`}
@@ -177,7 +177,7 @@ const DesktopNavigationMenu = () => {
             <Link
               href={pathLocations.contact}
               className={`${cn(navigationMenuTriggerStyle())} font-normal ${
-                pathname == "/"
+                pathname == pathLocations.contact
                   ? "bg-main text-white hover:bg-dark hover:text-white"
                   : "bg-[#EBF0F4] text-black"
               } !rounded-full`}

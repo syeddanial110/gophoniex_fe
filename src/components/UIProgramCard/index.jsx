@@ -22,12 +22,12 @@ const UIProgramCard = ({ text, card_img, btnText, href}) => {
           src={card_img}
           alt="card image"
           width={200}
-          height={90}
+          height={1080}
           style={{
             borderRadius: "16px",
-            height: "450px",
+            height: "auto",
             width: "100%",
-            objectFit: "cover",
+            objectFit: "contain",
           }}
         />
       </CardHeader>
