@@ -33,7 +33,7 @@ const AddChildFormContainer = ({ setIsAddChild }) => {
     },
     {
       title: "Prefer not to say",
-      value: "prefer-not-to-say",
+      value: "non-specific",
     },
   ];
 
@@ -62,9 +62,16 @@ const AddChildFormContainer = ({ setIsAddChild }) => {
     formData.append("gender", gender);
     formData.append("allergies", data.allergies);
 
+    const dataObj = {
+      name: data.name,
+      age: data.age,
+      gender: gender,
+      allergies: data.allergies,
+    }
+
     apiPost(
       `${ApiEndpoints.children.base}${ApiEndpoints.children.create}`,
-      formData,
+      dataObj,
       (res) => {
         // if()
         toast.success(res?.message);
@@ -78,7 +85,7 @@ const AddChildFormContainer = ({ setIsAddChild }) => {
         console.log("err", err);
         toast.error(err?.message);
       },
-      { "Content-Type": "multipart/form-data" }
+      // { "Content-Type": "multipart/form-data" }
     );
     // router.push(pathLocations.home);
   }

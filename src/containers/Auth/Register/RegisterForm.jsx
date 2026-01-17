@@ -108,6 +108,7 @@ const RegisterForm = () => {
           setUserId(res?.data?.user?.id)
           router.push(pathLocations.profile);
           setUserId(res?.data?.userId?.id);
+          localStorage.setItem("addChild", "true")
         }
       },
       (err) => {
@@ -412,7 +413,7 @@ const RegisterForm = () => {
           )}
         />
 
-        <Button type="submit">Submit</Button>
+        <Button type="submit">Continue to Create Child(s) Account</Button>
       </form>
     </Form>
   );

@@ -14,7 +14,7 @@ const Profile = () => {
     <div className="flex justify-center items-center min-h-screen bg-gray-50 gap-6">
       <div className="profile-page w-[70%] p-6 rounded-lg ">
         <UITypography variant="h1" text="Profile Information" />
-        <Tabs defaultValue="account" className="flex mt-5">
+        <Tabs defaultValue="children" className="flex mt-5">
           <TabsList className="flex flex-col items-start justify-start w-[35%] h-[100%] p-4 mr-6 gap-4 bg-[#f3f2f2]">
             <TabsTrigger
               className="data-[state=active]:bg-main data-[state=active]:text-white bg-gray-300 w-[100%] justify-start"

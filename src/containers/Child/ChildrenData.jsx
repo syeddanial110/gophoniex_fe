@@ -11,11 +11,12 @@ import { useDispatch, useSelector } from "react-redux";
 import AddChildFormContainer from "./AddChildFormContainer";
 import EditChildFormContainer from "./EditChildFormContainer";
 import { toast } from "sonner";
+import UIButton from "@/components/UIButton/UIButton";
 
 const ChildrenData = () => {
   const dispatch = useDispatch();
   const getAllChildrenData = useSelector(
-    (state) => state?.GetAllChildrenReducer?.res
+    (state) => state?.GetAllChildrenReducer?.res,
   );
 
   const [isEdit, setIsEdit] = useState(false);
@@ -23,6 +24,7 @@ const ChildrenData = () => {
   const handleModalOpen = () => {
     setModalOpen(!modalOpen);
   };
+  const [isAddChild, setIsAddChild] = useState(false);
 
   console.log("getAllChildrenData", getAllChildrenData);
 
@@ -44,18 +46,31 @@ const ChildrenData = () => {
       },
       (err) => {
         console.log("err", err);
-      }
+      },
     );
   };
 
   useEffect(() => {
+    if(localStorage.getItem("childModal") === "true"){
+      setIsAddChild(true);
+      localStorage.removeItem("childModal");
+    }
     dispatch(getAllChildren());
   }, []);
 
   return (
     <div className="min-h-[80vh] p-4">
       <div className="flex justify-end">
-        <AddChildForm />
+        <UIButton
+          type="contained"
+          icon={false}
+          title={isAddChild ? "Cancel" : "Add Child"}
+          btnOnclick={() => setIsAddChild(!isAddChild)}
+        />
+      </div>
+      <div className="flex justify-end">
+        {/* <AddChildForm /> */}
+        {isAddChild && <AddChildFormContainer setIsAddChild={setIsAddChild} />}
       </div>
       <div className="mt-5">
         {getAllChildrenData?.data?.length > 0 ? (
