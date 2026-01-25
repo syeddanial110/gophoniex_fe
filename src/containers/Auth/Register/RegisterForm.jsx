@@ -76,11 +76,11 @@ const RegisterForm = () => {
       toast.error("You must agree to the Terms & Conditions.");
       return;
     }
-    if (!data.photoRelease =="false") {
+    if (!data.photoRelease == "false") {
       toast.error("You must agree to the Photo Release.");
       return;
     }
-    if(!hearUsId){
+    if (!hearUsId) {
       toast.error("Please select how did you hear about us.");
       return;
     }
@@ -101,14 +101,15 @@ const RegisterForm = () => {
       `${ApiEndpoints.auth.base}${ApiEndpoints.auth.register}`,
       formData,
       (res) => {
-        console.log('res', res)
+        console.log("res", res);
         toast.success(res?.message);
         if (res?.success) {
           setToken(res?.data?.token);
-          setUserId(res?.data?.user?.id)
+          setUserId(res?.data?.user?.id);
           router.push(pathLocations.profile);
           setUserId(res?.data?.userId?.id);
-          localStorage.setItem("addChild", "true")
+          localStorage.setItem("addChild", "true");
+          localStorage.setItem("newsletterSubscribed", "false");
         }
       },
       (err) => {
@@ -116,7 +117,7 @@ const RegisterForm = () => {
         toast.error(err?.message);
       },
       // do not set Content-Type for FormData; browser will set boundary
-      {}
+      {},
     );
   }
 
@@ -129,7 +130,7 @@ const RegisterForm = () => {
       },
       (err) => {
         console.log("err", err);
-      }
+      },
     );
   }, []);
 

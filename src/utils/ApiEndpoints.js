@@ -68,4 +68,8 @@ export const ApiEndpoints = {
   homePageContent: {
     get: "/homePage/get",
   },
+  newsletter: {
+    base: "/newsletter",
+    subscribe: "/subscribe",
+  }
 };

@@ -59,6 +59,7 @@ const LoginForm = () => {
           router.push(pathLocations.home);
           setToken(res?.data?.token);
           setUserId(res?.data?.user?.id);
+          localStorage.setItem("newsletterSubscribed", res?.data?.user?.isSub);
         }
       },
       (err) => {
