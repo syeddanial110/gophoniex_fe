@@ -25,16 +25,20 @@ import { getAllCategories } from "@/store/actions/category";
 import { getAllSubCategories } from "@/store/actions/subCategory";
 import Image from "next/image";
 import placeholderImg from "../../../assets/Images/placeholderImg.webp";
+import { apiGet } from "@/apis/ApiRequest";
+import { ApiEndpoints } from "@/utils/ApiEndpoints";
 
 const DesktopNavigationMenu = () => {
   const pathname = usePathname();
 
   const [navigationMenu, setNavigationMenu] = useState([]);
 
+  const [headerMenu, setHeaderMenu] = useState([]);
+
   const dispatch = useDispatch();
 
   const categoriesData = useSelector(
-    (state) => state?.GetAllCategoriesReducer?.res
+    (state) => state?.GetAllCategoriesReducer?.res,
   );
 
   useEffect(() => {
@@ -63,68 +67,75 @@ const DesktopNavigationMenu = () => {
     }
   }, [categoriesData?.res?.data]);
 
+  useEffect(() => {
+    apiGet(
+      `${ApiEndpoints.menu.headerMenu}`,
+      (res) => {
+        console.log("res", res);
+        setHeaderMenu(res?.data || []);
+      },
+      (err) => {
+        console.log("err", err);
+      },
+    );
+  }, []);
+
+  console.log("headerMenu", headerMenu);
 
   return (
     <div className="flex justify-center">
-      <NavigationMenu className="px-1">
-        <NavigationMenuList>
-          <NavigationMenuItem>
-            <Link
-              href={pathLocations.home}
-              className={`${cn(navigationMenuTriggerStyle())} font-normal ${
-                pathname == pathLocations.home
-                  ? "bg-main text-white hover:bg-dark hover:text-white"
-                  : "bg-[#EBF0F4] text-black"
-              } !rounded-full`}
-            >
-              Home
-            </Link>
-          </NavigationMenuItem>
-        </NavigationMenuList>
-      </NavigationMenu>
-      <NavigationMenu className="px-1">
-        <NavigationMenuList>
-          <NavigationMenuItem>
-            <Link
-              href={pathLocations.about}
-              className={`${cn(navigationMenuTriggerStyle())} font-normal ${
-                pathname == pathLocations.about
-                  ? "bg-main text-white hover:bg-dark hover:text-white"
-                  : "bg-[#EBF0F4] text-black"
-              } !rounded-full`}
-            >
-              About us
-            </Link>
-          </NavigationMenuItem>
-        </NavigationMenuList>
-      </NavigationMenu>
-      <NavigationMenu>
-        <NavigationMenuList>
-          <NavigationMenuItem>
-            <NavigationMenuTrigger
-              className={`font-normal rounded-full ${
-                pathname == pathLocations.categories
-                  ? "bg-main text-white"
-                  : "bg-[#EBF0F4] text-black"
-              }`}
-            >
-              <Link href={pathLocations.categories}>Programs</Link>
-            </NavigationMenuTrigger>
-            <NavigationMenuContent className="">
-              <div className="min-w-[15vw] py-4 px-3">
-                <div className="">
-                  {navigationMenu.map((item, i) => {
-                    return (
-                      <>
-                        <div key={i} className="flex flex-col gap-5">
-                          <Link
-                            href={`${WEB_URL}${pathLocations.categories}/${item.categoryUrl}`}
-                            className="text-md"
-                          >
-                            {item?.categoryName}
-                          </Link>
-                          {/* <hr /> */}
-                          {/* {item?.subCategories?.length > 0 &&
+      {headerMenu?.map((item, index) => {
+        if (item?.id !== "programs" && item?.children?.length == 0) {
+          return (
+            <NavigationMenu className="px-1">
+              <NavigationMenuList>
+                <NavigationMenuItem>
+                  <Link
+                    href={
+                      item?.id == "home" ? item.url : `/user/content${item.url}`
+                    }
+                    className={`${cn(navigationMenuTriggerStyle())} font-normal ${
+                      pathname == item.url
+                        ? "bg-main text-white hover:bg-dark hover:text-white"
+                        : "bg-[#EBF0F4] text-black"
+                    } !rounded-full`}
+                  >
+                    {item.title}
+                  </Link>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
+          );
+        }
+        if (item?.id == "programs") {
+          return (
+            <NavigationMenu>
+              <NavigationMenuList>
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger
+                    className={`font-normal rounded-full ${
+                      pathname == pathLocations.categories
+                        ? "bg-main text-white"
+                        : "bg-[#EBF0F4] text-black"
+                    }`}
+                  >
+                    <Link href={pathLocations.categories}>Programs</Link>
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent className="">
+                    <div className="min-w-[15vw] py-4 px-3">
+                      <div className="">
+                        {navigationMenu.map((item, i) => {
+                          return (
+                            <>
+                              <div key={i} className="flex flex-col gap-5">
+                                <Link
+                                  href={`${WEB_URL}${pathLocations.categories}/${item.categoryUrl}`}
+                                  className="text-md"
+                                >
+                                  {item?.categoryName}
+                                </Link>
+                                {/* <hr /> */}
+                                {/* {item?.subCategories?.length > 0 &&
                               item?.subCategories?.map((elm, ind) => {
                                 return (
                                   <Link
@@ -135,58 +146,68 @@ const DesktopNavigationMenu = () => {
                                   </Link>
                                 );
                               })} */}
-                        </div>
+                              </div>
 
-                        {/* <NavigationMenuLink>Link</NavigationMenuLink> */}
-                      </>
-                    );
-                  })}
-                </div>
-                <div className="flex mt-10 gap-4">
-                  <Link
-                    href={pathLocations.categories}
-                    className="py-3 px-2 underline"
+                              {/* <NavigationMenuLink>Link</NavigationMenuLink> */}
+                            </>
+                          );
+                        })}
+                      </div>
+                      <div className="flex mt-10 gap-4">
+                        <Link
+                          href={pathLocations.categories}
+                          className="py-3 px-2 underline"
+                        >
+                          View More
+                        </Link>
+                      </div>
+                    </div>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
+          );
+        }
+        if (item?.children?.length > 0) {
+          return (
+            <NavigationMenu>
+              <NavigationMenuList>
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger
+                    className={`font-normal rounded-full ${
+                      pathname == pathLocations.categories
+                        ? "bg-main text-white"
+                        : "bg-[#EBF0F4] text-black"
+                    }`}
                   >
-                    View More
-                  </Link>
-                </div>
-              </div>
-            </NavigationMenuContent>
-          </NavigationMenuItem>
-        </NavigationMenuList>
-      </NavigationMenu>
-      <NavigationMenu className="px-1">
-        <NavigationMenuList>
-          <NavigationMenuItem>
-            <Link
-              href={pathLocations.blogs}
-              className={`${cn(navigationMenuTriggerStyle())} font-normal ${
-                pathname == pathLocations.blogs
-                  ? "bg-main text-white hover:bg-dark hover:text-white"
-                  : "bg-[#EBF0F4] text-black"
-              } !rounded-full`}
-            >
-              Blogs
-            </Link>
-          </NavigationMenuItem>
-        </NavigationMenuList>
-      </NavigationMenu>
-      <NavigationMenu className="px-1">
-        <NavigationMenuList>
-          <NavigationMenuItem>
-            <Link
-              href={pathLocations.contact}
-              className={`${cn(navigationMenuTriggerStyle())} font-normal ${
-                pathname == pathLocations.contact
-                  ? "bg-main text-white hover:bg-dark hover:text-white"
-                  : "bg-[#EBF0F4] text-black"
-              } !rounded-full`}
-            >
-              Contact us
-            </Link>
-          </NavigationMenuItem>
-        </NavigationMenuList>
-      </NavigationMenu>
+                    <Link href={item?.url}>{item.title}</Link>
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent className="">
+                    <div className="min-w-[15vw] py-4 px-3">
+                      <div className="">
+                        {item?.children.map((elm, i) => {
+                          return (
+                            <>
+                              <div key={i} className="flex flex-col gap-5">
+                                <Link
+                                  href={`${WEB_URL}/user/content${elm.url}`}
+                                  className="text-md"
+                                >
+                                  {elm?.title}
+                                </Link>
+                              </div>
+                            </>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
+          );
+        }
+      })}
     </div>
   );
 };

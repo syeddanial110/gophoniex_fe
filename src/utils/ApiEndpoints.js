@@ -51,6 +51,7 @@ export const ApiEndpoints = {
     getAll: "/get",
     getById: "/getById",
     getBySlug: "/getBySlug",
+    headerMenu: "/header/get"
   },
   order: {
     base: "/order",
