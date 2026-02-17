@@ -81,6 +81,7 @@ const DesktopNavigationMenu = () => {
   }, []);
 
   console.log("headerMenu", headerMenu);
+  console.log("navigationMenu", navigationMenu);
 
   return (
     <div className="flex justify-center">
@@ -121,47 +122,46 @@ const DesktopNavigationMenu = () => {
                   >
                     <Link href={pathLocations.categories}>Programs</Link>
                   </NavigationMenuTrigger>
-                  <NavigationMenuContent className="">
-                    <div className="min-w-[15vw] py-4 px-3">
-                      <div className="">
-                        {navigationMenu.map((item, i) => {
-                          return (
-                            <>
-                              <div key={i} className="flex flex-col gap-5">
-                                <Link
-                                  href={`${WEB_URL}${pathLocations.categories}/${item.categoryUrl}`}
-                                  className="text-md"
-                                >
-                                  {item?.categoryName}
-                                </Link>
-                                {/* <hr /> */}
-                                {/* {item?.subCategories?.length > 0 &&
-                              item?.subCategories?.map((elm, ind) => {
-                                return (
-                                  <Link
-                                    href={`${WEB_URL}${pathLocations.subCategories}/${elm.subCategoryUrl}`}
-                                    key={ind}
-                                  >
-                                    {elm?.subCategoryName}
-                                  </Link>
-                                );
-                              })} */}
-                              </div>
 
-                              {/* <NavigationMenuLink>Link</NavigationMenuLink> */}
-                            </>
-                          );
-                        })}
-                      </div>
-                      <div className="flex mt-10 gap-4">
+                  <NavigationMenuContent>
+                    <div className="grid grid-cols-3 gap-8 p-6 min-w-[60vw]">
+                      {(() => {
+                        // Limit to 12 items max
+                        const limited = navigationMenu.slice(0, 12);
+
+                        // Split into chunks of 4
+                        const columns = [];
+                        for (let i = 0; i < limited.length; i += 4) {
+                          columns.push(limited.slice(i, i + 4));
+                        }
+
+                        return columns.map((col, colIdx) => (
+                          <div key={colIdx} className="flex flex-col gap-3">
+                            {col.map((item, i) => (
+                              <Link
+                                key={i}
+                                href={`${WEB_URL}${pathLocations.categories}/${item.categoryUrl}`}
+                                className="text-sm hover:underline"
+                              >
+                                {item.categoryName}
+                              </Link>
+                            ))}
+                          </div>
+                        ));
+                      })()}
+                    </div>
+
+                    {/* View More button if > 12 */}
+                    {navigationMenu.length > 12 && (
+                      <div className="flex mt-6 justify-center">
                         <Link
                           href={pathLocations.categories}
-                          className="py-3 px-2 underline"
+                          className="py-2 px-4 bg-main text-white rounded-md hover:bg-dark transition"
                         >
-                          View More
+                          View More Programs
                         </Link>
                       </div>
-                    </div>
+                    )}
                   </NavigationMenuContent>
                 </NavigationMenuItem>
               </NavigationMenuList>

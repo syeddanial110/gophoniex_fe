@@ -9,6 +9,8 @@ import { ApiEndpoints } from "@/utils/ApiEndpoints";
 import { BASEURL } from "@/apis/ApiRequest";
 import Header from "@/containers/Header/Header";
 import NewsLetterModal from "@/containers/Home/NewsLetterModal";
+import MasonaryCardsLayout from "@/containers/Home/MasonaryCardsLayout";
+import TopCollectionCarousel from "@/containers/Home/TopCollectionCarousel";
 
 // Fetch metadata from API
 async function getMetadata() {
@@ -63,9 +65,11 @@ export default function Home() {
     <Header />
       <div className="flex flex-col items-center h3 pt-10 gap-3">
         <NewsLetterModal />
-        <BannerCarousel />
+        <MasonaryCardsLayout />
+        <TopCollectionCarousel />
+        {/* <BannerCarousel />
         <ClientStats />
-        <AboutSection />
+        <AboutSection /> */}
         {/* <SectionAnimation /> */}
         <CallToAction />
         <VideoSection />
