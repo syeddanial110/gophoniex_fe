@@ -68,8 +68,8 @@ export default function Home() {
         <MasonaryCardsLayout />
         <TopCollectionCarousel />
         {/* <BannerCarousel />
-        <ClientStats />
-        <AboutSection /> */}
+        <ClientStats />*/}
+        <AboutSection /> 
         {/* <SectionAnimation /> */}
         <CallToAction />
         <VideoSection />
