@@ -10,6 +10,7 @@ import { pathLocations, WEB_URL } from "@/utils/navigation";
 import UITypography from "@/components/UITypography/UITypography";
 import UISkeleton from "@/components/UISkeleton/UISkeleton";
 import UISpinner from "@/components/UISpinner/UISpinner";
+import TypeSection from "@/components/TypeSection/TypeSection";
 
 const Categories = () => {
   const categoriesReducer = useSelector(
@@ -58,6 +59,8 @@ const Categories = () => {
         </div>
       </div>
 
+    
+
       <h2 className="text-black text-4xl text-center font-[500] mt-10">
         Explore Our Collections
       </h2>
@@ -78,6 +81,27 @@ const Categories = () => {
             <UITypography variant="h3" text="No Categories Found" />
           </div>
         )}
+      </div>
+
+      {/* Carlsbad Beach Partner Section */}
+      <div className="bg-gray-50 py-16 px-20">
+        <div className="max-w-2xl mx-auto text-center">
+          <h2 className="text-3xl font-bold text-black mb-4">
+            Official Carlsbad Beach Partner
+          </h2>
+          
+          <h3 className="text-2xl font-semibold text-gray-800 mb-2">
+            🏖️ Tamarack & Frazee Beach
+          </h3>
+          
+          <p className="text-lg font-semibold text-gray-700 mb-6">
+            Official Permitted Fitness Partner
+          </p>
+          
+          <p className="text-gray-600 text-base leading-relaxed">
+            Our Sports Fitness curriculum utilizes sand resistance to build superior athletic foundations. By focusing on physical literacy and explosive power, we prepare every athlete for peak performance
+          </p>
+        </div>
       </div>
     </>
   );

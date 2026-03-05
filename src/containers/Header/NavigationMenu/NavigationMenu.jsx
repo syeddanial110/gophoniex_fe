@@ -27,6 +27,7 @@ import Image from "next/image";
 import placeholderImg from "../../../assets/Images/placeholderImg.webp";
 import { apiGet } from "@/apis/ApiRequest";
 import { ApiEndpoints } from "@/utils/ApiEndpoints";
+import { BicepsFlexed, Book, Volleyball, Waves } from "lucide-react";
 
 const DesktopNavigationMenu = () => {
   const pathname = usePathname();
@@ -40,6 +41,13 @@ const DesktopNavigationMenu = () => {
   const categoriesData = useSelector(
     (state) => state?.GetAllCategoriesReducer?.res,
   );
+
+  const iconArray = [Volleyball, Book, Waves, BicepsFlexed];
+
+  const getRandomIcon = () => {
+    const randomIcon = iconArray[Math.floor(Math.random() * iconArray.length)];
+    return randomIcon;
+  };
 
   useEffect(() => {
     dispatch(getAllCategories());
@@ -82,11 +90,16 @@ const DesktopNavigationMenu = () => {
 
   console.log("headerMenu", headerMenu);
   console.log("navigationMenu", navigationMenu);
+  console.log("pathname", pathname);
 
   return (
     <div className="flex justify-center">
       {headerMenu?.map((item, index) => {
-        if (item?.id !== "programs" && item?.children?.length == 0) {
+        if (
+          item?.id !== "programs" &&
+          item?.id !== "all" &&
+          item?.children?.length == 0
+        ) {
           return (
             <NavigationMenu className="px-1">
               <NavigationMenuList>
@@ -137,15 +150,19 @@ const DesktopNavigationMenu = () => {
 
                         return columns.map((col, colIdx) => (
                           <div key={colIdx} className="flex flex-col gap-3">
-                            {col.map((item, i) => (
-                              <Link
-                                key={i}
-                                href={`${WEB_URL}${pathLocations.categories}/${item.categoryUrl}`}
-                                className="text-sm hover:underline"
-                              >
-                                {item.categoryName}
-                              </Link>
-                            ))}
+                            {col.map((item, i) => {
+                              const IconComponent = getRandomIcon();
+                              return (
+                                <Link
+                                  key={i}
+                                  href={`${WEB_URL}${pathLocations.categories}/${item.categoryUrl}`}
+                                  className="text-sm hover:underline flex items-center gap-2"
+                                >
+                                  <IconComponent className="w-4 h-4" />
+                                  {item.categoryName}
+                                </Link>
+                              );
+                            })}
                           </div>
                         ));
                       })()}
@@ -168,6 +185,26 @@ const DesktopNavigationMenu = () => {
             </NavigationMenu>
           );
         }
+        if (item?.id == "all") {
+          return (
+            <NavigationMenu className="px-1">
+              <NavigationMenuList>
+                <NavigationMenuItem>
+                  <Link
+                    href={`/user${item.url}`}
+                    className={`${cn(navigationMenuTriggerStyle())} font-normal ${
+                      pathname == `/user${item.url}`
+                        ? "bg-main text-white hover:bg-dark hover:text-white"
+                        : "bg-[#EBF0F4] text-black"
+                    } !rounded-full`}
+                  >
+                    {item.title}
+                  </Link>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
+          );
+        }
         if (item?.children?.length > 0) {
           return (
             <NavigationMenu>
@@ -175,7 +212,7 @@ const DesktopNavigationMenu = () => {
                 <NavigationMenuItem>
                   <NavigationMenuTrigger
                     className={`font-normal rounded-full ${
-                      pathname == pathLocations.categories
+                      pathname == item.url
                         ? "bg-main text-white"
                         : "bg-[#EBF0F4] text-black"
                     }`}

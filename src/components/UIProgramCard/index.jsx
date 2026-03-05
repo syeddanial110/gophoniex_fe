@@ -12,7 +12,7 @@ import UIButton from "../UIButton/UIButton";
 import UITypography from "../UITypography/UITypography";
 import Link from "next/link";
 
-const UIProgramCard = ({ text, card_img, btnText, href}) => {
+const UIProgramCard = ({ text, card_img, btnText, href }) => {
   return (
     <Card>
       <CardHeader>
@@ -26,6 +26,7 @@ const UIProgramCard = ({ text, card_img, btnText, href}) => {
           style={{
             borderRadius: "16px",
             height: "auto",
+            maxHeight: "500px",
             width: "100%",
             objectFit: "contain",
           }}
@@ -33,7 +34,7 @@ const UIProgramCard = ({ text, card_img, btnText, href}) => {
       </CardHeader>
       <CardContent>
         {/* <UITypography text={text} className="text-center capitalize" /> */}
-          <div dangerouslySetInnerHTML={{ __html: text }} />
+        <div dangerouslySetInnerHTML={{ __html: text }} />
       </CardContent>
       <CardFooter className="flex justify-center">
         {/* <UIButton
@@ -43,7 +44,12 @@ const UIProgramCard = ({ text, card_img, btnText, href}) => {
           icon={false}
           btnOnclick={btnOnclick}
         /> */}
-        <Link href={href} className="bg-main btn rounded-full py-3 px-6 text-white">{btnText}</Link>
+        <Link
+          href={href}
+          className="bg-main btn rounded-full py-3 px-6 text-white"
+        >
+          {btnText}
+        </Link>
       </CardFooter>
     </Card>
   );

@@ -82,14 +82,14 @@ const AboutSection = () => {
   console.log("latestClasses", latestClasses);
 
   return (
-    <section className="w-[70%] mx-auto py-8">
+    <section className="w-[80%] mx-auto py-8">
       <div className="flex flex-col items-center mb-4">
         <UITypography variant="h2" text={"Latest Classes"} />
       </div>
       {isLoading ? (
         <UISkeleton />
       ) : (
-        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-8">
+        <div className="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-8">
           {latestClasses?.length > 0 &&
             latestClasses?.map((card, idx) => (
               <AboutSectionCard
