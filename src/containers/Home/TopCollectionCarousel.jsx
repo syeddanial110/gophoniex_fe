@@ -12,8 +12,17 @@ import Link from "next/link";
 import UITypography from "@/components/UITypography/UITypography";
 import cardImg from "../../assets/Images/scroll2.png";
 import { pathLocations } from "@/utils/navigation";
+import { useDispatch, useSelector } from "react-redux";
+import { getHomePageContent } from "@/store/actions/home";
 
 const TopCollectionCarousel = () => {
+  const dispatch = useDispatch();
+
+  const homePageCarouselData = useSelector(
+    (state) => state?.GetHomePageContentReducer?.res,
+  );
+
+
   const [api, setApi] = useState();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
@@ -67,6 +76,10 @@ const TopCollectionCarousel = () => {
     if (api) api.scrollTo(index);
   };
 
+  useEffect(() => {
+    dispatch(getHomePageContent());
+  }, []);
+
   return (
     <section className="w-full px-6 py-16">
       <div className="flex justify-between items-center mb-6">
@@ -75,7 +88,10 @@ const TopCollectionCarousel = () => {
           text="Top Selling Collections"
           className="font-bold"
         />
-        <Link href={pathLocations.program} className="text-blue-600 text-sm font-medium">
+        <Link
+          href={pathLocations.program}
+          className="text-blue-600 text-sm font-medium"
+        >
           View all collections
         </Link>
       </div>
@@ -89,23 +105,25 @@ const TopCollectionCarousel = () => {
         className="relative"
       >
         <CarouselContent>
-          {collections.map((item, i) => (
+          {homePageCarouselData?.res?.data?.topSelling?.map((item, i) => (
             <CarouselItem
               key={i}
               className="basis-1/3 pl-4" // ✅ 3 slides per view
             >
               <div className="relative rounded-lg overflow-hidden shadow-md">
                 <Image
-                  src={item.img}
-                  alt={item.title}
+                  src={item.image}
+                  alt={item.type == "class" ? item.productName : item.name}
                   width={400}
                   height={400}
                   className="object-cover w-full h-64"
                 />
                 <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/40 text-white">
-                  <h3 className="text-lg font-bold">{item.title}</h3>
+                  <h3 className="text-lg font-bold">
+                    {item.type == "class" ? item.productName : item.name}
+                  </h3>
                   <Link
-                    href={item.link}
+                    href={item.slug}
                     className="mt-3 bg-white text-black px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-100 transition"
                   >
                     Shop now

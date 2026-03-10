@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import UIButton from "@/components/UIButton/UIButton";
 import { Plus } from "lucide-react";
+import UITypography from "@/components/UITypography/UITypography";
 
 const ProductsCard = ({
   image,
@@ -42,8 +43,8 @@ const ProductsCard = ({
         />
       </div>
       <div className="mt-4">
-        <div dangerouslySetInnerHTML={{ __html: title }} />
-        <div className="text-gray-500 text-sm">{description}</div>
+        <UITypography variant="h6" text={title} />
+        <UITypography variant="p" text={description} />
       </div>
     </div>
   );

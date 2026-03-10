@@ -43,8 +43,8 @@ export async function generateMetadata() {
   const metadata = await getMetadata();
   console.log("metadata", metadata);
   return {
-    title: metadata.data.home.metaTitle,
-    description: metadata.data.home.metaDescription,
+    title: metadata?.data?.metaTitle,
+    description: metadata?.data?.metaDescription,
     // You can add more meta tags here
     // openGraph: {
     //   title: metadata.title,
