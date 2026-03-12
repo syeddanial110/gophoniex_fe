@@ -20,7 +20,9 @@ export const editProductData = (data) => (dispatch) => {
 export const getAllProducts = (data) => (dispatch) => {
   dispatch({ type: GetAllProductsConstants.GET_ALL_PRODUCTS_LOADING });
   apiGet(
-    `${ApiEndpoints.products.base}${ApiEndpoints.products.getAll}/?page=${data?.page}`,
+    data == undefined
+      ? `${ApiEndpoints.products.base}${ApiEndpoints.products.getAll}`
+      : `${ApiEndpoints.products.base}${ApiEndpoints.products.getAll}/?page=${data?.page}`,
     (res) => {
       dispatch({
         type: GetAllProductsConstants.GET_ALL_PRODUCTS_SUCCESS,
@@ -32,7 +34,7 @@ export const getAllProducts = (data) => (dispatch) => {
         type: GetAllProductsConstants.GET_ALL_PRODUCTS_ERROR,
       });
       toast.error(err?.message);
-    }
+    },
   );
 };
 
@@ -44,7 +46,9 @@ export const productData = (data) => (dispatch) => {
   });
 };
 export const selectProductCheckout = (data) => (dispatch) => {
-  dispatch({ type: SelectProductCheckoutConstants.SELECT_PRODUCT_CHECKOUT_LOADING });
+  dispatch({
+    type: SelectProductCheckoutConstants.SELECT_PRODUCT_CHECKOUT_LOADING,
+  });
   dispatch({
     type: SelectProductCheckoutConstants.SELECT_PRODUCT_CHECKOUT_SUCCESS,
     payload: { data },
