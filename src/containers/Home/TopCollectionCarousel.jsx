@@ -123,7 +123,7 @@ const TopCollectionCarousel = () => {
                     {item.type == "class" ? item.productName : item.name}
                   </h3>
                   <Link
-                    href={item.slug}
+                    href={`/user/categories/${item.slug}`}
                     className="mt-3 bg-white text-black px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-100 transition"
                   >
                     Shop now
