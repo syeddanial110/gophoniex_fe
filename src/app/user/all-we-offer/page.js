@@ -45,9 +45,12 @@ const AllWeOffer = () => {
         <hr />
       </div>
 
+         {/* Comparison Section */}
+      <TypeSection />
+
       {/* Categories Section */}
       <div className="px-20 py-14">
-        <UITypography variant="h2" text="Our Collections" className="mb-8" />
+        <UITypography variant="h2" text="Our Programs" className="mb-8" />
         {isLoadingCategories ? (
           <div className="flex justify-center items-center h-64">
             <UISpinner />
@@ -74,7 +77,7 @@ const AllWeOffer = () => {
 
       {/* Products Section */}
       <div className="px-20 py-14 bg-gray-50">
-        <UITypography variant="h2" text="All Products" className="mb-8" />
+        <UITypography variant="h2" text="All Classes" className="mb-8" />
         {isLoadingProducts ? (
           <div className="flex justify-center items-center h-64">
             <UISpinner />
@@ -98,8 +101,7 @@ const AllWeOffer = () => {
         )}
       </div>
 
-      {/* Comparison Section */}
-      <TypeSection />
+   
     </div>
   );
 };
