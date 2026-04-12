@@ -31,7 +31,6 @@ const RegisterForm = () => {
   const router = useRouter();
 
   const [showPassword, setShowPassword] = useState(false);
-  const [profileImage, setProfileImage] = useState("");
 
   // modal open states
   const [liabilityOpen, setLiabilityOpen] = useState(false);
@@ -61,9 +60,6 @@ const RegisterForm = () => {
     setShowPassword(!showPassword);
   };
 
-  const handleFileInput = (e) => {
-    setProfileImage(e.target.files[0]);
-  };
 
   function onSubmit(data) {
     console.log("data", data);
@@ -91,7 +87,6 @@ const RegisterForm = () => {
     formData.append("email", data.email);
     formData.append("password", data.password);
     formData.append("confirmPassword", data.confirmPassword);
-    formData.append("image", profileImage);
     formData.append("hear", hearUsId);
     formData.append("liability", data.liability ? "1" : "0");
     formData.append("photo", data.photoRelease ? "1" : "0");
@@ -166,11 +161,7 @@ const RegisterForm = () => {
             </FormItem>
           )}
         />
-        <UIFileInput
-          labelName="Profile Picture"
-          name="profileImage"
-          onChange={handleFileInput}
-        />
+      
         <FormField
           control={form.control}
           name="email"

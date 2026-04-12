@@ -72,5 +72,6 @@ export const ApiEndpoints = {
   newsletter: {
     base: "/newsletter",
     subscribe: "/subscribe",
-  }
+  },
+  
 };
