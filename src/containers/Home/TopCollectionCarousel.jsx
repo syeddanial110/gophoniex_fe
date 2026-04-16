@@ -14,6 +14,7 @@ import cardImg from "../../assets/Images/scroll2.png";
 import { pathLocations } from "@/utils/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { getHomePageContent } from "@/store/actions/home";
+import UISkeleton from "@/components/UISkeleton/UISkeleton";
 
 const TopCollectionCarousel = () => {
   const dispatch = useDispatch();
@@ -21,7 +22,6 @@ const TopCollectionCarousel = () => {
   const homePageCarouselData = useSelector(
     (state) => state?.GetHomePageContentReducer?.res,
   );
-
 
   const [api, setApi] = useState();
   const [current, setCurrent] = useState(0);
@@ -105,6 +105,7 @@ const TopCollectionCarousel = () => {
         className="relative"
       >
         <CarouselContent>
+          {!homePageCarouselData?.res && <UISkeleton />}
           {homePageCarouselData?.res?.data?.topSelling?.map((item, i) => (
             <CarouselItem
               key={i}

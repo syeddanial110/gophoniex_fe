@@ -2,9 +2,9 @@
 const nextConfig = {
   images: {
     domains: [
-      "res.cloudinary.com",
+      "api.activityphysical.tech",
       "wcx78p18-5000.inc1.devtunnels.ms",
-      "sports-new-production.up.railway.app",
+      "api.activityphysical.tech/uploads",
     ],
   },
 };

@@ -1,5 +1,6 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import loginBanner from "@/assets/Images/loginBanner.jpg";
+import { ImageBaseUrl } from "@/apis/ApiRequest";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,7 +21,7 @@ export default function AuthLayout({ children }) {
         <div className="min-h-screen grid grid-cols-2 justify-items-center content-center bg-gradient-to-br from-gray-50 to-gray-100">
           <div
             style={{
-              backgroundImage: `url('${loginBanner.src}')`,
+              backgroundImage: `url('${ImageBaseUrl}${loginBanner.src}')`,
               backgroundSize: "cover",
               backgroundPosition: "center",
               minHeight: "100vh",

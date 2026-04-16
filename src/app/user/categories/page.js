@@ -11,6 +11,7 @@ import UITypography from "@/components/UITypography/UITypography";
 import UISkeleton from "@/components/UISkeleton/UISkeleton";
 import UISpinner from "@/components/UISpinner/UISpinner";
 import TypeSection from "@/components/TypeSection/TypeSection";
+import { ImageBaseUrl } from "@/apis/ApiRequest";
 
 const Categories = () => {
   const categoriesReducer = useSelector(
@@ -70,7 +71,7 @@ const Categories = () => {
           categoriesReducer?.res?.data?.map((card, idx) => (
             <UIProgramCard
               text={card.name}
-              card_img={card.image}
+              card_img={`${ImageBaseUrl}${card.image}`}
               // card_img={`${ImageBaseUrl}${card.image}`}
               btnText="View Classes"
               href={`${WEB_URL}${pathLocations.categories}/${card.slug}`}
