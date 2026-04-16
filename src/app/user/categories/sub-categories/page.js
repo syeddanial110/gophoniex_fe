@@ -63,7 +63,7 @@ const SubCategories = () => {
             <UIProgramCard
               text={card.name}
               // card_img={card.image}
-              card_img={`${card.image}`}
+              card_img={`${ImageBaseUrl}${card.image}`}
               btnText="View Products"
               href={`${WEB_URL}${pathLocations.subCategories}/${card.slug}`}
             />

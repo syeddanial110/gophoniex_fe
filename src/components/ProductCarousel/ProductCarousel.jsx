@@ -4,6 +4,7 @@ import { Splide, SplideSlide } from "@splidejs/react-splide";
 import { Options } from "@splidejs/splide";
 import { generateSlides } from "@/utils/dummyData";
 import Image from "next/image";
+import { ImageBaseUrl } from "@/apis/ApiRequest";
 
 const ProductCarousel = ({ pagePerView, productGalleryImages = [] }) => {
   const mainRef = useRef(null); // Reference for the main Splide component
@@ -21,7 +22,7 @@ const ProductCarousel = ({ pagePerView, productGalleryImages = [] }) => {
     return productGalleryImages.map((slide) => (
       <SplideSlide key={slide.src}>
         <Image
-          src={slide.path}
+          src={`${ImageBaseUrl}${slide.path}`}
           alt={slide.path}
           width={500}
           height={1080}

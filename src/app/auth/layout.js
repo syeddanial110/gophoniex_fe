@@ -21,7 +21,7 @@ export default function AuthLayout({ children }) {
         <div className="min-h-screen grid grid-cols-2 justify-items-center content-center bg-gradient-to-br from-gray-50 to-gray-100">
           <div
             style={{
-              backgroundImage: `url('${ImageBaseUrl}${loginBanner.src}')`,
+              backgroundImage: `url('${loginBanner.src}')`,
               backgroundSize: "cover",
               backgroundPosition: "center",
               minHeight: "100vh",

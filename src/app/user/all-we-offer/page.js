@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllCategories } from "@/store/actions/category";
 import { getAllProducts } from "@/store/actions/products";
 import { pathLocations, WEB_URL } from "@/utils/navigation";
+import { ImageBaseUrl } from "@/apis/ApiRequest";
 
 const AllWeOffer = () => {
   const dispatch = useDispatch();
@@ -63,7 +64,7 @@ const AllWeOffer = () => {
                 <UIProgramCard
                   key={idx}
                   text={card.name}
-                  card_img={card.image}
+                  card_img={`${ImageBaseUrl}${card.image}`}
                   btnText="View Classes"
                   href={`${WEB_URL}${pathLocations.categories}/${card.slug}`}
                 />
@@ -90,7 +91,7 @@ const AllWeOffer = () => {
                 <UIProductCard
                   key={idx}
                   title={card?.cardName}
-                  mainImg={card?.image == null ? "" : card?.image}
+                  mainImg={card?.image == null ? "" : `${ImageBaseUrl}${card?.image}`}
                   href={`${WEB_URL}${pathLocations.program}/${card?.id}`}
                 />
               ))

@@ -1,5 +1,5 @@
 "use client";
-import { apiGet } from "@/apis/ApiRequest";
+import { apiGet, ImageBaseUrl } from "@/apis/ApiRequest";
 import UIProductCard from "@/components/UIProductsCard";
 import UITypography from "@/components/UITypography/UITypography";
 import { ApiEndpoints } from "@/utils/ApiEndpoints";
@@ -55,8 +55,8 @@ const SubCategoryById = () => {
             <UIProductCard
               key={idx}
               title={card.cardName}
-              mainImg={card.image}
-              hoverImg={card.hoverImage}
+              mainImg={`${ImageBaseUrl}${card.image}`}
+              hoverImg={`${ImageBaseUrl}${card.hoverImage}`}
               // description={card.description}
               slots={card.seats}
               href={`${WEB_URL}${pathLocations.program}/${card.id}`}

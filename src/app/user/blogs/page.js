@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { apiGet } from "@/apis/ApiRequest";
+import { apiGet, ImageBaseUrl } from "@/apis/ApiRequest";
 import { ApiEndpoints } from "@/utils/ApiEndpoints";
 import UITypography from "@/components/UITypography/UITypography";
 import { Button } from "@/components/ui/button";
@@ -70,7 +70,7 @@ const BlogsPage = () => {
                     <div className="block">
                       <div className="h-44 w-full overflow-hidden">
                         <Image
-                          src={image}
+                          src={`${ImageBaseUrl}${image}`}
                           alt={title}
                           className="w-full h-full object-cover"
                           width={400}

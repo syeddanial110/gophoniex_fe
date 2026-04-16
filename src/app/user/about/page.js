@@ -57,7 +57,7 @@ const About = () => {
         <div className="flex flex-col gap-3">
           <UITypography variant="h5" text="Staff Members" />
           <UITypography text="Douglas Goldfein" />
-          <Image src={`${ImageBaseUrl}${Young_Doug_About_Us}`} alt="Young_Doug_About_Us" height={120} />
+          <Image src={`${Young_Doug_About_Us}`} alt="Young_Doug_About_Us" height={120} />
         </div>
       </div>
     </div>

@@ -1,5 +1,5 @@
 "use client";
-import { apiGet } from "@/apis/ApiRequest";
+import { apiGet, ImageBaseUrl } from "@/apis/ApiRequest";
 import { getToken } from "@/apis/Auth";
 import UICheckbox from "@/components/UICheckbox/UICheckbox";
 import UIProductCard from "@/components/UIProductsCard";
@@ -146,7 +146,7 @@ const CollectionById = () => {
                   <UIProductCard
                     key={idx}
                     title={card.cardName}
-                    mainImg={card.image == null ? "" : card.image}
+                    mainImg={card.image == null ? "" : `${ImageBaseUrl}${card.image}`}
                     // hoverImg={card.hoverImage}
                     // description={card.description}
                     slots={card.seats}
