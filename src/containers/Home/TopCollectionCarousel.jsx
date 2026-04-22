@@ -15,6 +15,7 @@ import { pathLocations } from "@/utils/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { getHomePageContent } from "@/store/actions/home";
 import UISkeleton from "@/components/UISkeleton/UISkeleton";
+import { ImageBaseUrl } from "@/apis/ApiRequest";
 
 const TopCollectionCarousel = () => {
   const dispatch = useDispatch();
@@ -89,7 +90,7 @@ const TopCollectionCarousel = () => {
           className="font-bold"
         />
         <Link
-          href={pathLocations.program}
+          href={pathLocations.categories}
           className="text-blue-600 text-sm font-medium"
         >
           View all collections
@@ -113,7 +114,7 @@ const TopCollectionCarousel = () => {
             >
               <div className="relative rounded-lg overflow-hidden shadow-md">
                 <Image
-                  src={item.image}
+                  src={`${ImageBaseUrl}${item.image}`}
                   alt={item.type == "class" ? item.productName : item.name}
                   width={400}
                   height={400}

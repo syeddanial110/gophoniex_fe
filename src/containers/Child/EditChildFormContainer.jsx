@@ -44,7 +44,7 @@ const EditChildFormContainer = ({ setIsEditChild }) => {
     },
   ];
 
-  const [childImage, setChildImage] = useState("");
+  // const [childImage, setChildImage] = useState("");
   const [gender, setGender] = useState(selectedChild?.data.gender || "");
   const form = useForm({
     resolver: yupResolver(addChildSchema),
@@ -55,29 +55,35 @@ const EditChildFormContainer = ({ setIsEditChild }) => {
     },
   });
 
-  const handleFileInput = (e) => {
-    setChildImage(e.target.files[0]);
-  };
+  // const handleFileInput = (e) => {
+  //   setChildImage(e.target.files[0]);
+  // };
 
   function onChildSubmit(data) {
     if(gender == ""){
       toast.error("Please select gender");
       return;
     }
-    if(childImage == ""){
-      toast.error("Please upload child image");
-      return;
-    }
+    // if(childImage == ""){
+    //   toast.error("Please upload child image");
+    //   return;
+    // }
     const formData = new FormData();
     formData.append("name", data.name);
     formData.append("age", data.age);
     formData.append("gender", gender);
     formData.append("allergies", data.allergies);
-    formData.append("image", childImage);
+
+    const dataObj ={
+      name: data.name,
+      age: data.age,
+      gender: gender,
+      allergies: data.allergies,
+    }
 
     apiPut(
       `${ApiEndpoints.children.base}${ApiEndpoints.children.update}/${selectedChild?.data?.id}`,
-      formData,
+      dataObj,
       (res) => {
         console.log("res", res);
         toast.success(res?.message);
@@ -86,7 +92,7 @@ const EditChildFormContainer = ({ setIsEditChild }) => {
       (err) => {
         console.log("err", err);
       },
-      { "Content-Type": "multipart/form-data" }
+      // { "Content-Type": "multipart/form-data" }
     );
   }
 
@@ -102,7 +108,7 @@ const EditChildFormContainer = ({ setIsEditChild }) => {
         allergies: selectedChild?.data.allergies || "",
       });
       setGender(selectedChild?.data.gender);
-      setChildImage(selectedChild?.data.image);
+      // setChildImage(selectedChild?.data.image);
     }
   }, [selectedChild?.data]);
 
@@ -139,12 +145,12 @@ const EditChildFormContainer = ({ setIsEditChild }) => {
             </FormItem>
           )}
         />
-        <UIFileInput
+        {/* <UIFileInput
           labelName="Child Picture"
           name="childImage"
           onChange={handleFileInput}
-        />
-        {childImage !== "" && childImage !== null && (
+        /> */}
+        {/* {childImage !== "" && childImage !== null && (
           <UITooltip>
             <TooltipTrigger>
               <Image
@@ -165,7 +171,7 @@ const EditChildFormContainer = ({ setIsEditChild }) => {
               </div>
             </TooltipContent>
           </UITooltip>
-        )}
+        )} */}
         <FormField
           control={form.control}
           name="allergies"

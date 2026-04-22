@@ -7,7 +7,7 @@ import logo from "../../assets/Images/logo.webp";
 import UITypography from "@/components/UITypography/UITypography";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "@/store/actions/products";
-import { apiGet, apiPost } from "@/apis/ApiRequest";
+import { apiGet, apiPost, ImageBaseUrl } from "@/apis/ApiRequest";
 import { ApiEndpoints } from "@/utils/ApiEndpoints";
 import { useRouter } from "next/navigation";
 import { pathLocations } from "@/utils/navigation";
@@ -87,7 +87,7 @@ const AboutSection = () => {
               (card, idx) => (
                 <AboutSectionCard
                   key={idx}
-                  image={card.image}
+                  image={`${ImageBaseUrl}${card.image}`}
                   logo={logo}
                   description={card.shortDesc}
                   btnText={"View More"}
