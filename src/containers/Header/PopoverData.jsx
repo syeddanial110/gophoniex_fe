@@ -11,17 +11,17 @@ const PopoverData = () => {
 
   const popoverData = [
     {
-      icon: <User />,
+      icon: <div className="cursor-pointer"><User strokeWidth='1px' /></div>,
       text: "Profile",
       link: pathLocations.profile,
     },
     {
-      icon: <History />,
+      icon: <div className="cursor-pointer"><History strokeWidth='1px' /></div>,
       text: "Orders",
       link: pathLocations.orders,
     },
     {
-      icon: <LogOut />,
+      icon: <div className="cursor-pointer"><LogOut strokeWidth='1px' /></div>,
       text: "Logout",
       link: pathLocations.login,
     },

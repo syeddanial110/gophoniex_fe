@@ -63,7 +63,7 @@ const Categories = () => {
     
 
       <h2 className="text-black text-4xl text-center font-[500] mt-10">
-        Explore Our Collections
+        Explore Our Programs
       </h2>
 
       <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 px-20 py-14">
@@ -79,7 +79,7 @@ const Categories = () => {
           ))
         ) : (
           <div>
-            <UITypography variant="h3" text="No Categories Found" />
+            <UITypography variant="h3" text="No Programs Found" />
           </div>
         )}
       </div>

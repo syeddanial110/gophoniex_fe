@@ -242,7 +242,7 @@ const ProductDetail = () => {
               <div className="flex flex-col gap-4 mt-4" key={index}>
                 <hr />
                 <div className="w-[60%]">
-                  <UITypography variant="h6" text="Select All That Apply*" />
+                  <UITypography variant="h5" text="Select All That Apply*" />
                   <MultiSelect
                     options={
                       productDataReducer?.res?.productOptions?.length > 0
@@ -378,6 +378,11 @@ const ProductDetail = () => {
         </Link>
         <UITypography
           variant="h6"
+          text={productDataReducer?.res?.shortDesc}
+          className="mt-2"
+        />
+        <UITypography
+          variant="h6"
           text={`${formatDate(
             productDataReducer?.res?.startDate
           )} - ${formatDate(productDataReducer?.res?.endDate)}`}
@@ -396,6 +401,10 @@ const ProductDetail = () => {
         <UITypography
           variant="h6"
           text={`Slots Available: ${productDataReducer?.res?.seats}`}
+        />
+        <UITypography
+          variant="h6"
+          text={`Dates Off: ${productDataReducer?.res?.dateOff}`}
         />
 
         {productDataReducer?.res?.paymentType == "recurring" ? (

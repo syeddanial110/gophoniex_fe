@@ -91,7 +91,7 @@ const TopCollectionCarousel = () => {
         />
         <Link
           href={pathLocations.categories}
-          className="text-blue-600 text-sm font-medium"
+          className="text-blue-600 text-sm font-medium text-main"
         >
           View all collections
         </Link>
@@ -115,15 +115,22 @@ const TopCollectionCarousel = () => {
               <div className="relative rounded-lg overflow-hidden shadow-md">
                 <Image
                   src={`${ImageBaseUrl}${item.image}`}
-                  alt={item.type == "class" ? item.productName : item.name}
+                  alt={item.type == "class" ? item.cardName : item.name}
                   width={400}
                   height={400}
-                  className="object-cover w-full h-64"
+                  className="object-cover w-full h-84"
                 />
                 <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/40 text-white">
-                  <h3 className="text-lg font-bold">
-                    {item.type == "class" ? item.productName : item.name}
-                  </h3>
+                  {
+                    item?.type == "class" ? (
+                      <div dangerouslySetInnerHTML={{ __html: item.cardName }} className="text-center text-[16px]" />
+
+                    ) : (
+                      <h3 className="text-2xl font-bold"> {item.name}
+                      </h3>
+                    )
+                  }
+
                   <Link
                     href={`/user/categories/${item.slug}`}
                     className="mt-3 bg-white text-black px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-100 transition"
@@ -142,18 +149,17 @@ const TopCollectionCarousel = () => {
       </Carousel>
 
       {/* Dots navigation */}
-      <div className="flex justify-center items-center gap-2 mt-4">
+      {/* <div className="flex justify-center items-center gap-2 mt-4">
         {Array.from({ length: count }).map((_, index) => (
           <button
             key={index}
             onClick={() => scrollTo(index)}
-            className={`w-3 h-3 rounded-full transition-colors ${
-              current === index ? "bg-blue-600" : "bg-gray-300"
-            }`}
+            className={`w-3 h-3 rounded-full transition-colors ${current === index ? "bg-main" : "bg-gray-500"
+              }`}
             aria-label={`Go to slide ${index + 1}`}
           />
         ))}
-      </div>
+      </div> */}
     </section>
   );
 };

@@ -34,11 +34,17 @@ const Header = () => {
           </div>
 
           <div className="flex gap-x-3 items-center">
-            <div>
+            {/* <div>
               <UISearchInput />
-            </div>
+            </div> */}
             {/* <UserIcon /> */}
-            <UIPopover btnTrigger={<User />}>
+            <UIPopover
+              btnTrigger={
+                <div className="border-1 p-2 rounded-full cursor-pointer">
+                  <User strokeWidth='1px' />
+                </div>
+              }
+            >
               <PopoverData />
             </UIPopover>
 

@@ -74,7 +74,7 @@ const AboutSection = () => {
   console.log("latestClasses", latestClasses);
 
   return (
-    <section className="w-[80%] mx-auto py-8">
+    <section className="w-[80%] mx-auto pt-0 pb-8">
       <div className="flex flex-col items-center mb-4">
         <UITypography variant="h2" text={"Latest Classes"} />
       </div>
@@ -89,12 +89,13 @@ const AboutSection = () => {
                   key={idx}
                   image={`${ImageBaseUrl}${card.image}`}
                   logo={logo}
-                  description={card.shortDesc}
+                  shortDesc={card.shortDesc}
                   btnText={"View More"}
                   title={card.productName}
                   btnOnclick={() => {
                     router.push(`${pathLocations.program}/${card.id}`);
                   }}
+                  seatsOpen={`Slots Open: ${card.seatsOpen}`}
                 />
               ),
             )}

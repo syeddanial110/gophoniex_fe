@@ -63,7 +63,7 @@ export default function Home() {
   return (
     <>
     <Header />
-      <div className="flex flex-col items-center h3 pt-5 gap-3">
+      <div className="flex flex-col items-center h3 pt-5 gap-2">
         <NewsLetterModal />
         {/* <MasonaryCardsLayout /> */}
         <TopCollectionCarousel />

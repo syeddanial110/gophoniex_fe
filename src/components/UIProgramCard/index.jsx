@@ -18,19 +18,20 @@ const UIProgramCard = ({ text, card_img, btnText, href }) => {
       <CardHeader>
         {/* <CardTitle>Card Title</CardTitle>
       <CardDescription>Card Description</CardDescription> */}
-        <Image
-          src={card_img}
-          alt="card image"
-          width={200}
-          height={1080}
-          style={{
-            borderRadius: "16px",
-            height: "auto",
-            maxHeight: "500px",
-            width: "100%",
-            objectFit: "contain",
-          }}
-        />
+        <div style={{ width: "100%", overflow: "hidden", borderRadius: "16px" }}>
+          <Image
+            src={card_img}
+            alt="card image"
+            width={800}
+            height={800}
+            sizes="(max-width: 768px) 100vw, 50vw"
+            style={{
+              width: "100%",
+              height: "auto",
+              display: "block",
+            }}
+          />
+        </div>
       </CardHeader>
       <CardContent>
         {/* <UITypography text={text} className="text-center capitalize" /> */}

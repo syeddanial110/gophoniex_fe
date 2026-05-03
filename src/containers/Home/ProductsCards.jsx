@@ -9,23 +9,24 @@ const ProductsCard = ({
   logo,
   btnText,
   title = "Lorem Ipsum",
-  description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,",
+  shortDesc = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,",
   handleAddToCart,
   btnOnclick,
+  seatsOpen
 }) => {
   return (
     <div className="bg-white rounded-xl drop-shadow-[0_15px_15px_rgba(0,0,0,0.15)] p-4 relative">
       {/* Top Section */}
       <div>
-        <Image
-          src={image}
-          alt="Play Pass"
-          //   className="object-cover"
-          style={{ height: "100%", width: "100%", objectFit: "contain" }}
-          width={300}
-          height={500}
-          sizes="(max-width: 768px) 100vw, 600px"
-        />
+        <div style={{ position: "relative", width: "100%", aspectRatio: "4/3" }}>
+          <Image
+            src={image}
+            alt="Play Pass"
+            fill
+            sizes="(max-width: 768px) 100vw, 700px"
+            style={{ objectFit: "contain", height: "100%" }}
+          />
+        </div>
       </div>
       {/* Bottom Section */}
       <div className="flex items-center justify-between mt-4">
@@ -43,8 +44,9 @@ const ProductsCard = ({
         />
       </div>
       <div className="mt-4">
-        <UITypography variant="h6" text={title} />
-        <UITypography variant="p" text={description} />
+        <div dangerouslySetInnerHTML={{ __html: title }} className="text-[16px]" />
+        <UITypography variant="p" text={shortDesc} />
+        <UITypography variant="p" text={seatsOpen} />
       </div>
     </div>
   );

@@ -103,7 +103,7 @@ const CollectionById = () => {
   console.log("collections", collections);
 
   return (
-    <div>
+    <div className="mb-12">
       <UITypography
         variant="h3"
         text={`Classes in ${slug}`}
@@ -111,8 +111,8 @@ const CollectionById = () => {
       />
 
       <div className="flex gap-4 px-10">
-        <div className="w-[25%]">
-          <UITypography variant="h4" text={`Filter Collections`} />
+        <div className="w-[25%] border-1 px-4 py-14">
+          <UITypography variant="h4" text={`Filter Programs`} className='mb-4' />
           <div>
             {filterLoading ? (
               <div className="flex justify-center items-center h-64">
@@ -145,11 +145,12 @@ const CollectionById = () => {
                 productByCategory?.map((card, idx) => (
                   <UIProductCard
                     key={idx}
-                    title={card.cardName}
-                    mainImg={card.image == null ? "" : `${ImageBaseUrl}${card.image}`}
+                    title={card?.cardName}
+                    mainImg={card?.image == null ? "" : `${ImageBaseUrl}${card.image}`}
                     // hoverImg={card.hoverImage}
                     // description={card.description}
-                    slots={card.seats}
+                    slots={`${card?.seats}`}
+                    seatsOpen={`Available Slots: ${card?.seatsOpen}`}
                     href={`${WEB_URL}${pathLocations.program}/${card.id}`}
                   />
                 ))

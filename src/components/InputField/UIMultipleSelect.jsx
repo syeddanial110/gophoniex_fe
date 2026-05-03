@@ -81,7 +81,7 @@ export function MultiSelect({
           <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0">
+      <PopoverContent className="w-[300px] p-0">
         <Command>
           <CommandInput placeholder="Search options..." />
           <CommandList>
@@ -91,8 +91,8 @@ export function MultiSelect({
                 onSelect={() => handleSelect(option.value)}
                 className={selected.includes(option.value) ? "bg-accent" : ""}
               >
-                {option.label} <br />
-                {option.price}
+                <p style={{fontSize: "16px"}}> {option.label}</p> <br />
+                <p style={{fontSize: "16px"}}>{option.price}</p>
               </CommandItem>
             ))}
           </CommandList>
