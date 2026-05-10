@@ -29,6 +29,34 @@ import { apiGet } from "@/apis/ApiRequest";
 import { ApiEndpoints } from "@/utils/ApiEndpoints";
 import { BicepsFlexed, Book, Volleyball, Waves } from "lucide-react";
 
+const RecursiveMenuItemRender = ({ item, level = 0 }) => {
+  const hasChildren = item?.children?.length > 0;
+  const paddingLeft = level * 16; // pl-4 = 1rem = 16px
+
+  return (
+    <>
+      <Link
+        href={`${WEB_URL}/user/content${item.url}`}
+        className="block text-md hover:text-main transition-colors border-b-1 border-gray-300 pb-1.5"
+        style={{ paddingLeft: `${paddingLeft}px` }}
+      >
+        {item?.title}
+      </Link>
+      {hasChildren && (
+        <div className="flex flex-col gap-1">
+          {item.children.map((child, i) => (
+            <RecursiveMenuItemRender
+              key={child.id ?? i}
+              item={child}
+              level={level + 1}
+            />
+          ))}
+        </div>
+      )}
+    </>
+  );
+};
+
 const DesktopNavigationMenu = () => {
   const pathname = usePathname();
 
@@ -215,7 +243,7 @@ const DesktopNavigationMenu = () => {
                 <NavigationMenuList>
                   <NavigationMenuItem>
                     <NavigationMenuTrigger
-                      className={`font-normal rounded-full ${
+                      className={`font-normal rounded-full  ${
                         pathname == item.url
                           ? "bg-main text-white"
                           : "bg-[#EBF0F4] text-black"
@@ -225,21 +253,14 @@ const DesktopNavigationMenu = () => {
                     </NavigationMenuTrigger>
                     <NavigationMenuContent className="">
                       <div className="min-w-[15vw] py-4 px-3">
-                        <div className="">
-                          {item?.children.map((elm, i) => {
-                            return (
-                              <>
-                                <div key={i} className="flex flex-col gap-5">
-                                  <Link
-                                    href={`${WEB_URL}/user/content${elm.url}`}
-                                    className="text-md"
-                                  >
-                                    {elm?.title}
-                                  </Link>
-                                </div>
-                              </>
-                            );
-                          })}
+                        <div className="flex flex-col gap-2 border-gray-300">
+                          {item?.children.map((elm, i) => (
+                            <RecursiveMenuItemRender
+                              key={elm.id ?? i}
+                              item={elm}
+                              level={0}
+                            />
+                          ))}
                         </div>
                       </div>
                     </NavigationMenuContent>
