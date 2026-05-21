@@ -2,7 +2,7 @@ import React from "react";
 import { Search, User, ShoppingBag, History, LogOut } from "lucide-react";
 import DesktopNavigationMenu from "./NavigationMenu/NavigationMenu";
 import Image from "next/image";
-import logo from "../../assets/Images/logo.webp";
+import logo from "../../assets/Images/logo2.png";
 import { SideNavigation } from "./SideNavigation/SideNavigation";
 import Link from "next/link";
 import { pathLocations } from "@/utils/navigation";

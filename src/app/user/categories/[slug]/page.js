@@ -10,6 +10,12 @@ import { pathLocations, WEB_URL } from "@/utils/navigation";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { Button } from "@/components/ui/button";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 const CollectionById = () => {
   // Removed async
@@ -19,6 +25,7 @@ const CollectionById = () => {
   const [filterLoading, setFilterLoading] = useState(true);
   const [collections, setCollections] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
+  const [openFilter, setOpenFilter] = useState(false);
 
   const categoriesData = useSelector(
     (state) => state?.GetAllCategoriesReducer?.res
@@ -110,37 +117,49 @@ const CollectionById = () => {
         className="text-center my-8 capitalize"
       />
 
-      <div className="flex gap-4 px-10">
-        <div className="w-[25%] border-1 px-4 py-14">
-          <UITypography variant="h4" text={`Filter Programs`} className='mb-4' />
-          <div>
-            {filterLoading ? (
-              <div className="flex justify-center items-center h-64">
-                <UISpinner />
+      <div className="px-10">
+        {/* Filter Dropdown */}
+        <div className="mb-6">
+          <Popover open={openFilter} onOpenChange={setOpenFilter}>
+            <PopoverTrigger asChild>
+              <Button variant="outline" className="w-full sm:w-auto">
+                Filter Programs ({selectedCategories.length})
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-80">
+              <div className="space-y-4">
+                <UITypography variant="h4" text="Filter Programs" className="mb-4" />
+                {filterLoading ? (
+                  <div className="flex justify-center items-center h-32">
+                    <UISpinner />
+                  </div>
+                ) : (
+                  <div className="flex flex-col gap-3 max-h-96 overflow-y-auto">
+                    {collections?.map((item, idx) => (
+                      <UICheckbox
+                        key={idx}
+                        label={item.name}
+                        onChange={() => handleFilterClasses(item)}
+                        checkboxId={`filter-${item.id}`}
+                        labelId={`filter-label-${item.id}`}
+                        checked={selectedCategories.includes(item.id)}
+                      />
+                    ))}
+                  </div>
+                )}
               </div>
-            ) : (
-              <div className="flex flex-col gap-3">
-                {collections?.map((item, idx) => (
-                  <UICheckbox
-                    key={idx}
-                    label={item.name}
-                    onChange={() => handleFilterClasses(item)}
-                    checkboxId={`${item.id}`}
-                    labelId={`${item.id}`}
-                    checked={selectedCategories.includes(item.id)}
-                  />
-                ))}
-              </div>
-            )}
-          </div>
+            </PopoverContent>
+          </Popover>
         </div>
+
+        {/* Products Grid */}
         {loading ? (
           <div className="flex justify-center items-center h-64 w-full">
             <UISpinner />
           </div>
         ) : (
-          <div className="w-[75%]">
-            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8 px-20 py-14">
+          <div className="w-full">
+            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8 px-5 py-4">
               {productByCategory?.length > 0 ? (
                 productByCategory?.map((card, idx) => (
                   <UIProductCard

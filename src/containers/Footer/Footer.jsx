@@ -3,7 +3,7 @@ import UITypography from "@/components/UITypography/UITypography";
 import React, { useEffect, useState } from "react";
 import { Facebook, Instagram, Linkedin, Twitter, Youtube } from "lucide-react";
 import Link from "next/link";
-import blackLogo from "../../assets/Images/blackLogo.png";
+import blackLogo from "../../assets/Images/logo2.png";
 import Image from "next/image";
 import { pathLocations, WEB_URL } from "@/utils/navigation";
 import { useDispatch } from "react-redux";

@@ -1,5 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import loginBanner from "@/assets/Images/loginBanner.jpg";
+import logo from "@/assets/Images/logo2.png";
+import Image from "next/image";
 import { ImageBaseUrl } from "@/apis/ApiRequest";
 
 const geistSans = Geist({
@@ -30,20 +32,7 @@ export default function AuthLayout({ children }) {
           ></div>
           <div className="w-full max-w-md flex flex-col justify-center">
             <div className="flex justify-center mb-6">
-              <div className="h-12 w-12 rounded-full bg-primary flex items-center justify-center">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 text-primary-foreground"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
-                </svg>
-              </div>
+              <Image src={logo} alt="logo" height={300} width={300} />
             </div>
             <div className="bg-card border border-border rounded-lg shadow-sm p-8">
               {children}

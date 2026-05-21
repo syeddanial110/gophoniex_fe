@@ -86,7 +86,7 @@ const TopCollectionCarousel = () => {
       <div className="flex justify-between items-center mb-6">
         <UITypography
           variant="h2"
-          text="Top Selling Collections"
+          text={homePageCarouselData?.res?.data?.section1Heading}
           className="font-bold"
         />
         <Link
@@ -121,15 +121,14 @@ const TopCollectionCarousel = () => {
                   className="object-cover w-full h-84"
                 />
                 <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/40 text-white">
-                  {
-                    item?.type == "class" ? (
-                      <div dangerouslySetInnerHTML={{ __html: item.cardName }} className="text-center text-[16px]" />
-
-                    ) : (
-                      <h3 className="text-2xl font-bold"> {item.name}
-                      </h3>
-                    )
-                  }
+                  {item?.type == "class" ? (
+                    <div
+                      dangerouslySetInnerHTML={{ __html: item.cardName }}
+                      className="text-center text-[16px]"
+                    />
+                  ) : (
+                    <h3 className="text-2xl font-bold"> {item.name}</h3>
+                  )}
 
                   <Link
                     href={`/user/categories/${item.slug}`}

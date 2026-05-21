@@ -76,7 +76,10 @@ const AboutSection = () => {
   return (
     <section className="w-[80%] mx-auto pt-0 pb-8">
       <div className="flex flex-col items-center mb-4">
-        <UITypography variant="h2" text={"Latest Classes"} />
+        <UITypography
+          variant="h2"
+          text={homePageCarouselData?.res?.data?.section2Heading}
+        />
       </div>
       {isLoading ? (
         <UISkeleton />
