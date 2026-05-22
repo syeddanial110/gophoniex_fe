@@ -24,12 +24,14 @@ export default function AuthLayout({ children }) {
           <div
             style={{
               backgroundImage: `url('${loginBanner.src}')`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
+              backgroundSize: "contain",
+              backgroundPosition: "top",
+              backgroundRepeat: "no-repeat",
               minHeight: "100vh",
               width: "100%",
+              
             }}
-          ></div>
+          className="bg-dark"></div>
           <div className="w-full max-w-md flex flex-col justify-center">
             <div className="flex justify-center mb-6">
               <Image src={logo} alt="logo" height={300} width={300} />
