@@ -201,7 +201,7 @@ const Footer = () => {
 
       {/* Slogan */}
       <div className="w-full text-center py-8">
-        <span className="text-[64px] font-bold leading-none tracking-tight text-gray-900">
+        <span className="text-[32px] sm:text-[48px] lg:text-[64px] font-bold leading-none tracking-tight text-gray-900">
           Unleash Kid Power
         </span>
       </div>

@@ -24,7 +24,7 @@ const TypeSection = () => {
         {/* Phoenix Sports - Left Column */}
         <div className="bg-white rounded-lg p-8 shadow-sm">
           <div className="flex items-center gap-3 mb-8">
-            <h3 className="text-3xl font-bold text-black">Phoenix Sports</h3>
+            <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-black">Phoenix Sports</h3>
             <span className="text-4xl">😊</span>
           </div>
 
@@ -51,7 +51,7 @@ const TypeSection = () => {
         {/* The Other Guys - Right Column */}
         <div className="bg-white rounded-lg p-8 shadow-sm">
           <div className="flex items-center gap-3 mb-8">
-            <h3 className="text-3xl font-bold text-black">The Other Guys</h3>
+            <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-black">The Other Guys</h3>
             <span className="text-4xl">😞</span>
           </div>
 

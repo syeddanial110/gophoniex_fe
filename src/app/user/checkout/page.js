@@ -27,9 +27,9 @@ const Checkout = () => {
   return (
     <>
       <Elements stripe={stripePromise}>
-        <div className="min-h-[80vh] bg-gray-100 flex justify-center gap-4 py-10">
-          <div className="w-[40%] p-8 rounded-lg">
-            <h1 className="text-2xl font-bold mb-6">Details</h1>
+        <div className="min-h-[80vh] bg-gray-100 flex flex-col lg:flex-row justify-center gap-4 px-4 sm:px-6 lg:px-0 py-6 lg:py-10">
+          <div className="w-full lg:w-[40%] p-4 sm:p-6 lg:p-8 rounded-lg">
+            <h1 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Details</h1>
 
             <div className="flex flex-col gap-5">
               <div
@@ -53,7 +53,7 @@ const Checkout = () => {
                         />
                         <UITypography
                           variant="p"
-                          className="!text-[18px]"
+                          className="!text-sm sm:!text-base lg:!text-[18px]"
                           text={item?.childName}
                         />
 
@@ -62,13 +62,13 @@ const Checkout = () => {
                             <UITypography
                               key={idx}
                               variant="p"
-                              className="!text-[18px] ml-4"
+                              className="!text-sm sm:!text-base lg:!text-[18px] ml-4"
                               text={`${opt?.productOptionName} - $${opt?.price}`}
                             />
                           ))}
                         <UITypography
                           variant="p"
-                          className="!text-[18px] font-semibold mt-2"
+                          className="!text-sm sm:!text-base lg:!text-[18px] font-semibold mt-2"
                           text={`Subtotal: $${item?.price}`}
                         />
                       </div>
@@ -77,8 +77,8 @@ const Checkout = () => {
               </div>
             </div>
           </div>
-          <div className="w-[40%] p-8 rounded-lg bg-white shadow-md">
-            <h1 className="text-2xl font-bold mb-6">Your Billing Details</h1>
+          <div className="w-full lg:w-[40%] p-4 sm:p-6 lg:p-8 rounded-lg bg-white shadow-md">
+            <h1 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Your Billing Details</h1>
 
             <div className="mb-6">
               <UITypography variant="h6" className="font-semibold">
@@ -97,7 +97,7 @@ const Checkout = () => {
                         />
                         <UITypography
                           variant="p"
-                          className="!text-[18px]"
+                          className="!text-sm sm:!text-base lg:!text-[18px]"
                           text={item?.childName}
                         />
 
@@ -106,13 +106,13 @@ const Checkout = () => {
                             <UITypography
                               key={idx}
                               variant="p"
-                              className="!text-[18px] ml-4"
+                              className="!text-sm sm:!text-base lg:!text-[18px] ml-4"
                               text={`${opt?.productOptionName} - $${opt?.price}`}
                             />
                           ))}
                         <UITypography
                           variant="p"
-                          className="!text-[18px] font-semibold mt-2"
+                          className="!text-sm sm:!text-base lg:!text-[18px] font-semibold mt-2"
                           text={`Subtotal: $${item?.price}`}
                         />
                       </div>

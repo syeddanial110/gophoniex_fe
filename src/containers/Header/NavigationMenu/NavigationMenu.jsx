@@ -122,7 +122,7 @@ const DesktopNavigationMenu = () => {
   console.log("pathname", pathname);
 
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center py-5">
       {headerMenu?.length > 0 &&
         headerMenu?.map((item, index) => {
           if (

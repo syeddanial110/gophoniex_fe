@@ -56,17 +56,17 @@ const Categories = () => {
 
         {/* Centered Text */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <h1 className="text-white text-6xl font-bold z-10">Programs</h1>
+          <h1 className="text-white text-4xl sm:text-5xl lg:text-6xl font-bold z-10">Programs</h1>
         </div>
       </div>
 
     
 
-      <h2 className="text-black text-4xl text-center font-[500] mt-10">
+      <h2 className="text-black text-2xl sm:text-3xl lg:text-4xl text-center font-[500] mt-8 lg:mt-10 px-4">
         Explore Our Programs
       </h2>
 
-      <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 px-20 py-14">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 px-4 sm:px-8 lg:px-20 py-8 lg:py-14">
         {categoriesReducer?.res?.data.length > 0 ? (
           categoriesReducer?.res?.data?.map((card, idx) => (
             <UIProgramCard
@@ -85,17 +85,17 @@ const Categories = () => {
       </div>
 
       {/* Carlsbad Beach Partner Section */}
-      <div className="bg-gray-50 py-16 px-20">
+      <div className="bg-gray-50 py-10 lg:py-16 px-4 sm:px-8 lg:px-20">
         <div className="max-w-2xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-black mb-4">
+          <h2 className="text-2xl sm:text-3xl font-bold text-black mb-4">
             Official Carlsbad Beach Partner
           </h2>
-          
-          <h3 className="text-2xl font-semibold text-gray-800 mb-2">
+
+          <h3 className="text-xl sm:text-2xl font-semibold text-gray-800 mb-2">
             🏖️ Tamarack & Frazee Beach
           </h3>
-          
-          <p className="text-lg font-semibold text-gray-700 mb-6">
+
+          <p className="text-base sm:text-lg font-semibold text-gray-700 mb-6">
             Official Permitted Fitness Partner
           </p>
           

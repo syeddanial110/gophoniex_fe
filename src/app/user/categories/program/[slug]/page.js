@@ -57,11 +57,11 @@ export async function generateMetadata({ params }) {
 
 const ProgramById = () => {
   return (
-    <div className="flex my-20 gap-5 justify-around">
-      <div className="w-[40%]">
+    <div className="flex flex-col lg:flex-row my-8 lg:my-20 gap-6 lg:gap-5 px-4 sm:px-8 lg:px-0 lg:justify-around">
+      <div className="w-full lg:w-[40%]">
         <GalleryImages />
       </div>
-      <div className="w-[50%]">
+      <div className="w-full lg:w-[50%]">
         <ProductDetail />
       </div>
     </div>

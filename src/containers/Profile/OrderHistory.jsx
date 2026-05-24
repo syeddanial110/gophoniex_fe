@@ -62,7 +62,7 @@ const OrderHistory = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
+    <div className="min-h-screen bg-gray-50 p-4 sm:p-8">
       <div className="max-w-6xl mx-auto">
         <UITypography
           variant="h1"
@@ -78,9 +78,9 @@ const OrderHistory = () => {
                 <>
                   <div
                     key={ind}
-                    className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 transition-all hover:shadow-md"
+                    className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 sm:p-6 transition-all hover:shadow-md"
                   >
-                    <div className="flex justify-between items-start mb-4">
+                    <div className="flex flex-col sm:flex-row justify-between items-start gap-3 mb-4">
                       <div>
                         <div
                           dangerouslySetInnerHTML={{
@@ -88,7 +88,7 @@ const OrderHistory = () => {
                               order?.items?.length > 0 &&
                               order?.items[0]?.productName,
                           }}
-                          className="mt-6 prose max-w-none [&>h1]:text-[46px] [&>h1]:font-bold [&>h2]:text-[38px] [&>h2]:font-semibold [&>h3]:text-[32px] [&>h3]:font-semibold [&>h4]:text-[28px] [&>h4]:font-semibold [&>h5]:text-[24px] [&>h5]:font-semibold [&>h6]:text-[22px] [&>h6]:font-semibold [&>p]-[20px] [&>p]:font-bold"
+                          className="mt-4 sm:mt-6 prose max-w-none [&>h1]:text-[24px] sm:[&>h1]:text-[36px] lg:[&>h1]:text-[46px] [&>h1]:font-bold [&>h2]:text-[20px] sm:[&>h2]:text-[28px] lg:[&>h2]:text-[38px] [&>h2]:font-semibold [&>h3]:text-[18px] sm:[&>h3]:text-[24px] lg:[&>h3]:text-[32px] [&>h3]:font-semibold [&>h4]:text-[16px] sm:[&>h4]:text-[22px] lg:[&>h4]:text-[28px] [&>h4]:font-semibold [&>h5]:text-[15px] sm:[&>h5]:text-[18px] lg:[&>h5]:text-[24px] [&>h5]:font-semibold [&>h6]:text-[14px] sm:[&>h6]:text-[16px] lg:[&>h6]:text-[22px] [&>h6]:font-semibold [&>p]:text-sm sm:[&>p]:text-base [&>p]:font-bold"
                         />
 
                         <div className="flex items-center gap-2 text-gray-500 mt-2">
@@ -141,7 +141,7 @@ const OrderHistory = () => {
                                   order?.items?.length > 0 &&
                                   order?.items[0]?.payment?.intervalGap
                                 }`}
-                                className="!text-[18px]"
+                                className="!text-sm sm:!text-[18px]"
                               />
                               <UITypography
                                 variant="p"
@@ -149,7 +149,7 @@ const OrderHistory = () => {
                                   order?.items?.length > 0 &&
                                   order?.items[0]?.payment?.intervalCount
                                 } times`}
-                                className="!text-[18px]"
+                                className="!text-sm sm:!text-[18px]"
                               />
                               <UITypography
                                 variant="p"
@@ -159,7 +159,7 @@ const OrderHistory = () => {
                                     order?.items[0]?.payment?.lastPaymentDate
                                   )
                                 }`}
-                                className="!text-[18px]"
+                                className="!text-sm sm:!text-[18px]"
                               />
                               <UITypography
                                 variant="p"
@@ -169,14 +169,14 @@ const OrderHistory = () => {
                                     order?.items[0]?.payment?.nextPaymentDate
                                   )
                                 }`}
-                                className="!text-[18px]"
+                                className="!text-sm sm:!text-[18px]"
                               />
                             </>
                           )}
                         <div className="flex items-center gap-2 text-gray-500 mt-1"></div>
                       </div>
                       <div className="flex flex-col items-end">
-                        <span className="text-2xl font-bold text-gray-900">
+                        <span className="text-xl sm:text-2xl font-bold text-gray-900">
                           ${order?.totalAmount?.toLocaleString()}
                         </span>
                         <span
@@ -193,7 +193,7 @@ const OrderHistory = () => {
                     </div>
 
                     {order?.status === "paid" && (
-                      <div className="mt-6 flex items-center justify-between">
+                      <div className="mt-4 sm:mt-6 flex flex-col sm:flex-row items-start sm:items-center gap-2 justify-between">
                         <div className="flex items-center text-amber-600">
                           <AlertCircle className="w-5 h-5 mr-2" />
                           <span className="text-sm">

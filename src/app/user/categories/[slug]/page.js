@@ -112,12 +112,12 @@ const CollectionById = () => {
   return (
     <div className="mb-12">
       <UITypography
-        variant="h3"
+        variant="h5"
         text={`Classes in ${slug}`}
-        className="text-center my-8 capitalize"
+        className="text-center my-6 capitalize px-2 sm:px-0"
       />
 
-      <div className="px-10">
+      <div className="px-4 sm:px-8 lg:px-10">
         {/* Filter Dropdown */}
         <div className="mb-6">
           <Popover open={openFilter} onOpenChange={setOpenFilter}>
@@ -159,7 +159,7 @@ const CollectionById = () => {
           </div>
         ) : (
           <div className="w-full">
-            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8 px-5 py-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 py-4">
               {productByCategory?.length > 0 ? (
                 productByCategory?.map((card, idx) => (
                   <UIProductCard

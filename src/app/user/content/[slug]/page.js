@@ -95,7 +95,7 @@ async function getContent(slug) {
 // Loading state
 export const loading = () => {
   return (
-    <div className="p-20">
+    <div className="p-4 sm:p-8 lg:p-20">
       <UITypography variant="p" text="Loading content..." />
     </div>
   );
@@ -104,7 +104,7 @@ export const loading = () => {
 // Error state
 export const error = () => {
   return (
-    <div className="p-20">
+    <div className="p-4 sm:p-8 lg:p-20">
       <UITypography
         variant="p"
         text="There was an error loading the content. Please try again later."
@@ -118,7 +118,7 @@ const Content = async ({ params }) => {
 
   if (!pageContent) {
     return (
-      <div className="p-20">
+      <div className="p-4 sm:p-8 lg:p-20">
         <UITypography variant="p" text="No Content Available Right Now" />
       </div>
     );
@@ -127,12 +127,12 @@ const Content = async ({ params }) => {
   console.log("pageContent", pageContent);
 
   return (
-    <article className="p-20">
-      <header className="mb-8">
+    <article className="p-4 sm:p-8 lg:p-20">
+      <header className="mb-4 sm:mb-8">
         <UITypography
           variant="h1"
           text={pageContent?.name}
-          className="uppercase text-3xl font-bold mb-4"
+          className="uppercase text-xl sm:text-2xl lg:text-3xl font-bold mb-3 sm:mb-4"
         />
         {pageContent.metaDescription && (
           <UITypography
@@ -144,7 +144,7 @@ const Content = async ({ params }) => {
       </header>
       {pageContent?.data?.content && (
         <div
-          className="prose prose-lg max-w-none"
+          className="prose sm:prose-lg max-w-none"
           dangerouslySetInnerHTML={{ __html: pageContent.data.content }}
         />
       )}

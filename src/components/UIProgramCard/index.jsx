@@ -14,10 +14,8 @@ import Link from "next/link";
 
 const UIProgramCard = ({ text, card_img, btnText, href }) => {
   return (
-    <Card>
-      <CardHeader>
-        {/* <CardTitle>Card Title</CardTitle>
-      <CardDescription>Card Description</CardDescription> */}
+    <Card className="py-3 sm:py-6 gap-3 sm:gap-6">
+      <CardHeader className="px-3 sm:px-6">
         <div style={{ width: "100%", overflow: "hidden", borderRadius: "16px" }}>
           <Image
             src={card_img}
@@ -33,21 +31,13 @@ const UIProgramCard = ({ text, card_img, btnText, href }) => {
           />
         </div>
       </CardHeader>
-      <CardContent>
-        {/* <UITypography text={text} className="text-center capitalize" /> */}
-        <div dangerouslySetInnerHTML={{ __html: text }} />
+      <CardContent className="px-3 sm:px-6">
+        <div dangerouslySetInnerHTML={{ __html: text }} className="text-xs sm:text-sm" />
       </CardContent>
-      <CardFooter className="flex justify-center">
-        {/* <UIButton
-          type="contained"
-          title={btnText}
-          className="bg-main"
-          icon={false}
-          btnOnclick={btnOnclick}
-        /> */}
+      <CardFooter className="flex justify-center px-3 pb-3 sm:px-6 sm:pb-6">
         <Link
           href={href}
-          className="bg-main btn rounded-full py-3 px-6 text-white"
+          className="bg-main btn rounded-full py-2 px-4 text-sm sm:py-3 sm:px-5 sm:text-sm text-white"
         >
           {btnText}
         </Link>

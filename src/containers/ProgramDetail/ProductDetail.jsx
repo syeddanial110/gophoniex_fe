@@ -232,7 +232,7 @@ const ProductDetail = () => {
           dangerouslySetInnerHTML={{
             __html: productDataReducer?.res?.productName,
           }}
-          className="text-[24px]"
+          className="text-lg sm:text-xl lg:text-[24px]"
         />
 
         <div>
@@ -241,7 +241,7 @@ const ProductDetail = () => {
             return (
               <div className="flex flex-col gap-4 mt-4" key={index}>
                 <hr />
-                <div className="w-[60%]">
+                <div className="w-full sm:w-[60%]">
                   <UITypography variant="h5" text="Select All That Apply*" />
                   <MultiSelect
                     options={
@@ -271,7 +271,7 @@ const ProductDetail = () => {
                       val?.isJersey && (
                         <div
                           key={`jersey-${index}-${ind}`}
-                          className="flex flex-col gap-2 w-[60%]"
+                          className="flex flex-col gap-2 w-full sm:w-[60%]"
                         >
                           <UITypography
                             variant="h6"
@@ -345,7 +345,7 @@ const ProductDetail = () => {
             text="Add Another Child"
             className="mt-4"
           />
-          <div className="w-[60%]">
+          <div className="w-full sm:w-[60%]">
             <AddProductQuantity
               quantity={quantity}
               handleQuantityDecrement={handleQuantityDecrement}
@@ -371,7 +371,7 @@ const ProductDetail = () => {
               ? productDataReducer?.res?.locationMapLink
               : "#"
           }
-          className="text-blue-800 underline text-[18px]"
+          className="text-blue-800 underline text-base sm:text-[18px]"
           target="_blank"
         >
           {productDataReducer?.res?.locationAddress}
@@ -438,7 +438,7 @@ const ProductDetail = () => {
         ) : null}
 
         <div
-          className="mt-6 prose max-w-none [&>h1]:text-[46px] [&>h1]:font-bold [&>h2]:text-[38px] [&>h2]:font-semibold [&>h3]:text-[32px] [&>h3]:font-semibold [&>h4]:text-[28px] [&>h4]:font-semibold [&>h5]:text-[24px] [&>h5]:font-semibold [&>h6]:text-[22px] [&>h6]:font-semibold [&>p]:text-base"
+          className="mt-6 prose max-w-none [&>h1]:text-[28px] sm:[&>h1]:text-[38px] lg:[&>h1]:text-[46px] [&>h1]:font-bold [&>h2]:text-[22px] sm:[&>h2]:text-[30px] lg:[&>h2]:text-[38px] [&>h2]:font-semibold [&>h3]:text-[20px] sm:[&>h3]:text-[26px] lg:[&>h3]:text-[32px] [&>h3]:font-semibold [&>h4]:text-[18px] sm:[&>h4]:text-[22px] lg:[&>h4]:text-[28px] [&>h4]:font-semibold [&>h5]:text-[16px] sm:[&>h5]:text-[20px] lg:[&>h5]:text-[24px] [&>h5]:font-semibold [&>h6]:text-[14px] sm:[&>h6]:text-[18px] lg:[&>h6]:text-[22px] [&>h6]:font-semibold [&>p]:text-base"
           dangerouslySetInnerHTML={{
             __html: productDataReducer?.res?.description,
           }}

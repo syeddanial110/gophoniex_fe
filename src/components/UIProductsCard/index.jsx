@@ -18,10 +18,8 @@ const UIProductCard = ({
 }) => {
   return (
     <Link href={href}>
-      <Card className="group hover:cursor-pointer border border-gray-200 rounded-[20px] transition-shadow duration-300 shadow-none hover:shadow-lg hover:shadow-gray-300/50">
-        <CardHeader>
-          {/* <div className="min-h-[280px] w-full relative"> */}
-          {/* Main Image */}
+      <Card className="group hover:cursor-pointer border border-gray-200 rounded-[20px] transition-shadow duration-300 shadow-none hover:shadow-lg hover:shadow-gray-300/50 py-3 sm:py-6 gap-3 sm:gap-6">
+        <CardHeader className="px-2 sm:px-6">
           <div style={{ width: "100%", overflow: "hidden", borderRadius: "16px" }}>
             <Image
               src={mainImg}
@@ -37,24 +35,11 @@ const UIProductCard = ({
               className="transition-opacity duration-300"
             />
           </div>
-          {/* Hover Image */}
-          {/* <Image
-              src={hoverImg}
-              alt="Card hover image"
-              fill
-              className="object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-            /> */}
-          {/* </div> */}
         </CardHeader>
-        <CardContent>
-          {/* <UITypography variant="h5" text={title} className="text-center" />
-          <p className="text-center">{description}</p> */}
-          <div dangerouslySetInnerHTML={{ __html: title }} className="text-center" />
-          <UITypography variant="p" text={seatsOpen} className='text-center mt-2' />
+        <CardContent className="px-2 pb-3 sm:px-6 sm:pb-6">
+          <div dangerouslySetInnerHTML={{ __html: title }} className="text-center text-sm" />
+          <UITypography variant="p" text={seatsOpen} className="text-center mt-1 sm:mt-2" />
         </CardContent>
-        {/* <CardFooter className="flex justify-center">
-          <p className="text-center">{slots}</p>
-        </CardFooter> */}
       </Card>
     </Link>
   );

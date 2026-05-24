@@ -1,65 +1,58 @@
 import React from "react";
-import { Search, User, ShoppingBag, History, LogOut } from "lucide-react";
+import { User } from "lucide-react";
 import DesktopNavigationMenu from "./NavigationMenu/NavigationMenu";
 import Image from "next/image";
 import logo from "../../assets/Images/logo2.png";
 import { SideNavigation } from "./SideNavigation/SideNavigation";
 import Link from "next/link";
 import { pathLocations } from "@/utils/navigation";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import UISearchInput from "@/components/InputField/UISearchInput";
-import { getToken } from "@/apis/Auth";
-import UserIcon from "./UserIcon";
 import UIPopover from "@/components/UIPopover/UIPopover";
-import UITypography from "@/components/UITypography/UITypography";
 import PopoverData from "./PopoverData";
 
 const Header = () => {
   return (
     <>
-      <div className="sm:block hidden">
+      {/* Desktop — lg (1024px) and above */}
+      <div className="hidden lg:block">
         <div className="flex justify-between items-center p-container">
           <div className="flex gap-x-4 items-center">
             <Link href={pathLocations.home}>
-              <Image src={logo} alt="logo" height={80} width="100%" />
+              <Image src={logo} alt="logo" height={80} width={200} />
             </Link>
-
-            <div>
-              <DesktopNavigationMenu />
-            </div>
+            <DesktopNavigationMenu />
           </div>
 
           <div className="flex gap-x-3 items-center">
-            {/* <div>
-              <UISearchInput />
-            </div> */}
-            {/* <UserIcon /> */}
             <UIPopover
               btnTrigger={
                 <div className="border-1 p-2 rounded-full cursor-pointer">
-                  <User strokeWidth='1px' />
+                  <User strokeWidth="1px" />
                 </div>
               }
             >
               <PopoverData />
             </UIPopover>
-
-            {/* <Link href={pathLocations.cart}>
-              <ShoppingBag strokeWidth="1px" />
-            </Link> */}
           </div>
         </div>
       </div>
-      <div className="block sm:hidden">
-        <div className="flex justify-between">
-          <div>
-            <Image src={logo} alt="logo" height={90} />
-          </div>
-          <div>
+
+      {/* Mobile & Tablet — below lg */}
+      <div className="block lg:hidden">
+        <div className="flex justify-between items-center px-4 py-2">
+          <Link href={pathLocations.home}>
+            <Image src={logo} alt="logo" height={65} width={130} />
+          </Link>
+
+          <div className="flex items-center gap-2">
+            <UIPopover
+              btnTrigger={
+                <div className="border p-2 rounded-full cursor-pointer">
+                  <User strokeWidth="1px" className="w-5 h-5" />
+                </div>
+              }
+            >
+              <PopoverData />
+            </UIPopover>
             <SideNavigation />
           </div>
         </div>

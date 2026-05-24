@@ -11,11 +11,11 @@ import ChildrenData from "@/containers/Child/ChildrenData";
 
 const Profile = () => {
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-50 gap-6">
-      <div className="profile-page w-[70%] p-6 rounded-lg ">
+    <div className="flex justify-center items-start min-h-screen bg-gray-50 gap-6 py-8">
+      <div className="profile-page w-full sm:w-[90%] lg:w-[70%] px-4 sm:px-0 p-4 sm:p-6 rounded-lg">
         <UITypography variant="h1" text="Profile Information" />
-        <Tabs defaultValue="children" className="flex mt-5">
-          <TabsList className="flex flex-col items-start justify-start w-[35%] h-[100%] p-4 mr-6 gap-4 bg-[#f3f2f2]">
+        <Tabs defaultValue="children" className="flex flex-col lg:flex-row mt-5">
+          <TabsList className="flex flex-col items-start justify-start w-full lg:w-[35%] h-auto lg:h-[100%] p-4 mr-0 lg:mr-6 mb-4 lg:mb-0 gap-4 bg-[#f3f2f2]">
             <TabsTrigger
               className="data-[state=active]:bg-main data-[state=active]:text-white bg-gray-300 w-[100%] justify-start"
               value="account"
