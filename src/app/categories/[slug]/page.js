@@ -120,12 +120,12 @@ const CollectionById = () => {
         text={`Classes in ${slug}`}
         className="text-center mt-6 mb-2 capitalize px-2 sm:px-0"
       />
-      <nav className="flex items-center justify-center gap-2 text-sm text-gray-500 mb-6">
-        <a href={WEB_URL} className="hover:text-black transition-colors">Home</a>
+      <nav className="flex flex-wrap items-center justify-center gap-1 sm:gap-2 text-xs sm:text-sm text-gray-500 mb-6 px-4 sm:px-0">
+        <a href={WEB_URL} className="hover:text-black transition-colors whitespace-nowrap">Home</a>
         <span>/</span>
-        <a href={pathLocations.categories} className="hover:text-black transition-colors">Programs</a>
+        <a href={pathLocations.categories} className="hover:text-black transition-colors whitespace-nowrap">Programs</a>
         <span>/</span>
-        <span className="text-black capitalize">{slug}</span>
+        <span className="text-black capitalize truncate max-w-[140px] sm:max-w-xs">{slug}</span>
       </nav>
 
       <div className="px-4 sm:px-8 lg:px-10">
@@ -170,7 +170,7 @@ const CollectionById = () => {
           </div>
         ) : (
           <div className="w-full">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 py-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 py-4">
               {productByCategory?.length > 0 ? (
                 productByCategory?.map((card, idx) => (
                   <UIProductCard
