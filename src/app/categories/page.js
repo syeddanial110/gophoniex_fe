@@ -1,0 +1,120 @@
+"use client";
+import React, { useEffect, useState } from "react";
+import categoriesBanner from "../../assets/Images/categories-banner.jpg";
+import Image from "next/image";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllCategories } from "@/store/actions/category";
+import UIProgramCard from "@/components/UIProgramCard";
+import { useRouter } from "next/navigation";
+import { pathLocations, WEB_URL } from "@/utils/navigation";
+import UITypography from "@/components/UITypography/UITypography";
+import UISkeleton from "@/components/UISkeleton/UISkeleton";
+import UISpinner from "@/components/UISpinner/UISpinner";
+import TypeSection from "@/components/TypeSection/TypeSection";
+import { ImageBaseUrl } from "@/apis/ApiRequest";
+import Header from "@/containers/Header/Header";
+import Footer from "@/containers/Footer/Footer";
+
+const Categories = () => {
+  const categoriesReducer = useSelector(
+    (state) => state?.GetAllCategoriesReducer?.res
+  );
+  const router = useRouter();
+  const dispatch = useDispatch();
+  console.log("categoriesReducer", categoriesReducer);
+
+  const handleAddToCart = (id, paymentType, price) => {
+    const dataObj = {
+      productId: id,
+      paymentType: paymentType,
+      price: price,
+    };
+    // apiPost(
+    //   `${ApiEndpoints.addToCart.base}${ApiEndpoints.addToCart.create}`,
+    //   dataObj,
+    //   (res) => {
+    //     console.log("res", res);
+    //   },
+    //   (err) => {
+    //     console.log("err", err);
+    //   }
+    // );
+  };
+
+  useEffect(() => {
+    dispatch(getAllCategories());
+  }, []);
+  return (
+    <>
+      <Header />
+      <div className="relative h-[70vh] w-full">
+        {/* Background Image */}
+        <Image
+          src={categoriesBanner}
+          alt="Categories Banner"
+          fill
+          className="object-cover brightness-50"
+          priority
+        />
+
+        {/* Centered Text */}
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 z-10">
+          <h1 className="text-white text-4xl sm:text-5xl lg:text-6xl font-bold">Programs</h1>
+          <nav className="flex items-center gap-2 text-sm text-white/80">
+            <a href={WEB_URL} className="hover:text-white transition-colors">Home</a>
+            <span className="text-white/60">/</span>
+            <span className="text-white">Programs</span>
+          </nav>
+        </div>
+      </div>
+
+    
+
+      <h2 className="text-black text-2xl sm:text-3xl lg:text-4xl text-center font-[500] mt-8 lg:mt-10 px-4">
+        Explore Our Programs
+      </h2>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 px-4 sm:px-8 lg:px-20 py-8 lg:py-14">
+        {categoriesReducer?.res?.data.length > 0 ? (
+          categoriesReducer?.res?.data?.map((card, idx) => (
+            <UIProgramCard
+              text={card.name}
+              card_img={`${ImageBaseUrl}${card.image}`}
+              // card_img={`${ImageBaseUrl}${card.image}`}
+              btnText="View Classes"
+              href={`${WEB_URL}${pathLocations.categories}/${card.slug}`}
+            />
+          ))
+        ) : (
+          <div>
+            <UITypography variant="h3" text="No Programs Found" />
+          </div>
+        )}
+      </div>
+
+      {/* Carlsbad Beach Partner Section */}
+      <div className="bg-gray-50 py-10 lg:py-16 px-4 sm:px-8 lg:px-20">
+        <div className="max-w-2xl mx-auto text-center">
+          <h2 className="text-2xl sm:text-3xl font-bold text-black mb-4">
+            Official Carlsbad Beach Partner
+          </h2>
+
+          <h3 className="text-xl sm:text-2xl font-semibold text-gray-800 mb-2">
+            🏖️ Tamarack & Frazee Beach
+          </h3>
+
+          <p className="text-base sm:text-lg font-semibold text-gray-700 mb-6">
+            Official Permitted Fitness Partner
+          </p>
+          
+          <p className="text-gray-600 text-base leading-relaxed">
+            Our Sports Fitness curriculum utilizes sand resistance to build superior athletic foundations. By focusing on physical literacy and explosive power, we prepare every athlete for peak performance
+          </p>
+        </div>
+      </div>
+      <Footer />
+    </>
+  );
+};
+
+export default Categories;

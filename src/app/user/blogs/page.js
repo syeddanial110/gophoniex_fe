@@ -66,7 +66,7 @@ const BlogsPage = () => {
                   key={blog.id || `${idx}-${title}`}
                   className="bg-white rounded-md shadow-sm overflow-hidden"
                 >
-                  <Link href={`/user/blogs/${blog.slug || blog.id || ""}`}>
+                  <Link href={`/blogs/${blog.slug || blog.id || ""}`}>
                     <div className="block">
                       <div className="h-44 w-full overflow-hidden">
                         <Image
@@ -105,7 +105,7 @@ const BlogsPage = () => {
                             asChild
                           >
                             <Link
-                              href={`/user/blogs/${blog.slug || blog.id || ""}`}
+                              href={`/blogs/${blog.slug || blog.id || ""}`}
                             >
                               Read More »
                             </Link>

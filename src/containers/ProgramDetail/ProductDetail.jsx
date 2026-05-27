@@ -291,10 +291,10 @@ const ProductDetail = () => {
                               handleSelectJerseySize(val, index, ind)
                             }
                           >
-                            <SelectItem value="S">{`Extra Small (3T)`}</SelectItem>
-                            <SelectItem value="M">Youth Small</SelectItem>
-                            <SelectItem value="L">Youth Medium</SelectItem>
-                            <SelectItem value="XL">{`Large (adult s)`}</SelectItem>
+                            <SelectItem value="XS">{`Toddler 3T - 4T`}</SelectItem>
+                            <SelectItem value="S">Kids XS (4-5)</SelectItem>
+                            <SelectItem value="M">Kids MD (7-8)</SelectItem>
+                            <SelectItem value="L">{`Kids XL (13-14)`}</SelectItem>
                           </UISelect>
                         </div>
                       )

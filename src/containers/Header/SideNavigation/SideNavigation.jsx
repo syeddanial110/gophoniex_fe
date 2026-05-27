@@ -19,8 +19,8 @@ import logo from "../../../assets/Images/logo2.png"
 
 const resolveItemHref = (item) => {
   if (item?.id === "home") return item.url
-  if (item?.id === "all") return `/user${item.url}`
-  return `/user/content${item.url}`
+  if (item?.id === "all") return `${item.url}`
+  return `/content${item.url}`
 }
 
 const NavItem = ({ item, level = 0 }) => {

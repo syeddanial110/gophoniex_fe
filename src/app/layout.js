@@ -1,9 +1,6 @@
 import { Poppins } from "next/font/google";
 import "./globals.css";
-import NavigationMenuDemo from "@/containers/Header/NavigationMenu/NavigationMenu";
-import { SideNavigation } from "@/containers/Header/SideNavigation/SideNavigation";
-import Header from "@/containers/Header/Header";
-import Footer from "@/containers/Footer/Footer";
+import '@splidejs/react-splide/css';
 import { Toaster } from "@/components/ui/sonner";
 import ReduxProvider from "@/store/ReduxProvider";
 
@@ -22,8 +19,6 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${poppins.variable} antialiased`}>
-        {/* <NavigationMenuDemo></NavigationMenuDemo>
-        <SideNavigation></SideNavigation> */}
         <ReduxProvider>{children}</ReduxProvider>
         <Toaster />
       </body>

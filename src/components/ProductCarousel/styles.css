@@ -2,6 +2,9 @@
   width: 2rem;
   height: 2rem;
   opacity: 0.7;
+  background: transparent;
+  border: 1px solid #fd8b01;
+  border-radius: 50%;
 }
 
 .product-carousel .splide__arrow svg {

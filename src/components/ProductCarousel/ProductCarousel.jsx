@@ -5,7 +5,7 @@ import { Options } from "@splidejs/splide";
 import { generateSlides } from "@/utils/dummyData";
 import Image from "next/image";
 import { ImageBaseUrl } from "@/apis/ApiRequest";
-import "./styles.css";
+import "./styles.css"
 
 const ProductCarousel = ({ pagePerView, productGalleryImages = [] }) => {
   const mainRef = useRef(null); // Reference for the main Splide component

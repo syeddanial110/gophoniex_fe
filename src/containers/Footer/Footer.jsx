@@ -128,7 +128,7 @@ const Footer = () => {
               return (
                 <li key={i}>
                   <Link
-                    href={`${WEB_URL}/user${pathLocations.content}/${item.slug}`}
+                    href={`${WEB_URL}${pathLocations.content}/${item.slug}`}
                   >
                     <span>{item.name}</span>
                   </Link>
@@ -155,7 +155,7 @@ const Footer = () => {
               return (
                 <li key={i}>
                   <Link
-                    href={`${WEB_URL}/user${pathLocations.content}/${item.slug}`}
+                    href={`${WEB_URL}${pathLocations.content}/${item.slug}`}
                   >
                     <span>{item.name}</span>
                   </Link>
@@ -173,7 +173,7 @@ const Footer = () => {
             {extraMenu.map((item, i) => (
               <div key={i}>
                 <Link
-                  href={`${WEB_URL}/user${pathLocations.content}/${item.slug}`}
+                  href={`${WEB_URL}${pathLocations.content}/${item.slug}`}
                 >
                   <span>{item.name}</span>
                 </Link>
