@@ -1,5 +1,5 @@
-export const WEB_URL = "http://localhost:3000";
-// export const WEB_URL = "https://activityphysical.tech";
+// export const WEB_URL = "http://localhost:3000";
+export const WEB_URL = "https://activityphysical.tech";
 
 export const pathLocations = {
   home: "/",
@@ -17,6 +17,7 @@ export const pathLocations = {
   profile: "/profile",
   login: "/auth/login",
   register: "/auth/register",
+  forgetPassword: "/auth/forget-password",
   cart: "/cart",
   categories: "/categories",
   subCategories: "/categories/sub-categories",

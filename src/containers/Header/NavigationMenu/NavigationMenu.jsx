@@ -122,155 +122,135 @@ const DesktopNavigationMenu = () => {
   console.log("pathname", pathname);
 
   return (
-    <div className="flex justify-center py-5">
-      {headerMenu?.length > 0 &&
-        headerMenu?.map((item, index) => {
-          if (
-            item?.id !== "programs" &&
-            item?.id !== "all" &&
-            item?.children?.length == 0
-          ) {
-            return (
-              <NavigationMenu className="px-1">
-                <NavigationMenuList>
-                  <NavigationMenuItem>
-                    <Link
-                      href={
-                        item?.id == "home"
-                          ? item.url
-                          : `/content${item.url}`
-                      }
-                      className={`${cn(navigationMenuTriggerStyle())} font-normal ${
-                        pathname == item.url
-                          ? "bg-main text-white hover:bg-dark hover:text-white"
-                          : "bg-[#EBF0F4] text-black"
-                      } !rounded-full`}
-                    >
-                      {item.title}
-                    </Link>
-                  </NavigationMenuItem>
-                </NavigationMenuList>
-              </NavigationMenu>
-            );
-          }
-          if (item?.id == "programs") {
-            return (
-              <NavigationMenu>
-                <NavigationMenuList>
-                  <NavigationMenuItem>
-                    <NavigationMenuTrigger
-                      className={`font-normal rounded-full ${
-                        pathname == pathLocations.categories
-                          ? "bg-main text-white"
-                          : "bg-[#EBF0F4] text-black"
-                      }`}
-                    >
-                      <Link href={pathLocations.categories}>Programs</Link>
-                    </NavigationMenuTrigger>
+    <NavigationMenu className="py-5" viewport={false}>
+      <NavigationMenuList className="gap-1">
+        {headerMenu?.length > 0 &&
+          headerMenu?.map((item, index) => {
+            if (
+              item?.id !== "programs" &&
+              item?.id !== "all" &&
+              item?.children?.length == 0
+            ) {
+              return (
+                <NavigationMenuItem key={item.id ?? index} className="px-1">
+                  <Link
+                    href={
+                      item?.id == "home"
+                        ? item.url
+                        : `/content${item.url}`
+                    }
+                    className={`${cn(navigationMenuTriggerStyle())} font-normal ${
+                      pathname == item.url
+                        ? "bg-main text-white hover:bg-dark hover:text-white"
+                        : "bg-[#EBF0F4] text-black"
+                    } !rounded-full`}
+                  >
+                    {item.title}
+                  </Link>
+                </NavigationMenuItem>
+              );
+            }
+            if (item?.id == "programs") {
+              return (
+                <NavigationMenuItem key={item.id ?? index}>
+                  <NavigationMenuTrigger
+                    className={`font-normal rounded-full ${
+                      pathname == pathLocations.categories
+                        ? "bg-main text-white"
+                        : "bg-[#EBF0F4] text-black"
+                    }`}
+                  >
+                    <Link href={pathLocations.categories}>Programs</Link>
+                  </NavigationMenuTrigger>
 
-                    <NavigationMenuContent>
-                      <div className="grid grid-cols-3 gap-8 p-6 min-w-[60vw]">
-                        {(() => {
-                          // Limit to 12 items max
-                          const limited = navigationMenu.slice(0, 12);
-
-                          // Split into chunks of 4
-                          const columns = [];
-                          for (let i = 0; i < limited.length; i += 4) {
-                            columns.push(limited.slice(i, i + 4));
-                          }
-
-                          return columns.map((col, colIdx) => (
-                            <div key={colIdx} className="flex flex-col gap-3">
-                              {col.map((item, i) => {
-                                const IconComponent = getRandomIcon();
-                                return (
-                                  <Link
-                                    key={i}
-                                    href={`${WEB_URL}${pathLocations.categories}/${item.categoryUrl}`}
-                                    className="text-sm hover:underline flex items-center gap-2"
-                                  >
-                                    <IconComponent className="w-4 h-4" />
-                                    {item.categoryName}
-                                  </Link>
-                                );
-                              })}
-                            </div>
-                          ));
-                        })()}
+                  <NavigationMenuContent>
+                    <div className="grid grid-cols-3 gap-8 p-6 min-w-[60vw]">
+                      {(() => {
+                        const limited = navigationMenu.slice(0, 12);
+                        const columns = [];
+                        for (let i = 0; i < limited.length; i += 4) {
+                          columns.push(limited.slice(i, i + 4));
+                        }
+                        return columns.map((col, colIdx) => (
+                          <div key={colIdx} className="flex flex-col gap-3">
+                            {col.map((item, i) => {
+                              const IconComponent = getRandomIcon();
+                              return (
+                                <Link
+                                  key={i}
+                                  href={`${WEB_URL}${pathLocations.categories}/${item.categoryUrl}`}
+                                  className="text-sm hover:underline flex items-center gap-2"
+                                >
+                                  <IconComponent className="w-4 h-4" />
+                                  {item.categoryName}
+                                </Link>
+                              );
+                            })}
+                          </div>
+                        ));
+                      })()}
+                    </div>
+                    {navigationMenu.length > 12 && (
+                      <div className="flex mt-6 justify-center">
+                        <Link
+                          href={pathLocations.categories}
+                          className="py-2 px-4 bg-main text-white rounded-md hover:bg-dark transition"
+                        >
+                          View More Programs
+                        </Link>
                       </div>
-
-                      {/* View More button if > 12 */}
-                      {navigationMenu.length > 12 && (
-                        <div className="flex mt-6 justify-center">
-                          <Link
-                            href={pathLocations.categories}
-                            className="py-2 px-4 bg-main text-white rounded-md hover:bg-dark transition"
-                          >
-                            View More Programs
-                          </Link>
-                        </div>
-                      )}
-                    </NavigationMenuContent>
-                  </NavigationMenuItem>
-                </NavigationMenuList>
-              </NavigationMenu>
-            );
-          }
-          if (item?.id == "all") {
-            return (
-              <NavigationMenu className="px-1">
-                <NavigationMenuList>
-                  <NavigationMenuItem>
-                    <Link
-                      href={`${item.url}`}
-                      className={`${cn(navigationMenuTriggerStyle())} font-normal ${
-                        pathname == `${item.url}`
-                          ? "bg-main text-white hover:bg-dark hover:text-white"
-                          : "bg-[#EBF0F4] text-black"
-                      } !rounded-full`}
-                    >
-                      {item.title}
-                    </Link>
-                  </NavigationMenuItem>
-                </NavigationMenuList>
-              </NavigationMenu>
-            );
-          }
-          if (item?.children?.length > 0) {
-            return (
-              <NavigationMenu>
-                <NavigationMenuList>
-                  <NavigationMenuItem>
-                    <NavigationMenuTrigger
-                      className={`font-normal rounded-full  ${
-                        pathname == item.url
-                          ? "bg-main text-white"
-                          : "bg-[#EBF0F4] text-black"
-                      }`}
-                    >
-                      <Link href={item?.url}>{item.title}</Link>
-                    </NavigationMenuTrigger>
-                    <NavigationMenuContent className="">
-                      <div className="min-w-[15vw] py-4 px-3">
-                        <div className="flex flex-col gap-2 border-gray-300">
-                          {item?.children.map((elm, i) => (
-                            <RecursiveMenuItemRender
-                              key={elm.id ?? i}
-                              item={elm}
-                              level={0}
-                            />
-                          ))}
-                        </div>
+                    )}
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+              );
+            }
+            if (item?.id == "all") {
+              return (
+                <NavigationMenuItem key={item.id ?? index} className="px-1">
+                  <Link
+                    href={`${item.url}`}
+                    className={`${cn(navigationMenuTriggerStyle())} font-normal ${
+                      pathname == `${item.url}`
+                        ? "bg-main text-white hover:bg-dark hover:text-white"
+                        : "bg-[#EBF0F4] text-black"
+                    } !rounded-full`}
+                  >
+                    {item.title}
+                  </Link>
+                </NavigationMenuItem>
+              );
+            }
+            if (item?.children?.length > 0) {
+              return (
+                <NavigationMenuItem key={item.id ?? index}>
+                  <NavigationMenuTrigger
+                    className={`font-normal rounded-full ${
+                      pathname == item.url
+                        ? "bg-main text-white"
+                        : "bg-[#EBF0F4] text-black"
+                    }`}
+                  >
+                    <Link href={item?.url}>{item.title}</Link>
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <div className="min-w-[15vw] py-4 px-3">
+                      <div className="flex flex-col gap-2 border-gray-300">
+                        {item?.children.map((elm, i) => (
+                          <RecursiveMenuItemRender
+                            key={elm.id ?? i}
+                            item={elm}
+                            level={0}
+                          />
+                        ))}
                       </div>
-                    </NavigationMenuContent>
-                  </NavigationMenuItem>
-                </NavigationMenuList>
-              </NavigationMenu>
-            );
-          }
-        })}
-    </div>
+                    </div>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+              );
+            }
+          })}
+      </NavigationMenuList>
+    </NavigationMenu>
   );
 };
 

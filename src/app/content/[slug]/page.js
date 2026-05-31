@@ -47,6 +47,8 @@ import UITypography from "@/components/UITypography/UITypography";
 import { cookies } from "next/headers";
 import { Metadata } from "next";
 import { getToken } from "@/apis/Auth";
+import Header from "@/containers/Header/Header";
+import Footer from "@/containers/Footer/Footer";
 
 // Metadata generation function
 export async function generateMetadata({ params: { slug } }) {
@@ -81,7 +83,7 @@ async function getContent(slug) {
         headers: {
           "Content-Type": "application/json",
         },
-      }
+      },
     );
 
     const data = await res.json();
@@ -127,28 +129,32 @@ const Content = async ({ params }) => {
   console.log("pageContent", pageContent);
 
   return (
-    <article className="p-4 sm:p-8 lg:p-20">
-      <header className="mb-4 sm:mb-8">
-        <UITypography
-          variant="h1"
-          text={pageContent?.name}
-          className="uppercase text-xl sm:text-2xl lg:text-3xl font-bold mb-3 sm:mb-4"
-        />
-        {pageContent.metaDescription && (
+    <>
+      <Header />
+      <article className="p-4 sm:p-8 lg:p-20">
+        <header className="mb-4 sm:mb-8">
           <UITypography
-            variant="p"
-            text={pageContent?.metaDescription}
-            className="text-gray-600"
+            variant="h1"
+            text={pageContent?.name}
+            className="uppercase text-xl sm:text-2xl lg:text-3xl font-bold mb-3 sm:mb-4"
+          />
+          {pageContent.metaDescription && (
+            <UITypography
+              variant="p"
+              text={pageContent?.metaDescription}
+              className="text-gray-600"
+            />
+          )}
+        </header>
+        {pageContent?.data?.content && (
+          <div
+            className="prose sm:prose-lg max-w-none"
+            dangerouslySetInnerHTML={{ __html: pageContent.data.content }}
           />
         )}
-      </header>
-      {pageContent?.data?.content && (
-        <div
-          className="prose sm:prose-lg max-w-none"
-          dangerouslySetInnerHTML={{ __html: pageContent.data.content }}
-        />
-      )}
-    </article>
+      </article>
+      <Footer />
+    </>
   );
 };
 

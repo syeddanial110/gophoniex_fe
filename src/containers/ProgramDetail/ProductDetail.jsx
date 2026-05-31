@@ -80,7 +80,7 @@ const ProductDetail = () => {
   const handleChangeProductOption = (values, childIndex) => {
     // 'values' is now an array of selected product option IDs
     const selectedOptions = productDataReducer?.res?.productOptions?.filter(
-      (option) => values.includes(option.id)
+      (option) => values.includes(option.id),
     );
 
     setProductOptionSelected((prev) => {
@@ -89,7 +89,7 @@ const ProductDetail = () => {
         ...updated[childIndex],
         price: selectedOptions.reduce(
           (sum, option) => sum + parseFloat(option.price || 0),
-          0
+          0,
         ), // Sum
         selectedOptions: selectedOptions.map((option) => ({
           id: option?.id || "", // product option id
@@ -153,7 +153,7 @@ const ProductDetail = () => {
     }
     if (
       productOptionSelected.some(
-        (option) => option.selectedOptions.length === 0
+        (option) => option.selectedOptions.length === 0,
       )
     ) {
       toast.error("Please select product options for each child.");
@@ -175,7 +175,7 @@ const ProductDetail = () => {
           jerseySize: selectedOption.jerseySize || "",
           // currency: "USD" // Uncomment if needed
         })),
-      })
+      }),
     );
 
     apiPost(
@@ -187,13 +187,18 @@ const ProductDetail = () => {
       },
       (res) => {
         console.log("res", res);
-        toast.success(res?.message);
-        router.push(pathLocations.checkout);
-        dispatch(selectProductCheckout(dataObj));
+        if (res?.success) {
+          toast.success(res?.message);
+          router.push(pathLocations.checkout);
+          dispatch(selectProductCheckout(dataObj));
+        }
+        else{
+          toast.error(res?.message || "Failed to add product to cart. Please try again.");
+        }
       },
       (err) => {
         console.log("err", err);
-      }
+      },
     );
 
     console.log("children", children);
@@ -251,13 +256,13 @@ const ProductDetail = () => {
                               value: option.id,
                               label: `${option.title}`,
                               price: `$${option.price}`,
-                            })
+                            }),
                           )
                         : []
                     }
                     selected={
                       productOptionSelected[index]?.selectedOptions?.map(
-                        (option) => option.id
+                        (option) => option.id,
                       ) || []
                     }
                     onChange={(values) =>
@@ -297,7 +302,7 @@ const ProductDetail = () => {
                             <SelectItem value="L">{`Kids XL (13-14)`}</SelectItem>
                           </UISelect>
                         </div>
-                      )
+                      ),
                   )}
                 <div className="flex flex-col gap-3 mb-4 justify-start items-start">
                   <UITypography
@@ -359,7 +364,7 @@ const ProductDetail = () => {
           type="contained"
           icon={false}
           title="Add to Cart"
-          disabled={token ? false : true}
+          // disabled={token ? false : true}
           btnOnclick={handleProductAddToCart}
         />
       </div>
@@ -384,14 +389,14 @@ const ProductDetail = () => {
         <UITypography
           variant="h6"
           text={`${formatDate(
-            productDataReducer?.res?.startDate
+            productDataReducer?.res?.startDate,
           )} - ${formatDate(productDataReducer?.res?.endDate)}`}
           className="mt-2"
         />
         <UITypography
           variant="h6"
           text={`${formatTime(
-            productDataReducer?.res?.startTime
+            productDataReducer?.res?.startTime,
           )} - ${formatTime(productDataReducer?.res?.endTime)}`}
         />
         <UITypography
@@ -400,7 +405,7 @@ const ProductDetail = () => {
         />
         <UITypography
           variant="h6"
-          text={`Slots Available: ${productDataReducer?.res?.seats}`}
+          text={`Slots Available: ${productDataReducer?.res?.seatsOpen}`}
         />
         <UITypography
           variant="h6"

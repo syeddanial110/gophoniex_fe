@@ -15,7 +15,7 @@ import {
 import { Eye, EyeOff } from "lucide-react";
 import UITextField from "@/components/InputField/UITextField";
 import { loginSchema, registerSchema } from "@/utils/schema";
-import { pathLocations } from "@/utils/navigation";
+import { pathLocations, WEB_URL } from "@/utils/navigation";
 import { useRouter } from "next/navigation";
 import UIFileInput from "@/components/InputField/UIFileInput";
 import { apiGet, apiPost } from "@/apis/ApiRequest";
@@ -132,7 +132,7 @@ const RegisterForm = () => {
   console.log("errors", form.formState.errors);
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 sm:space-y-6">
         <FormField
           control={form.control}
           name="firstName"
@@ -244,11 +244,11 @@ const RegisterForm = () => {
           control={form.control}
           name="liability"
           render={({ field }) => (
-            <FormItem className="flex items-center gap-4">
+            <FormItem className="flex flex-wrap items-start sm:items-center gap-2 sm:gap-4">
               <UICheckbox
                 checked={!!field.value}
                 onChange={(v) => field.onChange(v)}
-                label="Toggle YES: I agree to the Liability Release"
+                label="I have read and agree to the Activities Participation, Liability Release "
                 checkboxId="liability-checkbox"
                 labelId="liability-label"
               />
@@ -310,18 +310,18 @@ const RegisterForm = () => {
           control={form.control}
           name="photoRelease"
           render={({ field }) => (
-            <FormItem className="flex items-center gap-4">
+            <FormItem className="flex flex-wrap items-start sm:items-center gap-2 sm:gap-4">
               <UICheckbox
                 checked={!!field.value}
                 onChange={(v) => field.onChange(v)}
-                label="Toggle YES: I agree to the Photo Release"
+                label="Media Release Agreement"
                 checkboxId="photo-checkbox"
                 labelId="photo-label"
               />
               <UIModal
                 modalBtnText="View"
                 btnClassName="text-sm underline"
-                modalHeaderTitle="Photo Release"
+                modalHeaderTitle="Media Release Agreement"
                 open={photoOpen}
                 onOpenChange={setPhotoOpen}
               >
@@ -358,18 +358,18 @@ const RegisterForm = () => {
           control={form.control}
           name="terms"
           render={({ field }) => (
-            <FormItem className="flex items-center gap-4">
+            <FormItem className="flex flex-wrap items-start sm:items-center gap-2 sm:gap-4">
               <UICheckbox
                 checked={!!field.value}
                 onChange={(v) => field.onChange(v)}
-                label="Toggle YES: I agree to the Phoenix Sports, Inc Terms & Conditions"
+                label="Email Communications Consent"
                 checkboxId="terms-checkbox"
                 labelId="terms-label"
               />
               <UIModal
                 modalBtnText="View"
                 btnClassName="text-sm underline"
-                modalHeaderTitle="Phoenix Sports, Inc Terms & Conditions"
+                modalHeaderTitle="Email Communications Consent"
                 open={termsOpen}
                 onOpenChange={setTermsOpen}
               >
@@ -380,7 +380,7 @@ const RegisterForm = () => {
                   </p>
                   <p>
                     <a
-                      href="/terms"
+                      href={`${WEB_URL}${pathLocations.termsAndConditions}`}
                       className="text-primary underline"
                       target="_blank"
                       rel="noreferrer"
@@ -390,7 +390,7 @@ const RegisterForm = () => {
                   </p>
                   <p>
                     <a
-                      href="/privacy"
+                      href={`${WEB_URL}${pathLocations.privacyPolicy}`}
                       className="text-primary underline"
                       target="_blank"
                       rel="noreferrer"
@@ -405,7 +405,7 @@ const RegisterForm = () => {
           )}
         />
 
-        <Button type="submit">Continue to Create Child(s) Account</Button>
+        <Button type="submit" className="w-full text-sm sm:text-base">Continue to Create Child(s) Account</Button>
       </form>
     </Form>
   );

@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import categoriesBanner from "../assets/Images/categories-banner.jpg";
+import categoriesBanner from "../../../assets/Images/categories-banner.jpg";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCategories } from "@/store/actions/category";

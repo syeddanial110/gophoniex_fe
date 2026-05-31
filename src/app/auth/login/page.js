@@ -12,8 +12,13 @@ const Login = () => {
         Please enter your credentials to access your account.
       </p>
       <LoginForm />
-      <div className="mt-3 flex justify-center">
-        <Link href={pathLocations.register}>Register an Account</Link>
+      <div className="mt-3 flex flex-col items-center gap-2">
+        {/* <Link href={pathLocations.forgetPassword} className="text-sm text-gray-600 hover:text-black transition-colors">
+          Forgot Password?
+        </Link> */}
+        <Link href={pathLocations.register} className="text-sm text-gray-600 hover:text-black transition-colors">
+          Register an Account
+        </Link>
       </div>
     </>
   );

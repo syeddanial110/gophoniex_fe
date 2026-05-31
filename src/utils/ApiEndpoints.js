@@ -6,7 +6,8 @@ export const ApiEndpoints = {
     update: "/update",
     getUserByToken: "/getAuthenticatedUser",
     hearUs: "/hearUs/get",
-    updatePassword: "/updateUserPassword"
+    updatePassword: "/updateUserPassword",
+    forgotPassword: "/forgot-password",
   },
   children: {
     base: "/children",

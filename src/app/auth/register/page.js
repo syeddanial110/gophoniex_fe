@@ -12,7 +12,9 @@ const Register = () => {
       </p>
       <RegisterForm />
       <div className="mt-3 flex justify-center">
-        <Link href={pathLocations.login}>Already have an Account? Login Here</Link>
+        <Link href={pathLocations.login} className="text-sm text-gray-600 hover:text-black transition-colors">
+          Already have an Account? Login Here
+        </Link>
       </div>
     </>
   );
