@@ -32,9 +32,9 @@ export default function AuthLayout({ children }) {
             }}
           className="hidden lg:block bg-dark"></div>
           <div className="w-full max-w-md flex flex-col justify-center px-4 sm:px-6 lg:px-0 py-8 lg:py-0">
-            <div className="flex justify-center mb-4 sm:mb-6">
-              <Image src={logo} alt="logo" height={300} width={300} className="w-28 sm:w-40 lg:w-[200px] h-auto" />
-            </div>
+          <div className="flex justify-center mb-4 sm:mb-6">
+            <Image src={logo} alt="logo" height={300} width={300} className="w-28 sm:w-40 lg:w-[200px] h-auto" />
+          </div>
             <div className="bg-card border border-border rounded-lg shadow-sm p-4 sm:p-6 lg:p-8">
               {children}
             </div>

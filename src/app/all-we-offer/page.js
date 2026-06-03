@@ -9,12 +9,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllCategories } from "@/store/actions/category";
 import { getAllProducts } from "@/store/actions/products";
 import { pathLocations, WEB_URL } from "@/utils/navigation";
-import { ImageBaseUrl } from "@/apis/ApiRequest";
+import { apiGet, ImageBaseUrl } from "@/apis/ApiRequest";
+import { ApiEndpoints } from "@/utils/ApiEndpoints";
 import Header from "@/containers/Header/Header";
 import Footer from "@/containers/Footer/Footer";
 
 const AllWeOffer = () => {
   const dispatch = useDispatch();
+
+  const [topSellingData, setTopSellingData] = React.useState([]);
 
   // Get categories from Redux store
   const categoriesReducer = useSelector(
@@ -40,12 +43,27 @@ const AllWeOffer = () => {
     dispatch(getAllProducts());
   }, [dispatch]);
 
+  useEffect(() => {
+    apiGet(
+      `${ApiEndpoints.homePageContent.get}`,
+      (res) => {
+        const data = res?.data?.topSelling;
+        if (data?.length > 0) {
+          setTopSellingData(data);
+        }
+      },
+      (err) => {
+        console.log("err", err);
+      },
+    );
+  }, []);
+
   return (
     <>
       <Header />
       <div>
       {/* Header Section */}
-      <div className="px-20 py-14">
+      <div className="px-4 sm:px-8 lg:px-20 py-10 lg:py-14">
         <UITypography variant="h1" text="ALL WE OFFER" />
         <hr />
       </div>
@@ -53,8 +71,40 @@ const AllWeOffer = () => {
          {/* Comparison Section */}
       <TypeSection />
 
+      {/* Top Selling Sections */}
+      {topSellingData?.length > 0 && topSellingData?.map((section, sIdx) => (
+        <div key={sIdx} className="px-4 sm:px-8 lg:px-20 py-10 lg:py-14">
+          {section.section1Heading && (
+            <div
+              dangerouslySetInnerHTML={{ __html: section.section1Heading }}
+              className="mb-8"
+            />
+          )}
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
+            {section.topSelling?.map((item, iIdx) =>
+              item.type === "collection" ? (
+                <UIProgramCard
+                  key={iIdx}
+                  text={item.name}
+                  card_img={`${ImageBaseUrl}${item.image}`}
+                  btnText="View Classes"
+                  href={`${WEB_URL}${pathLocations.categories}/${item.slug}`}
+                />
+              ) : item.type === "class" ? (
+                <UIProductCard
+                  key={iIdx}
+                  title={item.cardName}
+                  mainImg={`${ImageBaseUrl}${item.image}`}
+                  href={`${WEB_URL}${pathLocations.categories}/program/${item.id}`}
+                />
+              ) : null
+            )}
+          </div>
+        </div>
+      ))}
+
       {/* Categories Section */}
-      <div className="px-20 py-14">
+      {/* <div className="px-4 sm:px-8 lg:px-20 py-10 lg:py-14">
         <UITypography variant="h2" text="Our Programs" className="mb-8" />
         {isLoadingCategories ? (
           <div className="flex justify-center items-center h-64">
@@ -78,10 +128,10 @@ const AllWeOffer = () => {
             )}
           </div>
         )}
-      </div>
+      </div> */}
 
       {/* Products Section */}
-      <div className="px-20 py-14 bg-gray-50">
+      {/* <div className="px-4 sm:px-8 lg:px-20 py-10 lg:py-14 bg-gray-50">
         <UITypography variant="h2" text="All Classes" className="mb-8" />
         {isLoadingProducts ? (
           <div className="flex justify-center items-center h-64">
@@ -104,7 +154,7 @@ const AllWeOffer = () => {
             )}
           </div>
         )}
-      </div>
+      </div> */}
 
 
     </div>

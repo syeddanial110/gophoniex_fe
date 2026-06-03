@@ -36,7 +36,13 @@ const RecursiveMenuItemRender = ({ item, level = 0 }) => {
   return (
     <>
       <Link
-        href={`${WEB_URL}/content${item.url}`}
+        href={
+          item?.type == "collection"
+            ? `${pathLocations.categories}${item.url}`
+            : item?.type == "class"
+              ? `${pathLocations.categories}/program/${item?.id}`
+              : `${WEB_URL}/content${item.url}`
+        }
         className="block text-md hover:text-main transition-colors border-b-1 border-gray-300 pb-1.5"
         style={{ paddingLeft: `${paddingLeft}px` }}
       >
@@ -137,7 +143,11 @@ const DesktopNavigationMenu = () => {
                     href={
                       item?.id == "home"
                         ? item.url
-                        : `/content${item.url}`
+                        : item?.type == "collection"
+                          ? `${pathLocations.categories}${item.url}`
+                          : item?.type == "class"
+                            ? `${pathLocations.categories}/program/${item?.id}`
+                            : `/content${item.url}`
                     }
                     className={`${cn(navigationMenuTriggerStyle())} font-normal ${
                       pathname == item.url
@@ -230,7 +240,17 @@ const DesktopNavigationMenu = () => {
                         : "bg-[#EBF0F4] text-black"
                     }`}
                   >
-                    <Link href={item?.url}>{item.title}</Link>
+                    <Link
+                      href={
+                        item?.type == "collection"
+                          ? `${pathLocations.categories}${item.url}`
+                          : item?.type == "class"
+                            ? `${pathLocations.categories}/program${item?.id}`
+                            : item?.url
+                      }
+                    >
+                      {item.title}
+                    </Link>
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
                     <div className="min-w-[15vw] py-4 px-3">

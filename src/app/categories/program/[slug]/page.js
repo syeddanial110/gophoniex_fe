@@ -32,14 +32,14 @@ async function getMetadata(slug) {
 
 // Generate metadata
 export async function generateMetadata({ params }) {
-  const slug = params?.slug;
+  const { slug } = await params;
   const metadata = await getMetadata(slug);
   console.log("metadata", metadata);
   // safe extraction with fallbacks
   const data = metadata?.data || metadata || {};
   const item = data?.data || data?.product || data?.home || {};
-  const title = item?.metaTitle || item?.title || item?.productName || "Program";
-  const description = item?.metaDescription || item?.metaDesc || item?.shortDesc || "";
+  const title = data?.metaTitle || data?.title || data?.productName || "Program";
+  const description = data?.metaDescription || data?.metaDesc || data?.shortDesc || "";
   return {
     title,
     description,

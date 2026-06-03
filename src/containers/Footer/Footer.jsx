@@ -19,7 +19,7 @@ const Footer = () => {
     apiGet(
       `${ApiEndpoints.menu.base}${ApiEndpoints.menu.getAll}`,
       (res) => {
-        const activeItems = res.data.filter((item) => item.isActive !== 0);
+        const activeItems = res.data.filter((item) => item.isActive !== 0 && item.type === "content");
         if (activeItems.length < 10) {
           const half = Math.ceil(activeItems.length / 2);
           setFirstMenu(activeItems.slice(0, half));
