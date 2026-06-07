@@ -8,7 +8,7 @@ import Footer from "@/containers/Footer/Footer";
 async function getMetadata(slug) {
   try {
     const response = await fetch(
-      `${BASEURL}${ApiEndpoints.products.base}${ApiEndpoints.products.getById}/${slug}`,
+      `${BASEURL}${ApiEndpoints.products.base}${ApiEndpoints.products.getProductBySlug}/${slug}`,
       {
         // Add cache options if needed
         next: { revalidate: 3600 }, // Revalidate every hour
@@ -38,8 +38,8 @@ export async function generateMetadata({ params }) {
   // safe extraction with fallbacks
   const data = metadata?.data || metadata || {};
   const item = data?.data || data?.product || data?.home || {};
-  const title = data?.metaTitle || data?.title || data?.productName || "Program";
-  const description = data?.metaDescription || data?.metaDesc || data?.shortDesc || "";
+  const title = data?.metaTitle || data?.metaTitle || data?.metaTitle || "Class";
+  const description = data?.metaDescription || data?.metaDescription || data?.metaDescription || "";
   return {
     title,
     description,

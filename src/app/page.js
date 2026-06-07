@@ -58,12 +58,14 @@ const Home = () => {
     );
   }, []);
 
+  console.log('topSellingData', topSellingData)
+
   return (
     <>
       <Header />
       <div>
       {/* Header Section */}
-      <div className="px-4 sm:px-8 lg:px-20 py-10 lg:py-14">
+      <div className="px-4 sm:px-8 lg:px-20 pt-4 lg:py-14">
         <UITypography variant="h1" text="ALL WE OFFER" />
         <hr />
       </div>

@@ -229,6 +229,7 @@ const ProductDetail = () => {
   console.log("productOptionSelected", productOptionSelected);
   console.log("modalCountArr", modalCountArr);
   console.log("selectedProductDetail", selectedProductDetail);
+  console.log("productDataReducer", productDataReducer);
 
   return (
     <>

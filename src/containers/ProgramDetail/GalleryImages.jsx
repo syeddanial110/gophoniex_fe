@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { apiGet } from "@/apis/ApiRequest";
 import ProductCarousel from "@/components/ProductCarousel/ProductCarousel";
 import ImageCarousel from "@/components/UICarousel/ImageCarousel";
@@ -11,25 +11,29 @@ import { useDispatch, useSelector } from "react-redux";
 const GalleryImages = () => {
   const productDataReducer = useSelector((state) => state?.ProductDataReducer);
 
-   const params = useParams();
+  const params = useParams();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchProductById = () => {
       setLoading(true);
+      const slugPath = Array.isArray(params.slug)
+        ? params.slug.join("/")
+        : params.slug;
       apiGet(
-        `${ApiEndpoints.products.base}${ApiEndpoints.products.getById}/${params.slug}`,
+        `${ApiEndpoints.products.base}${ApiEndpoints.products.getProductBySlug}/${slugPath}`,
         (res) => {
+          console.log("res", res);
           if (res?.success) {
-            dispatch(productData(res.data));
+            dispatch(productData(res?.data));
           }
           setLoading(false);
         },
         (err) => {
           console.error("Error fetching products:", err);
           setLoading(false);
-        }
+        },
       );
     };
 
@@ -38,9 +42,13 @@ const GalleryImages = () => {
     }
   }, [params.slug]);
 
+  console.log("params", params);
+
   return (
     <div>
-      <ProductCarousel productGalleryImages={productDataReducer?.res?.galleryImages} />
+      <ProductCarousel
+        productGalleryImages={productDataReducer?.res?.galleryImages}
+      />
     </div>
   );
 };

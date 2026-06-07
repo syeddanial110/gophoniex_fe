@@ -15,7 +15,7 @@ import { apiGet } from "@/apis/ApiRequest"
 import { ApiEndpoints } from "@/utils/ApiEndpoints"
 import { pathLocations, WEB_URL } from "@/utils/navigation"
 import Image from "next/image"
-import logo from "../../../assets/Images/logo2.png"
+import logo from "../../../assets/Images/logo3.svg"
 
 const resolveItemHref = (item) => {
   if (item?.id === "home") return item.url

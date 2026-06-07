@@ -2,7 +2,7 @@ import React from "react";
 import { User } from "lucide-react";
 import DesktopNavigationMenu from "./NavigationMenu/NavigationMenu";
 import Image from "next/image";
-import logo from "../../assets/Images/logo2.png";
+import logo from "../../assets/Images/logo3.svg";
 import { SideNavigation } from "./SideNavigation/SideNavigation";
 import Link from "next/link";
 import { pathLocations } from "@/utils/navigation";
@@ -16,9 +16,11 @@ const Header = () => {
       <div className="hidden lg:block">
         <div className="flex justify-between items-center p-container">
           <div className="flex gap-x-4 items-center">
-            <Link href={pathLocations.home}>
-              <Image src={logo} alt="logo" height={80} width={200} />
-            </Link>
+            <div className="min-w-[100px]">
+              <Link href={pathLocations.home}>
+                <Image src={logo} alt="logo" height={80} width={250} />
+              </Link>
+            </div>
             <DesktopNavigationMenu />
           </div>
 

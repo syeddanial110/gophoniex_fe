@@ -1,6 +1,6 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import loginBanner from "@/assets/Images/loginBanner.jpg";
-import logo from "@/assets/Images/logo2.png";
+import logo from "@/assets/Images/logo3.svg";
 import Image from "next/image";
 import { ImageBaseUrl } from "@/apis/ApiRequest";
 

@@ -19,11 +19,11 @@ const TypeSection = () => {
   ];
 
   return (
-    <section className="py-16 px-4 md:px-20 bg-gray-50">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+    <section className="py-4 sm:py-12 lg:py-16 px-4 sm:px-8 lg:px-20 bg-gray-50">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 max-w-6xl mx-auto">
         {/* Phoenix Sports - Left Column */}
-        <div className="bg-white rounded-lg p-8 shadow-sm">
-          <div className="flex items-center gap-3 mb-8">
+        <div className="bg-white rounded-lg p-4 sm:p-6 lg:p-8 shadow-sm">
+          <div className="flex items-center gap-3 mb-4 sm:mb-6 lg:mb-8">
             <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-black">Phoenix Sports</h3>
             <span className="text-4xl">😊</span>
           </div>
@@ -39,7 +39,7 @@ const TypeSection = () => {
             ))}
           </div>
 
-          <div className="border-t border-gray-300 mt-8 pt-8">
+          <div className="border-t border-gray-300 mt-4 sm:mt-6 lg:mt-8 pt-4 sm:pt-6 lg:pt-8">
             <div className="flex items-center justify-center gap-2 text-gray-400">
               <span className="block h-px w-12 bg-gray-300"></span>
               <span className="flex-shrink-0 text-xs">-----------</span>
@@ -49,8 +49,8 @@ const TypeSection = () => {
         </div>
 
         {/* The Other Guys - Right Column */}
-        <div className="bg-white rounded-lg p-8 shadow-sm">
-          <div className="flex items-center gap-3 mb-8">
+        <div className="bg-white rounded-lg p-4 sm:p-6 lg:p-8 shadow-sm">
+          <div className="flex items-center gap-3 mb-4 sm:mb-6 lg:mb-8">
             <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-black">The Other Guys</h3>
             <span className="text-4xl">😞</span>
           </div>
@@ -66,7 +66,7 @@ const TypeSection = () => {
             ))}
           </div>
 
-          <div className="border-t border-gray-300 mt-8 pt-8">
+          <div className="border-t border-gray-300 mt-4 sm:mt-6 lg:mt-8 pt-4 sm:pt-6 lg:pt-8">
             <div className="flex items-center justify-center gap-2 text-gray-400">
               <span className="block h-px w-12 bg-gray-300"></span>
               <span className="flex-shrink-0 text-xs">-----------</span>
