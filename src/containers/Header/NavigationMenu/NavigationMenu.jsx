@@ -253,7 +253,7 @@ const DesktopNavigationMenu = () => {
                     </Link>
                   </NavigationMenuTrigger>
                   <NavigationMenuContent className="z-2">
-                    <div className="min-w-[15vw] py-4 px-3">
+                    <div className="w-max min-w-[200px] py-4 px-3">
                       <div className="flex flex-col gap-2 border-gray-300">
                         {item?.children.map((elm, i) => (
                           <RecursiveMenuItemRender
