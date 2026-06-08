@@ -19,7 +19,9 @@ const Footer = () => {
     apiGet(
       `${ApiEndpoints.menu.base}${ApiEndpoints.menu.getAll}`,
       (res) => {
-        const activeItems = res.data.filter((item) => item.isActive !== 0 && item.type === "content");
+        const activeItems = res.data.filter(
+          (item) => item.isActive !== 0 && item.type === "content",
+        );
         if (activeItems.length < 10) {
           const half = Math.ceil(activeItems.length / 2);
           setFirstMenu(activeItems.slice(0, half));
@@ -33,7 +35,7 @@ const Footer = () => {
       },
       (err) => {
         console.log("err", err);
-      }
+      },
     );
   };
 
@@ -99,26 +101,27 @@ const Footer = () => {
         {/* Contact */}
         <div>
           <div className="font-semibold mb-2">Contact Us</div>
-          <div className="text-gray-700 text-sm mb-1">(+1)-214-293-0000</div>
-          <div className="text-gray-700 text-sm mb-4">support@phoenix.com</div>
+          <a
+            href="mailto:gophoenix@gophoenixsports.com"
+            className="text-gray-700 text-sm mb-4"
+          >
+            gophoenix@gophoenixsports.com
+          </a>
           <div className="font-semibold mb-1">Location</div>
           <div className="text-gray-700 text-sm">
-            Lorem Ipsum is simply dummy text
-            <br />
-            of the printing and typesetting
+            North County San Diego, CA
           </div>
         </div>
         {/* Philosophy */}
         <div>
           <div className="font-semibold mb-2">Our Philosophy</div>
           <div className="text-gray-700 text-sm mb-2">
-            At Phoenix Sports, we believe in building confident, well-rounded
-            kids through sports and play!
+            Our Philosophy At Phoenix Sports, we believe kids' sports should
+            focus on building confidence, not keeping score. Our stress-free,
+            play-based programs are designed to inspire a lifelong love of
+            movement and give every child the freedom to just have fun.
           </div>
-          <div className="text-gray-700 text-sm">
-            Led by Coach Doug, a former CUSD PE instructor with a Master's in
-            Education and 9+ years of TK-3 classroom
-          </div>
+         
         </div>
         {/* Legal */}
         <div>
@@ -172,9 +175,7 @@ const Footer = () => {
           <div className="grid grid-cols-5 gap-4">
             {extraMenu.map((item, i) => (
               <div key={i}>
-                <Link
-                  href={`${WEB_URL}${pathLocations.content}/${item.slug}`}
-                >
+                <Link href={`${WEB_URL}${pathLocations.content}/${item.slug}`}>
                   <span>{item.name}</span>
                 </Link>
               </div>

@@ -1,5 +1,5 @@
 export const WEB_URL = "http://localhost:3000";
-// export const WEB_URL = "https://activityphysical.tech";
+// export const WEB_URL = "https://gophoenixsports.com";
 
 export const pathLocations = {
   home: "/",

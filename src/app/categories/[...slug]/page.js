@@ -70,8 +70,11 @@ const CollectionById = () => {
 
   const fetchProducts = () => {
     setLoading(true);
+     const slugPath = Array.isArray(slug)
+        ? slug.join("/")
+        : slug;
     apiGet(
-      `${ApiEndpoints.products.base}${ApiEndpoints.products.getProductByQuery}?categorySlug=${slug}&page=1`,
+      `${ApiEndpoints.products.base}${ApiEndpoints.products.getProductByQuery}?categorySlug=${slugPath}&page=1`,
       (res) => {
         if (res?.success) {
           setProductByCategory(res?.data?.data);
