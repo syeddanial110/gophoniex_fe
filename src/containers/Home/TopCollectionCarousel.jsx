@@ -131,7 +131,7 @@ const TopCollectionCarousel = () => {
                   )}
 
                   <Link
-                    href={`/categories/${item.slug}`}
+                    href={`${pathLocations.categories}/${item.slug}`}
                     className="mt-3 bg-white text-black px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-100 transition"
                   >
                     Shop now

@@ -144,7 +144,7 @@ const CollectionById = () => {
 
         <div className="px-4 sm:px-8 lg:px-10">
           {/* Filter Dropdown */}
-          <div className="mb-6">
+          {/* <div className="mb-6">
             <Popover open={openFilter} onOpenChange={setOpenFilter}>
               <PopoverTrigger asChild>
                 <Button variant="outline" className="w-full sm:w-auto">
@@ -179,7 +179,7 @@ const CollectionById = () => {
                 </div>
               </PopoverContent>
             </Popover>
-          </div>
+          </div> */}
 
           {/* Products Grid */}
           {loading ? (

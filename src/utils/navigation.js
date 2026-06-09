@@ -1,5 +1,5 @@
-// export const WEB_URL = "http://localhost:3000";
-export const WEB_URL = "https://gophoenixsports.com";
+export const WEB_URL = "http://localhost:3000";
+// export const WEB_URL = "https://gophoenixsports.com";
 
 export const pathLocations = {
   home: "/",
@@ -19,9 +19,9 @@ export const pathLocations = {
   register: "/auth/register",
   forgetPassword: "/auth/forget-password",
   cart: "/cart",
-  categories: "/categories",
-  subCategories: "/categories/sub-categories",
-  program: "/categories/program",
+  categories: "/collections",
+  subCategories: "/collections/sub-categories",
+  program: "/program",
   content: "/content",
   checkout: "/checkout",
   orders: "/orders",
