@@ -30,8 +30,8 @@ export const registerSchema = yup.object({
   phoneNumber: yup.string().required("Phone Number is required"),
   hear: yup.string(),
   liability: yup.string().required("Release of Liability is required"),
-  photoRelease: yup.string().required("Photo Release is required"),
-  terms: yup.string().required("Phoenix Sports, Inc Terms & Conditions is required"),
+  photoRelease: yup.string(),
+  terms: yup.string(),
 });
 
 export const addChildSchema = yup.object({

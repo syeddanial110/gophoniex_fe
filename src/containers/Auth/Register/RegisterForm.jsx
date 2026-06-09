@@ -68,14 +68,14 @@ const RegisterForm = () => {
       toast.error("You must agree to the Release of Liability.");
       return;
     }
-    if (data.terms == "false") {
-      toast.error("You must agree to the Terms & Conditions.");
-      return;
-    }
-    if (!data.photoRelease == "false") {
-      toast.error("You must agree to the Photo Release.");
-      return;
-    }
+    // if (data.terms == "false") {
+    //   toast.error("You must agree to the Terms & Conditions.");
+    //   return;
+    // }
+    // if (!data.photoRelease == "false") {
+    //   toast.error("You must agree to the Photo Release.");
+    //   return;
+    // }
     if (!hearUsId) {
       toast.error("Please select how did you hear about us.");
       return;

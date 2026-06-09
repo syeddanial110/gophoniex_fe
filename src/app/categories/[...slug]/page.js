@@ -20,7 +20,6 @@ import Header from "@/containers/Header/Header";
 import Footer from "@/containers/Footer/Footer";
 
 const CollectionById = () => {
-  // Removed async
   const { slug } = useParams();
   const [productByCategory, setProductByCategory] = useState([]);
   const [categoryName, setCategoryName] = useState("");
@@ -29,6 +28,8 @@ const CollectionById = () => {
   const [collections, setCollections] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [openFilter, setOpenFilter] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pagination, setPagination] = useState(null);
 
   const categoriesData = useSelector(
     (state) => state?.GetAllCategoriesReducer?.res,
@@ -37,10 +38,8 @@ const CollectionById = () => {
   const handleFilterClasses = (item) => {
     setSelectedCategories((prev) => {
       const newSelected = prev.includes(item.id)
-        ? prev.filter((id) => id !== item.id) // Remove if already selected
-        : [...prev, item.id]; // Add if not selected
-
-      // Make API call with updated selections
+        ? prev.filter((id) => id !== item.id)
+        : [...prev, item.id];
       fetchFilteredProducts(newSelected);
       return newSelected;
     });
@@ -48,14 +47,11 @@ const CollectionById = () => {
 
   const fetchFilteredProducts = (selectedIds) => {
     const ids = selectedIds.length > 0 ? selectedIds.join(",") : "";
-
-    console.log("ids", ids);
-
     apiGet(
       `${ApiEndpoints.products.base}${ApiEndpoints.products.getProductByCategory}?ids=${ids}`,
       (res) => {
         if (res?.success) {
-          console.log("res", res);
+          console.log("res========-", res);
           setProductByCategory(res?.products);
           setCategoryName(res?.categories[0]?.name);
         }
@@ -68,16 +64,15 @@ const CollectionById = () => {
     );
   };
 
-  const fetchProducts = () => {
+  const fetchProducts = (page = 1) => {
     setLoading(true);
-     const slugPath = Array.isArray(slug)
-        ? slug.join("/")
-        : slug;
+    const slugPath = Array.isArray(slug) ? slug.join("/") : slug;
     apiGet(
-      `${ApiEndpoints.products.base}${ApiEndpoints.products.getProductByQuery}?categorySlug=${slugPath}&page=1`,
+      `${ApiEndpoints.products.base}${ApiEndpoints.products.getProductByQuery}?categorySlug=${slugPath}&page=${page}`,
       (res) => {
         if (res?.success) {
           setProductByCategory(res?.data?.data);
+          setPagination(res?.data?.pagination);
         }
         setLoading(false);
       },
@@ -88,19 +83,26 @@ const CollectionById = () => {
     );
   };
 
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    fetchProducts(page);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   useEffect(() => {
     if (slug) {
-      fetchProducts();
+      fetchProducts(1);
+      setCurrentPage(1);
     }
   }, [slug]);
 
   useEffect(() => {
     if (categoriesData && categoriesData?.res?.data.length > 0) {
       const allCategories = categoriesData.res.data;
-      setCollections(allCategories);
+      const slugPath = Array.isArray(slug) ? slug.join("/") : slug;
 
-      // Match slug to category
-      const matched = allCategories.find((cat) => cat.slug === slug);
+      setCollections(allCategories);
+      const matched = allCategories.find((cat) => cat.slug === slugPath);
       if (matched) {
         setSelectedCategories([matched.id]);
         fetchFilteredProducts([matched.id]);
@@ -108,13 +110,8 @@ const CollectionById = () => {
     }
   }, [categoriesData, slug]);
 
-  // if (loading) {
-  //   return <div>Loading...</div>;
-  // }
-
-  console.log("productByCategory", productByCategory);
   console.log("categoriesData", categoriesData);
-  console.log("collections", collections);
+  console.log("slug", slug);
 
   return (
     <>
@@ -202,8 +199,6 @@ const CollectionById = () => {
                           ? ""
                           : `${ImageBaseUrl}${card.image}`
                       }
-                      // hoverImg={card.hoverImage}
-                      // description={card.description}
                       slots={`${card?.seats}`}
                       seatsOpen={`Available Slots: ${card?.seatsOpen}`}
                       href={`${WEB_URL}${pathLocations.program}/${card.slug}`}
@@ -215,6 +210,48 @@ const CollectionById = () => {
                   </div>
                 )}
               </div>
+
+              {/* Pagination */}
+              {pagination && pagination.totalPages > 1 && (
+                <div className="flex items-center justify-center gap-2 py-8">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    disabled={currentPage === 1}
+                  >
+                    Previous
+                  </Button>
+
+                  {Array.from(
+                    { length: pagination.totalPages },
+                    (_, i) => i + 1,
+                  ).map((page) => (
+                    <Button
+                      key={page}
+                      variant={currentPage === page ? "default" : "outline"}
+                      size="sm"
+                      onClick={() => handlePageChange(page)}
+                      className={
+                        currentPage === page
+                          ? "bg-main text-white hover:bg-dark"
+                          : ""
+                      }
+                    >
+                      {page}
+                    </Button>
+                  ))}
+
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    disabled={currentPage === pagination.totalPages}
+                  >
+                    Next
+                  </Button>
+                </div>
+              )}
             </div>
           )}
         </div>
