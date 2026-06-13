@@ -20,6 +20,8 @@ import logo from "../../../assets/Images/logo3.svg"
 const resolveItemHref = (item) => {
   if (item?.id === "home") return item.url
   if (item?.id === "all") return `${item.url}`
+  if (item?.type === "collection") return `${pathLocations.categories}${item.url}`
+  if (item?.type === "class") return `${pathLocations.categories}/program/${item?.id}`
   return `/content${item.url}`
 }
 

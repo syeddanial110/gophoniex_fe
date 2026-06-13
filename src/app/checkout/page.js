@@ -30,7 +30,7 @@ const Checkout = () => {
     <>
       <Header />
       <Elements stripe={stripePromise}>
-        <div className="min-h-[80vh] bg-gray-100 flex flex-col lg:flex-row justify-center gap-4 px-4 sm:px-6 lg:px-0 py-6 lg:py-10">
+        <div className="min-h-[80vh] flex flex-col lg:flex-row justify-center gap-4 px-4 sm:px-6 lg:px-0 py-6 lg:py-10">
           <div className="w-full lg:w-[40%] p-4 sm:p-6 lg:p-8 rounded-lg">
             <h1 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">
               Details

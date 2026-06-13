@@ -75,7 +75,7 @@ const CheckoutForm = ({ plan }) => {
         disabled={!stripe || loading}
         className="bg-main btn rounded-full py-3 px-6 text-white mt-4"
       >
-        {loading ? "Processing…" : `Pay for ${plan}`}
+        {loading ? "Processing…" : `Checkout Now`}
       </button>
     </form>
   );
